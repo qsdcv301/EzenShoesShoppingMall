@@ -1,0 +1,3 @@
+shoes_img/성별/상품명/images/색상/상품명_색상_standard번호.avif
+상품명_색상_detail번호.avif
+            video번호.webm
