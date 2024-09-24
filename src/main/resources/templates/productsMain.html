@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shoes Shop</title>
+  <!-- 부트스트랩 아이콘 사용 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/jquery-1.12.4.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/mainpage.js"></script>
+  <script src="js/script.js"></script>
+
+  <style>
+    a {
+      color: #222;
+      font-size: 14px;
+    }
+
+    .notice-container {
+      height: 50px;
+      background-color: #222;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 700;
+    }
+
+    .navbar {
+      height: 100px;
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+    }
+
+    .navbar-brand img {
+      max-height: 40px;
+    }
+
+    .navbar-nav {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      top: -5px;
+    }
+
+    .search-bar {
+      width: 50%;
+      top: -5px;
+    }
+
+    .user-menu {
+      width: 50%;
+      left: calc(50% + 10px);
+      top: -12px;
+      font-size: 14px;
+    }
+
+    .nav-item {
+      margin-left: 20px;
+    }
+
+    .nav-item>a {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .user-menu>.icon {
+      font-size: 20px;
+      color: #222;
+    }
+
+    .user-sec {
+      display: flex;
+    }
+
+    .top-links {
+      top: -40px;
+      right: 0;
+    }
+
+    /*서치 버튼*/
+    .input-group .form-control {
+      height: calc(2.25rem + 2px);
+      /* 기본 높이 설정 */
+      border-right: 0;
+      /* 오른쪽 테두리 제거 */
+    }
+
+    .input-group .btn {
+      height: calc(2.25rem + 2px);
+      /* 기본 높이 설정 */
+      border-left: 0;
+      /* 왼쪽 테두리 제거 */
+    }
+
+    .input-group .input-group-append .btn {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    .input-group .form-control {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    /*헤더 메뉴*/
+    .header-menu {
+      background-color: #ddd;
+      height: 500px;
+      display: none;
+      z-index: 999;
+    }
+
+    .btn {
+      border: 1px solid #ccc;
+    }
+
+    .navi-link {
+      padding: 10px;
+    }
+
+    .user-menu {
+      display: flex;
+      justify-content: space-around;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="notice-container"></div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+      <div class="container-fluid">
+        <!-- 로고 -->
+        <div class="class col-2">
+          <a class="navbar-brand" href="#">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" alt="Adidas Logo" />
+          </a>
+        </div>
+        <!-- 내비게이션 -->
+        <div class="collapse navbar-collapse col-6 position-relative">
+          <ul class="navbar-nav mb-2 mb-lg-0 position-absolute">
+            <li class="nav-item ml-auto mr-auto">
+              <a class="nav-link" href="#">Poplular</a>
+            </li>
+            <li class="nav-item ml-auto mr-auto">
+              <a class="nav-link font-weight-bold" href="#">Nike</a>
+            </li>
+            <li class="nav-item ml-auto mr-auto">
+              <a class="nav-link font-weight-bold" href="#">Adidas</a>
+            </li>
+            <li class="nav-item ml-auto mr-auto">
+              <a class="nav-link font-weight-bold" href="#">NewBalance</a>
+            </li>
+            <li class="nav-item ml-auto mr-auto">
+              <a class="nav-link font-weight-bold" href="#">ETC</a>
+            </li>
+            <li class="nav-item ml-auto mr-auto">
+              <a class="nav-link" href="#">Sale</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 사용자 섹션 -->
+        <div class="user-sec col-2 position-relative">
+          <div class="top-links position-absolute">
+            <a href="#" class="mr-2">도움말</a>
+            <a href="#" class="mr-2">주문 및 반품</a>
+            <a href="#" class="mr-2">가입하기</a>
+          </div>
+
+          <!-- 검색 바 -->
+          <form class="d-flex search-bar position-absolute">
+            <div class="input-group">
+              <input class="form-control" type="search" placeholder="Search" aria-label="Search" />
+              <div class="input-group-append">
+                <button class="btn" type="submit">
+                  <i class="bi bi-search"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+          <!-- 사용자 메뉴 -->
+          <div class="d-flex user-menu position-absolute">
+            <a href="#" class="navi-link icon">
+              <i class="bi bi-person"></i>
+            </a>
+            <a href="#" class="navi-link icon">
+              <i class="bi bi-heart"></i>
+            </a>
+            <a href="#" class="navi-link icon">
+              <i class="bi bi-bag"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="header-menu"></div>
+  </header>
+
+  <div class="productsMain-products container">
+    <div class="row">
+      <div class="col-12">
+        <div class="list-group list-group-horizontal align-items-center">
+          <a href="#" class="list-group-item border-0 mr-3">@ 뒤로가기</a>
+          <a href="#" class="list-group-item border-0 px-2">Home</a>/
+          <a href="#" class="list-group-item border-0 px-2">Adidas</a>/
+          <a href="#" class="list-group-item border-0 px-2">Running</a>/
+          <a href="#" class="list-group-item border-0 px-2">Series1</a>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="pl-3">
+          <h2 class="pl-3 m-0 font-italic"><span>Adidas</span> · <span>Running</span> · <span>Series1</span></h2>
+          <h5 class="pl-3 m-0 font-italic text-uppercase">sportswear collection for women</h5>
+          <div class="my-3 ml-2 bg-dark" style="width: 400px; height: 5px;"></div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="d-flex justify-content-between px-3 py-2">
+          <div class="list-group list-group-horizontal">
+            <a href="#" class="list-group-item list-group-item-action active">Series1</a>
+            <a href="#" class="list-group-item list-group-item-action">Series2</a>
+            <a href="#" class="list-group-item list-group-item-action">Series3</a>
+            <a href="#" class="list-group-item list-group-item-action">Series4</a>
+            <a href="#" class="list-group-item list-group-item-action">Series5</a>
+          </div>
+          <button type="button" class="btn btn-secondary">
+            Filter & Sort @
+          </button>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="d-flex flex-wrap">
+          <div class="col-4 mb-4">
+            <div class="card">
+              <img src="shoes_images/men/newyork/images/blue/newyork_blue_standard01.avif" alt="상품 1" />
+              <p>신제품</p>
+              <p>여성 운동화</p>
+              <p>1개의 색상</p>
+              <p>159,000원</p>
+            </div>
+          </div>
+          <div class="col-4 mb-4">
+            <div class="card">
+              <img src="shoes_images/men/newyork/images/white/newyork_white_standard01.avif" alt="상품 2" />
+              <p>신제품</p>
+              <p>여성 운동화</p>
+              <p>1개의 색상</p>
+              <p>159,000원</p>
+            </div>
+          </div>
+          <div class="col-4 mb-4">
+            <div class="card">
+              <img src="shoes_images/men/r71/images/blue/r71_blue_standard01.avif" alt="상품 3" />
+              <p>신제품</p>
+              <p>여성 운동화</p>
+              <p>1개의 색상</p>
+              <p>159,000원</p>
+            </div>
+          </div>
+          <div class="col-4 mb-4">
+            <div class="card">
+              <img src="shoes_images/men/r71/images/white/r71_white_standard01.avif" alt="상품 4" />
+              <p>신제품</p>
+              <p>여성 운동화</p>
+              <p>1개의 색상</p>
+              <p>159,000원</p>
+            </div>
+          </div>
+          <div class="col-4 mb-4">
+            <div class="card">
+              <img src="shoes_images/men/response_runner/images/black/response_runner_black_standard01.avif"
+                alt="상품 5" />
+              <p>신제품</p>
+              <p>여성 운동화</p>
+              <p>1개의 색상</p>
+              <p>159,000원</p>
+            </div>
+          </div>
+          <div class="col-4 mb-4">
+            <div class="card">
+              <img src="shoes_images/men/response_runner/images/core_black/response_runner_core_black_standard01.avif"
+                alt="상품 6" />
+              <p>신제품</p>
+              <p>여성 운동화</p>
+              <p>1개의 색상</p>
+              <p>159,000원</p>
+            </div>
+          </div>
+          <div class="col-4 mb-4">
+            <div class="card">
+              <img src="shoes_images/men/samba_og_w/images/black/samba_og_w_core_black_standard01.avif" alt="상품 7" />
+              <p>신제품</p>
+              <p>여성 운동화</p>
+              <p>1개의 색상</p>
+              <p>159,000원</p>
+            </div>
+          </div>
+          <div class="col-4 mb-4">
+            <div class="card">
+              <img src="shoes_images/women/adistar/images/off_white/adistar_off_white_standard01.avif" alt="상품 8" />
+              <p>신제품</p>
+              <p>여성 운동화</p>
+              <p>1개의 색상</p>
+              <p>159,000원</p>
+            </div>
+          </div>
+          <div class="col-4 mb-4">
+            <div class="card">
+              <img src="shoes_images/women/adistar/images/pulse_lime/adistar_pulse_lime_standard01.avif" alt="상품 9" />
+              <p>신제품</p>
+              <p>여성 운동화</p>
+              <p>1개의 색상</p>
+              <p>159,000원</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <ul class="pagination justify-content-center">
+          <li class="page-item"><a class="page-link" href="#">&lt;</a></li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">4</a></li>
+          <li class="page-item"><a class="page-link" href="#">5</a></li>
+          <li class="page-item"><a class="page-link" href="#">&gt;</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <footer class="container-fluid">
+    <div class="container">
+      <div class="row">
+        <ul class="col-12 footer-nav d-flex p-5 justify-content-center">
+          <li class="col-2 d-flex flex-column">
+            <h5>Brand</h5>
+            <a href="#" class="text-body">아이다스</a>
+            <a href="#" class="text-body">나이키</a>
+            <a href="#" class="text-body">뉴발란스</a>
+            <a href="#" class="text-body">캔버스</a>
+          </li>
+          <li class="col-2 d-flex flex-column">
+            <h5>Developer</h5>
+            <a href="#" class="text-body">개발자1</a>
+            <a href="#" class="text-body">개발자2</a>
+            <a href="#" class="text-body">개발자3</a>
+            <a href="#" class="text-body">개발자4</a>
+            <a href="#" class="text-body">개발자5</a>
+          </li>
+          <li class="col-2 d-flex flex-column">
+            <h5>SUPPORT</h5>
+            <a href="#" class="text-body">고객센터</a>
+            <a href="#" class="text-body">회원가입</a>
+            <a href="#" class="text-body">주문 / 배송 조회</a>
+            <a href="#" class="text-body">많이 하시는 질문</a>
+            <a href="#" class="text-body">구매 이용약관</a>
+          </li>
+          <li class="col-2 d-flex flex-column">
+            <img src="" alt="facebook" />
+            <img src="" alt="instagram" />
+            <img src="" alt="twitter" />
+            <img src="" alt="ticktok" />
+            <img src="" alt="youtube" />
+          </li>
+        </ul>
+        <p>
+          내용1 | 내용2 | 내용3 | 내용4 | 내용5 | 내용6 | 내용7 | 내용8 |
+          내용9
+        </p>
+      </div>
+    </div>
+    <div class="container-fluid bg-dark">
+      <div class="copyright text-center pt-5 pb-2">
+        <div class="footer-subnav pb-5">
+          <a href="#" class="text-white text-decoration-none">서브메뉴1</a>
+          <span class="px-3 text-white">ㅣ</span>
+          <a href="#" class="text-white text-decoration-none">서브메뉴2</a>
+          <span class="px-3 text-white">ㅣ</span>
+          <a href="#" class="text-white text-decoration-none">서브메뉴3</a>
+          <span class="px-3 text-white">ㅣ</span>
+          <a href="#" class="text-white text-decoration-none">서브메뉴4</a>
+          <span class="px-3 text-white">ㅣ</span>
+          <a href="#" class="text-white text-decoration-none">서브메뉴5</a>
+          <span class="px-3 text-white">ㅣ</span>
+          <a href="#" class="text-white text-decoration-none">서브메뉴6</a>
+          <span class="px-3 text-white">ㅣ</span>
+          <a href="#" class="text-white text-decoration-none">서브메뉴7</a>
+        </div>
+        <p class="text-white">
+          &copy; Ezen Team Project, LLC. All Rights Reserved
+        </p>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
