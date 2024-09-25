@@ -1,6 +1,6 @@
 //헤더 스크립트
 
-//메뉴 나타나게
+//메뉴를 나타나게 하는 스크립트
 $(document).ready(function () {
     $('.navbar-nav').hover(
         function () {
@@ -20,3 +20,4 @@ $(document).ready(function () {
         }
     );
 });
+
