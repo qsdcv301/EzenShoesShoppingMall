@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "products")
-public class Products {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +37,7 @@ public class Products {
     private Long categoryId;
 
     @Builder
-    public Products(String name, Integer price, Integer size, Integer stock, String description, LocalDateTime createAt, Long categoryId) {
+    public Product(String name, Integer price, Integer size, Integer stock, String description, LocalDateTime createAt, Long categoryId) {
         this.name = name;
         this.price = price;
         this.size = size;
