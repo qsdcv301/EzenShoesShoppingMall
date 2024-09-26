@@ -1,9 +1,9 @@
 package ezen.com.esmall.repository;
 
+import ezen.com.esmall.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
-import ezen.com.esmall.entity.Category;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CategoryRepository extends JpaRepository<Category, Long> {
+public interface OrderRepository extends JpaRepository<Order, Long> {
 }

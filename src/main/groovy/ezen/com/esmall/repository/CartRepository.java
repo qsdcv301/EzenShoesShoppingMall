@@ -5,5 +5,5 @@ import ezen.com.esmall.entity.Cart;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CartRepository extends JpaRepository<Cart, Integer> {
+public interface CartRepository extends JpaRepository<Cart, Long> {
 }
