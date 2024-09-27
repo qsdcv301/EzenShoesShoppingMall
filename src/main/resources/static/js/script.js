@@ -23,25 +23,6 @@ $(document).ready(function () {
 
 //메인페이지 상품 데크(5개 가로배열 돼 있는 곳) 버튼 누르면 이동
 
-
-//카트 목록 전체선택, 선택한 목록 삭제
-
-$(document).ready(function() {
-    // 전체 선택/해제
-    $('#selectAll').on('change', function() {
-        $('.cart_checkbox').prop('checked', this.checked);
-    });
-
-    // 선택된 항목 삭제
-    $('.cart_delete').on('click', function() {
-        $('.cart_checkbox:checked').each(function() {
-            $(this).closest('.cart_item').remove();  // 해당 상품을 DOM에서 제거
-        });
-    });
-});
-
-//카트목록의 선택한 요소들의 요약창
-
 $(document).ready(function() {
     // 가격 정보를 저장할 변수
     var deliveryFee = 3000; // 기본 배송비 3000원
@@ -66,9 +47,8 @@ $(document).ready(function() {
 
         // 배송비 처리
         if (totalPrice >= freeDeliveryThreshold) {
-            $('.cart_delivery_fee_section').hide(); // 배송비 삭제
+            $('.cart_delivery_fee').text('0원'); // 배송비를 0원으로 표시
         } else {
-            $('.cart_delivery_fee_section').show();
             $('.cart_delivery_fee').text(deliveryFee + '원'); // 배송비 표시
         }
 
@@ -77,9 +57,23 @@ $(document).ready(function() {
         $('.cart_final_total').text(finalTotal + '원');
     }
 
+    // 전체 선택/해제
+    $('#selectAll').on('change', function() {
+        $('.cart_checkbox').prop('checked', this.checked);
+        calculatePrices(); // 전체 선택/해제 후 가격 재계산
+    });
+
     // 체크박스를 선택할 때마다 가격 계산
     $('.cart_checkbox').on('change', function() {
         calculatePrices();
+    });
+
+    // 선택된 항목 삭제
+    $('.cart_delete').on('click', function() {
+        $('.cart_checkbox:checked').each(function() {
+            $(this).closest('.cart_item').remove();  // 해당 상품을 DOM에서 제거
+        });
+        calculatePrices(); // 선택된 항목 삭제 후 가격 재계산
     });
 
     // 초기 계산 (페이지 로드 시)
