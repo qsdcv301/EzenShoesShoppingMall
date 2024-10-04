@@ -14,4 +14,9 @@ public class PageController {
         return "home";
     }
 
+    @GetMapping("/products")
+    public String productsMain() {
+        return "productsMain";
+    }
+
 }
