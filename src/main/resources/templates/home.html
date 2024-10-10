@@ -20,18 +20,20 @@
 
 <body>
     <header th:replace="~{fragments/header :: header}"></header>
-    <div class="slide container-fluid">
-        <div class="row overflow-hidden">
-            <div class="col-12">
+    <div class="mainimg slide container-fluid">
+        <div class="mainimg-continer row overflow-hidden">
+            <div class="mimg-1 col-12">
                 <img class="min-vw-100" src="../static/images/mainpage-slide-01.png" alt="mainpage-slide-01">
-                <h2>THE GAME</h2> <!-- 폰트색상: #fff 폰트사이즈: -->
-                <p>오늘의 스트릿 스타일을 리드하는 <br> 70년대 러닝의 아이콘</p> <!-- 폰트색상: #fff 폰트사이즈: -->
+                <h2>THE GAME</h2> <!-- 폰트색상: #fff 폰트사이즈: px -->
+                <p>오늘의 스트릿 스타일을 리드하는 <br> 70년대 러닝의 아이콘</p> <!-- 폰트색상: #fff 폰트사이즈: px -->
                 <button type="button" class="btn btn-outline-dark">지금 구매하기  <i class="bi bi-arrow-right"></i></button>
+                <!--  메인이미지1 안에 h2, p, button 있어야 함 -->
             </div>
-            <div class="col-12">
+            <div class="mimg-2 col-12">
                 <img class="min-vw-100" src="../static/images/mainpage-slide-02.png" alt="mainpage-slide-02">
-                <h2>THE GAME NEVER STOPS</h2> <!-- 폰트색상: #fff 폰트사이즈: -->
+                <h2>THE GAME NEVER STOPS</h2> <!-- 폰트색상: #fff 폰트사이즈: px -->
                 <button type="button" class="btn btn-outline-dark">구매하기  <i class="bi bi-arrow-right"></i></button> 
+                <!--  메인이미지2 안에 h2, p, button 있어야 함 -->
             </div>
         </div>
     </div>
@@ -92,7 +94,7 @@
                     </div>
                 </div>
                 <h3 class="text-center">SLIDE STYLING</h3>
-                <p>올 가을 나만의 스타일이 필요하다면 <br> 지금 바로 만나보세요!</p>
+                <p>올 가을 나만의 스타일이 필요하다면 <br> 지금 바로 만나보세요! </p>
                 <button class="btn btn-dark px-5">전체보기</button>
             </div>
         </div>
@@ -104,7 +106,7 @@
                     <button type="button" class="btn btn-outline-dark">TREND NOW ⚡</button>
                     <button type="button" class="btn btn-outline-dark">BEST OF RRODUCTS 🔥</button>
                     <button type="button" class="btn btn-outline-dark">NEW ITEM ✨</button>
-                    <button type="text" class="btn btn">전체보기</button> <!-- 오른쪽에 위치 -->
+                    <button type="button" class="btn btn-outline-dark">전체보기</button>
                 </h3>
                 <div class="card-deck">
                     <div class="card text-center">
