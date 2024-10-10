@@ -1,4 +1,3 @@
-
 /*********************************************************************************/
 /**********************        헤더 페이지 스크립트         ************************/
 /*********************************************************************************/
@@ -145,7 +144,7 @@ $(document).ready(function () {
                     </div>
                 </div>`
     };
-    
+
 
     // 메인 메뉴 항목에 마우스를 올렸을 때 소메뉴 내용을 표시
     $('.nav-item').hover(
@@ -178,26 +177,23 @@ $(document).ready(function () {
     });
 
     // 동적 링크 설정: 클릭 시 URL에 데이터를 추가
-    $(document).on('click', 'a[data-category]', function(event) {
+    $(document).on('click', 'a[data-category]', function (event) {
         event.preventDefault(); // 기본 링크 동작 방지
-        
+
         const category = $(this).data('category');
         const subcategory = $(this).data('subcategory');
         const item = $(this).data('item');
-        
+
         // 동적 URL 생성
         let newUrl = `/products?category=${category}&subcategory=${subcategory}`;
         if (item) {
             newUrl += `&item=${encodeURIComponent(item)}`;
         }
-        
+
         // URL 리디렉션
         window.location.href = newUrl;
     });
 });
-
-
-
 
 
 /*********************************************************************************/
@@ -207,15 +203,9 @@ $(document).ready(function () {
 //메인페이지 상품 데크(5개 가로배열 돼 있는 곳) 버튼 누르면 이동
 
 
-
-
-
 /*********************************************************************************/
 /**********************      상품 페이지 스크립트 시작      ************************/
 /*********************************************************************************/
-
-
-
 
 
 /*********************************************************************************/
@@ -223,16 +213,11 @@ $(document).ready(function () {
 /*********************************************************************************/
 
 
-
-
-
-
-
 /*********************************************************************************/
 /**********************    상품 장바구니 페이지 스크립트    ************************/
 /*********************************************************************************/
 
-$(document).ready(function() {
+$(document).ready(function () {
     // 가격 정보를 저장할 변수
     var deliveryFee = 3000; // 기본 배송비 3000원
     var freeDeliveryThreshold = 50000; // 5만원 이상 무료 배송
@@ -242,7 +227,7 @@ $(document).ready(function() {
         var totalPrice = 0;
 
         // 체크된 상품들의 가격을 합산
-        $('.cart_checkbox:checked').each(function() {
+        $('.cart_checkbox:checked').each(function () {
             // 가격에서 '원'이나 공백 제거 후 숫자로 변환
             var itemPrice = $(this).closest('.cart_item').find('.cart_item_price').text().replace(/[^0-9]/g, '');
             itemPrice = parseFloat(itemPrice); // 문자열을 숫자로 변환
@@ -267,19 +252,19 @@ $(document).ready(function() {
     }
 
     // 전체 선택/해제
-    $('#selectAll').on('change', function() {
+    $('#selectAll').on('change', function () {
         $('.cart_checkbox').prop('checked', this.checked);
         calculatePrices(); // 전체 선택/해제 후 가격 재계산
     });
 
     // 체크박스를 선택할 때마다 가격 계산
-    $('.cart_checkbox').on('change', function() {
+    $('.cart_checkbox').on('change', function () {
         calculatePrices();
     });
 
     // 선택된 항목 삭제
-    $('.cart_delete').on('click', function() {
-        $('.cart_checkbox:checked').each(function() {
+    $('.cart_delete').on('click', function () {
+        $('.cart_checkbox:checked').each(function () {
             $(this).closest('.cart_item').remove();  // 해당 상품을 DOM에서 제거
         });
         calculatePrices(); // 선택된 항목 삭제 후 가격 재계산
