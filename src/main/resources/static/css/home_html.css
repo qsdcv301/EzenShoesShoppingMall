@@ -1,5 +1,16 @@
+/* home > mainimg*/
+
+  .mimg-1 h2{
+
+  }
+
+  .mimg-1 p{
+
+  }
+
+
 /* home > iconic */
-.slider-container {
+  .slider-container {
     width: 100%;
   }
   
@@ -47,5 +58,10 @@
   .slider-btn:hover {
     background-color: #e0e0e0;
   }
+
+  /* .slider-items img{
+    width: px;
+    height: px;
+  } */
 
   /* home > styling */
