@@ -13,6 +13,9 @@
             padding: 15px;
             margin-bottom: 20px;
         }
+        input[type="checkbox"]{
+            accent-color: gray;
+        }
     </style>
 </head>
 <body>
@@ -21,7 +24,7 @@
         <form id="termsForm">
             <div class="card mb-4">
                 <div class="card-header">
-                    <h2 class="h5 mb-0">이용약관</h2>
+                    <h2 class="h5 mb-0">이용약관<strong class="text-danger">(필수)</strong></h2>
                 </div>
                 <div class="card-body">
                     <div class="terms-container mb-3">
@@ -35,7 +38,7 @@
                         <p>당사는 회원의 개인정보를 보호하기 위해 최선을 다하며, 개인정보 보호법을 준수합니다.</p>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                        <input class="form-check-input" type="checkbox" id="termsCheck">
                         <label class="form-check-label" for="termsCheck">
                             이용약관에 동의합니다.
                         </label>
@@ -45,7 +48,7 @@
 
             <div class="card mb-4">
                 <div class="card-header">
-                    <h2 class="h5 mb-0">개인정보 처리방침</h2>
+                    <h2 class="h5 mb-0">개인정보 처리방침<strong class="text-danger">(필수)</strong></h2>
                 </div>
                 <div class="card-body">
                     <div class="terms-container mb-3">
@@ -65,7 +68,7 @@
                         </ul>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="privacyCheck" required>
+                        <input class="form-check-input" type="checkbox" id="privacyCheck">
                         <label class="form-check-label" for="privacyCheck">
                             개인정보 처리방침에 동의합니다.
                         </label>
@@ -73,7 +76,20 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">동의하고 가입하기</button>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="allCheck">
+                        <label class="form-check-label" for="allCheck">
+                            <strong>모든 약관에 동의합니다.</strong>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-dark">동의하고 가입하기</button>
+            </div>
         </form>
     </div>
 
@@ -81,9 +97,25 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
+        const allCheck = document.getElementById('allCheck');
+        const termsCheck = document.getElementById('termsCheck');
+        const privacyCheck = document.getElementById('privacyCheck');
+
+        allCheck.addEventListener('change', function() {
+            termsCheck.checked = this.checked;
+            privacyCheck.checked = this.checked;
+        });
+
+        termsCheck.addEventListener('change', updateAllCheck);
+        privacyCheck.addEventListener('change', updateAllCheck);
+
+        function updateAllCheck() {
+            allCheck.checked = termsCheck.checked && privacyCheck.checked;
+        }
+
         document.getElementById('termsForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            if (document.getElementById('termsCheck').checked && document.getElementById('privacyCheck').checked) {
+            if (termsCheck.checked && privacyCheck.checked) {
                 alert('약관에 동의하셨습니다. 회원가입 페이지로 이동합니다.');
                 // 여기에 회원가입 페이지로 이동하는 로직을 추가하세요.
             } else {
