@@ -32,16 +32,16 @@
         <div class="collapse navbar-collapse col-6 position-relative">
           <ul class="navbar-nav mb-2 mb-lg-0 position-absolute">
             <li class="nav-item ml-auto mr-auto" data-submenu="brand">
-              <a class="nav-link active" aria-current="page" href="#">NIKE</a>
+              <a class="nav-link active" aria-current="page" href="#" data-category="nike">NIKE</a>
             </li>
             <li class="nav-item ml-auto mr-auto" data-submenu="brand">
-              <a class="nav-link active" href="#">ADIDAS</a>
+              <a class="nav-link active" href="#" data-category="adidas">ADIDAS</a>
             </li>
             <li class="nav-item ml-auto mr-auto" data-submenu="brand">
-              <a class="nav-link active" href="#">VANS</a>
+              <a class="nav-link active" href="#" data-category="vans">VANS</a>
             </li>
             <li class="nav-item ml-auto mr-auto" data-submenu="brand">
-              <a class="nav-link active" href="#">ETC</a>
+              <a class="nav-link active" href="#" data-category="etc">ETC</a>
             </li>
           </ul>
         </div>
@@ -94,7 +94,7 @@ $(document).ready(function () {
                 <div class="col-8 d-flex mx-4 px-4 justify-content-center">
                     <div class="col-3">
                         <h5>
-                            <a href="#" class="text-decoration-none" data-category="nike" data-subcategory="lifestyle">NIKE</a>
+                            <a href="#" class="text-decoration-none" data-category="nike">NIKE</a>
                         </h5>
                         <ul class="list-unstyled">
                             <li><a href="#" data-category="nike" data-subcategory="lifestyle">LifeStyle</a></li>
@@ -105,7 +105,7 @@ $(document).ready(function () {
                     </div>
                     <div class="col-3">
                         <h5>
-                            <a href="#" class="text-decoration-none" data-category="adidas" data-subcategory="lifestyle">Adidas</a>
+                            <a href="#" class="text-decoration-none" data-category="adidas">Adidas</a>
                         </h5>
                         <ul class="list-unstyled">
                             <li><a href="#" data-category="adidas" data-subcategory="lifestyle">LifeStyle</a></li>
@@ -116,7 +116,7 @@ $(document).ready(function () {
                     </div>
                     <div class="col-3">
                         <h5>
-                            <a href="#" class="text-decoration-none" data-category="vans" data-subcategory="lifestyle">Vans</a>
+                            <a href="#" class="text-decoration-none" data-category="vans">Vans</a>
                         </h5>
                         <ul class="list-unstyled">
                             <li><a href="#" data-category="vans" data-subcategory="lifestyle">LifeStyle</a></li>
@@ -127,7 +127,7 @@ $(document).ready(function () {
                     </div>
                     <div class="col-3">
                         <h5>
-                            <a href="#" class="text-decoration-none" data-category="etc" data-subcategory="lifestyle">ETC</a>
+                            <a href="#" class="text-decoration-none" data-category="etc">ETC</a>
                         </h5>
                         <ul class="list-unstyled">
                             <li><a href="#" data-category="etc" data-subcategory="lifestyle">LifeStyle</a></li>
@@ -182,9 +182,9 @@ $(document).ready(function () {
         const item = $(this).data('item');
         
         // 동적 URL 생성
-        let newUrl = `/products?category=${category}&subcategory=${subcategory}`;
-        if (item) {
-            newUrl += `&item=${encodeURIComponent(item)}`;
+        let newUrl = `/products?category=${category}`;
+        if (subcategory) {
+            newUrl += `&subcategory=${encodeURIComponent(subcategory)}`;
         }
         
         // URL 리디렉션
