@@ -14,6 +14,7 @@
     <script src="/js/popper.min.js"></script>
     <script src="/js/mainpage.js"></script>
     <script src="/js/script.js"></script>
+</head>
 <body>
 <header th:replace="~{fragments/header :: header}"></header>
 <div class="productsMain-products container">
@@ -50,92 +51,16 @@
         </div>
         <div class="col-12">
             <div class="d-flex flex-wrap products-images">
-                <!--                <div class="col-4 mb-4">-->
-                <!--                    <div class="card">-->
-                <!--                        <img alt="상품 1" src="shoes_images/men/newyork/images/blue/newyork_blue_standard01.avif"/>-->
-                <!--                        <p>신제품</p>-->
-                <!--                        <p>여성 운동화</p>-->
-                <!--                        <p>1개의 색상</p>-->
-                <!--                        <p>159,000원</p>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-                <!--                <div class="col-4 mb-4">-->
-                <!--                    <div class="card">-->
-                <!--                        <img alt="상품 2" src="shoes_images/men/newyork/images/white/newyork_white_standard01.avif"/>-->
-                <!--                        <p>신제품</p>-->
-                <!--                        <p>여성 운동화</p>-->
-                <!--                        <p>1개의 색상</p>-->
-                <!--                        <p>159,000원</p>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-                <!--                <div class="col-4 mb-4">-->
-                <!--                    <div class="card">-->
-                <!--                        <img alt="상품 3" src="shoes_images/men/r71/images/blue/r71_blue_standard01.avif"/>-->
-                <!--                        <p>신제품</p>-->
-                <!--                        <p>여성 운동화</p>-->
-                <!--                        <p>1개의 색상</p>-->
-                <!--                        <p>159,000원</p>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-                <!--                <div class="col-4 mb-4">-->
-                <!--                    <div class="card">-->
-                <!--                        <img alt="상품 4" src="shoes_images/men/r71/images/white/r71_white_standard01.avif"/>-->
-                <!--                        <p>신제품</p>-->
-                <!--                        <p>여성 운동화</p>-->
-                <!--                        <p>1개의 색상</p>-->
-                <!--                        <p>159,000원</p>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-                <!--                <div class="col-4 mb-4">-->
-                <!--                    <div class="card">-->
-                <!--                        <img alt="상품 5"-->
-                <!--                             src="shoes_images/men/response_runner/images/black/response_runner_black_standard01.avif"/>-->
-                <!--                        <p>신제품</p>-->
-                <!--                        <p>여성 운동화</p>-->
-                <!--                        <p>1개의 색상</p>-->
-                <!--                        <p>159,000원</p>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-                <!--                <div class="col-4 mb-4">-->
-                <!--                    <div class="card">-->
-                <!--                        <img alt="상품 6"-->
-                <!--                             src="shoes_images/men/response_runner/images/core_black/response_runner_core_black_standard01.avif"/>-->
-                <!--                        <p>신제품</p>-->
-                <!--                        <p>여성 운동화</p>-->
-                <!--                        <p>1개의 색상</p>-->
-                <!--                        <p>159,000원</p>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-                <!--                <div class="col-4 mb-4">-->
-                <!--                    <div class="card">-->
-                <!--                        <img alt="상품 7"-->
-                <!--                             src="shoes_images/men/samba_og_w/images/black/samba_og_w_core_black_standard01.avif"/>-->
-                <!--                        <p>신제품</p>-->
-                <!--                        <p>여성 운동화</p>-->
-                <!--                        <p>1개의 색상</p>-->
-                <!--                        <p>159,000원</p>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-                <!--                <div class="col-4 mb-4">-->
-                <!--                    <div class="card">-->
-                <!--                        <img alt="상품 8"-->
-                <!--                             src="shoes_images/women/adistar/images/off_white/adistar_off_white_standard01.avif"/>-->
-                <!--                        <p>신제품</p>-->
-                <!--                        <p>여성 운동화</p>-->
-                <!--                        <p>1개의 색상</p>-->
-                <!--                        <p>159,000원</p>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-                <!--                <div class="col-4 mb-4">-->
-                <!--                    <div class="card">-->
-                <!--                        <img alt="상품 9"-->
-                <!--                             src="shoes_images/women/adistar/images/pulse_lime/adistar_pulse_lime_standard01.avif"/>-->
-                <!--                        <p>신제품</p>-->
-                <!--                        <p>여성 운동화</p>-->
-                <!--                        <p>1개의 색상</p>-->
-                <!--                        <p>159,000원</p>-->
-                <!--                    </div>-->
-                <!--                </div>-->
+                <div th:each="product : ${products}" class="col-4 mb-4">
+                    <div class="card">
+                        <img th:alt="${product.name}"
+                             th:src="/images/${category}/${product.name}_${#strings.substring(product.name, product.name.size() - 2, product.name.size())}.png"/>
+                        <p class="pl-2 pt-2" th:text="${product.name}"></p>
+                        <p class="pl-2" th:text="${product.description}"></p>
+                        <p class="pl-2" th:text="${product.price}"> 원</p>
+                        <a th:href="@{/productsDetail(productCode=${product.id})}" class="btn btn-primary">상세 보기</a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-12">

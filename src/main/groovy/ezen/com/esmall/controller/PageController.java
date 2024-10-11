@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.File;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -39,19 +40,24 @@ public class PageController {
 
     @GetMapping("/products")
     public String productsMain(@RequestParam(value = "category", required = false) String category,
-                               @RequestParam(value = "subcategory", required = false) String subcategory,
-                               @RequestParam(value =
-                                       "sex"
-                                       , required = false) String sex, Model model) {
+                               @RequestParam(value = "subcategory", required = false) String subcategory
+                              , Model model) {
         List<Product> products = productService.findAllByCategoryId(
                 categoryService.findByName(category).map(Category::getId).orElse(1l)
         );
-
         model.addAttribute("category", category);
         model.addAttribute("subcategory", subcategory);
-        model.addAttribute("sex", sex);
         model.addAttribute("products", products);
         return "productsMain";
+    }
+
+    @GetMapping("/productsDetail")
+    public String productsDetail(@RequestParam(value = "productCode") Long productCode,
+                                 @RequestParam(value = "category", required = false) String category,Model model) {
+        Product product = productService.findById(productCode);
+        model.addAttribute("category", category);
+        model.addAttribute("product", product);
+        return "productsDetail";
     }
 
 }

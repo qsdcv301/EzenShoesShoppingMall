@@ -59,4 +59,5 @@ public class Product {
         this.stock = stock;
         this.description = description;
     }
+
 }
