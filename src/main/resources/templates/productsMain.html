@@ -58,7 +58,7 @@
                         <p class="pl-2 pt-2" th:text="${product.name}"></p>
                         <p class="pl-2" th:text="${product.description}"></p>
                         <p class="pl-2" th:text="${product.price}"> 원</p>
-                        <a th:href="@{/productsDetail(productCode=${product.id})}" class="btn btn-primary">상세 보기</a>
+                        <a th:href="@{/productsDetail(productCode=${product.id}, category=${category})}" class="btn btn-primary">상세 보기</a>
                     </div>
                 </div>
             </div>
