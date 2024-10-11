@@ -2,20 +2,18 @@ package ezen.com.esmall.service;
 
 import ezen.com.esmall.entity.User;
 import ezen.com.esmall.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
-
-    @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final PasswordEncoder passwordEncoder;
 
     public List<User> findAll() {
         return userRepository.findAll();
@@ -26,17 +24,19 @@ public class UserService {
     }
 
     public User create(User user) {
+        // 비밀번호 암호화
+        user.setPw(passwordEncoder.encode(user.getPw()));
         return userRepository.save(user);
     }
 
     public User update(Long id, User userDetails) {
         User user = findById(id);
         if (user != null) {
-            user.update(userDetails.getName(), userDetails.getUid(), userDetails.getPw(),
-                    userDetails.getTel(), userDetails.getAddrf(),
-                    userDetails.getAddrs(), userDetails.getAddrt(),
-                    userDetails.getAddrl(), userDetails.getLevel(),
-                    userDetails.getGrade());
+            user.update(userDetails.getName(), userDetails.getUid(),
+                    userDetails.getPw(), userDetails.getTel(),
+                    userDetails.getAddrf(), userDetails.getAddrs(),
+                    userDetails.getAddrt(), userDetails.getAddrl(),
+                    userDetails.getLevel(), userDetails.getGrade());
             return userRepository.save(user);
         }
         return null;

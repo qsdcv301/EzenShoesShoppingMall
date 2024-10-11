@@ -92,11 +92,11 @@
     <div class="row">
       <div class="col-12">
         <div class="list-group list-group-horizontal align-items-center">
-          <a class="list-group-item border-0 mr-3" href="#">@ 뒤로가기</a>
-          <a class="list-group-item border-0 px-2" href="#">Home</a>/
-          <a class="list-group-item border-0 px-2" href="#">Adidas</a>/
-          <a class="list-group-item border-0 px-2" href="#">Running</a>/
-          <a class="list-group-item border-0 px-2" href="#">Series1</a>
+          <a class="list-group-item border-0 mr-3" th:href="@{/products(category=${category})}">@ 뒤로가기</a>
+          <a class="list-group-item border-0 px-2" th:href="/">Home</a>/
+          <a class="list-group-item border-0 px-2" th:href="@{/products(category=${category})}">nike</a>/
+          <a class="list-group-item border-0 px-2" th:href="@{/products(category=${category})}">Running</a>/
+          <a class="list-group-item border-0 px-2" th:href="@{/products(category=${category})}">Series1</a>
         </div>
       </div>
       <div class="col-12">
