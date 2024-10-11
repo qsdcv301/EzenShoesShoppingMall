@@ -111,5 +111,7 @@ a {
     justify-content: space-around;
 }
 
-
+.slider-btn {
+    z-index: 100;
+}
   
