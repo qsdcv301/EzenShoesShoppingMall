@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,10 +12,16 @@
     <link rel="stylesheet" href="/css/home_html.css">
 
     <script src="/js/jquery-1.12.4.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/script.js"></script>
+
+    <script src="/js/jquery-1.12.4.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/script.js"></script>
 </head>
+
 <body>
     <header th:replace="~{fragments/header :: header}"></header>
     <div class="mainimg slide container-fluid">
@@ -23,13 +30,13 @@
                 <img class="min-vw-100" src="/images/mainpage-slide-01.png" alt="mainpage-slide-01">
                 <h2>THE GAME</h2> <!-- 폰트색상: #fff 폰트사이즈: px -->
                 <p>오늘의 스트릿 스타일을 리드하는 <br> 70년대 러닝의 아이콘</p> <!-- 폰트색상: #fff 폰트사이즈: px -->
-                <button type="button" class="btn btn-outline-dark">지금 구매하기  <i class="bi bi-arrow-right"></i></button>
+                <button type="button" class="btn btn-outline-dark">지금 구매하기 <i class="bi bi-arrow-right"></i></button>
                 <!--  메인이미지1 안에 h2, p, button 있어야 함 -->
             </div>
             <div class="mimg-2 col-12">
                 <img class="min-vw-100" src="/images/mainpage-slide-02.png" alt="mainpage-slide-02">
                 <h2>THE GAME NEVER STOPS</h2> <!-- 폰트색상: #fff 폰트사이즈: px -->
-                <button type="button" class="btn btn-outline-dark">구매하기  <i class="bi bi-arrow-right"></i></button> 
+                <button type="button" class="btn btn-outline-dark">구매하기 <i class="bi bi-arrow-right"></i></button>
                 <!--  메인이미지2 안에 h2, p, button 있어야 함 -->
             </div>
         </div>
