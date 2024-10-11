@@ -32,9 +32,9 @@ public class PageController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("/home")
+    @GetMapping({"/home","/"})
     public String home(Model model) {
-        model.addAttribute("user1", userService.findById(1L));
+//        model.addAttribute("user1", userService.findById(1L));
         return "home";
     }
 

@@ -119,8 +119,8 @@
         <div class="d-flex flex-wrap products-images">
           <div th:each="product : ${products}" class="col-4 mb-4">
             <div class="card">
-              <img th:alt="${product.name}"
-                th:src="/images/${category}/${product.name}_${#strings.substring(product.name, product.name.size() - 2, product.name.size())}.png" />
+<!--              <img th:alt="${product.name}"-->
+<!--                th:src="/images/${category}/${product.name}_${#strings.substring(product.name, product.name.size() - 2, product.name.size())}.png" />-->
               <p class="pl-2 pt-2" th:text="${product.name}"></p>
               <p class="pl-2" th:text="${product.description}"></p>
               <p class="pl-2" th:text="${product.price}"> 원</p>
