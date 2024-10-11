@@ -7,31 +7,33 @@
     <title>Shoes Shop</title>
     <!-- 부트스트랩 아이콘 사용 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="stylesheet" href="../static/css/home_html.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/home_html.css">
 
-    <script src="../static/js/jquery-1.12.4.min.js"></script>
-    <script src="../static/js/bootstrap.min.js"></script>
-    <script src="../static/js/popper.min.js"></script>
-    <script src="../static/js/script.js"></script>
+    <script src="/js/jquery-1.12.4.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/script.js"></script>
 
 </head>
 
 <body>
     <header th:replace="~{fragments/header :: header}"></header>
-    <div class="slide container-fluid">
-        <div class="row overflow-hidden">
-            <div class="col-12">
-                <img class="min-vw-100" src="../static/images/mainpage-slide-01.png" alt="mainpage-slide-01">
-                <h2>THE GAME</h2> <!-- 폰트색상: #fff 폰트사이즈: -->
-                <p>오늘의 스트릿 스타일을 리드하는 <br> 70년대 러닝의 아이콘</p> <!-- 폰트색상: #fff 폰트사이즈: -->
+    <div class="mainimg slide container-fluid">
+        <div class="mainimg-continer row overflow-hidden">
+            <div class="mimg-1 col-12">
+                <img class="min-vw-100" src="/images/mainpage-slide-01.png" alt="mainpage-slide-01">
+                <h2>THE GAME</h2> <!-- 폰트색상: #fff 폰트사이즈: px -->
+                <p>오늘의 스트릿 스타일을 리드하는 <br> 70년대 러닝의 아이콘</p> <!-- 폰트색상: #fff 폰트사이즈: px -->
                 <button type="button" class="btn btn-outline-dark">지금 구매하기  <i class="bi bi-arrow-right"></i></button>
+                <!--  메인이미지1 안에 h2, p, button 있어야 함 -->
             </div>
-            <div class="col-12">
-                <img class="min-vw-100" src="../static/images/mainpage-slide-02.png" alt="mainpage-slide-02">
-                <h2>THE GAME NEVER STOPS</h2> <!-- 폰트색상: #fff 폰트사이즈: -->
+            <div class="mimg-2 col-12">
+                <img class="min-vw-100" src="/images/mainpage-slide-02.png" alt="mainpage-slide-02">
+                <h2>THE GAME NEVER STOPS</h2> <!-- 폰트색상: #fff 폰트사이즈: px -->
                 <button type="button" class="btn btn-outline-dark">구매하기  <i class="bi bi-arrow-right"></i></button> 
+                <!--  메인이미지2 안에 h2, p, button 있어야 함 -->
             </div>
         </div>
     </div>
@@ -45,19 +47,19 @@
                         <!--슬라이드용 이미지가 5개 초과돼도 5개만 보이게 디자인 수정필요-->
                         <div class="card">
                             <button class="slider-btn left-btn"><i class="bi bi-chevron-left"></i></button>
-                            <img class="card-img-top" src="../static/images/mainpage-slide-01.png" alt="sample">
+                            <img class="card-img-top" src="/images/mainpage-slide-01.png" alt="sample">
                         </div>
                         <div class="card">
-                            <img src="../static/images/mainpage-slide-01.png" alt="sample">
+                            <img src="/images/mainpage-slide-01.png" alt="sample">
                         </div>
                         <div class="card">
-                            <img src="../static/images/mainpage-slide-01.png" alt="sample">
+                            <img src="/images/mainpage-slide-01.png" alt="sample">
                         </div>
                         <div class="card">
-                            <img src="../static/images/mainpage-slide-01.png" alt="sample">
+                            <img src="/images/mainpage-slide-01.png" alt="sample">
                         </div>
                         <div class="card">
-                            <img src="../static/images/mainpage-slide-01.png" alt="sample">
+                            <img src="/images/mainpage-slide-01.png" alt="sample">
                         </div>
                         <button class="slider-btn right-btn"><i class="bi bi-chevron-right"></i></button>
                     </div>
@@ -71,28 +73,28 @@
                 <h3 class="text-left">SHOSE STYLING</h3>
                 <div class="card-deck">
                     <div class="card">
-                        <img class="card-img-top" src="../static/images/mainpage-slide-01.png" alt="sample">
+                        <img class="card-img-top" src="/images/mainpage-slide-01.png" alt="sample">
                     </div>
                     <div class="card">
-                        <img src="../static/images/mainpage-slide-01.png" alt="sample">
+                        <img src="/images/mainpage-slide-01.png" alt="sample">
                     </div>
                     <div class="card">
-                        <img src="../static/images/mainpage-slide-01.png" alt="sample">
+                        <img src="/images/mainpage-slide-01.png" alt="sample">
                     </div>
                 </div>
                 <div class="card-deck my-4">
                     <div class="card">
-                        <img class="card-img-top" src="../static/images/mainpage-slide-01.png" alt="sample">
+                        <img class="card-img-top" src="/images/mainpage-slide-01.png" alt="sample">
                     </div>
                     <div class="card">
-                        <img src="../static/images/mainpage-slide-01.png" alt="sample">
+                        <img src="/images/mainpage-slide-01.png" alt="sample">
                     </div>
                     <div class="card">
-                        <img src="../static/images/mainpage-slide-01.png" alt="sample">
+                        <img src="/images/mainpage-slide-01.png" alt="sample">
                     </div>
                 </div>
                 <h3 class="text-center">SLIDE STYLING</h3>
-                <p>올 가을 나만의 스타일이 필요하다면 <br> 지금 바로 만나보세요!</p>
+                <p>올 가을 나만의 스타일이 필요하다면 <br> 지금 바로 만나보세요! </p>
                 <button class="btn btn-dark px-5">전체보기</button>
             </div>
         </div>
@@ -104,41 +106,41 @@
                     <button type="button" class="btn btn-outline-dark">TREND NOW ⚡</button>
                     <button type="button" class="btn btn-outline-dark">BEST OF RRODUCTS 🔥</button>
                     <button type="button" class="btn btn-outline-dark">NEW ITEM ✨</button>
-                    <button type="text" class="btn btn">전체보기</button> <!-- 오른쪽에 위치 -->
+                    <button type="button" class="btn btn-outline-dark">전체보기</button>
                 </h3>
                 <div class="card-deck">
                     <div class="card text-center">
-                        <img class="card-img-top" src="../static/images/mainpage-slide-01.png" alt="sample">
+                        <img class="card-img-top" src="/images/mainpage-slide-01.png" alt="sample">
                         <p class="pt-3">제품명 : <span class="product-name">A상품</span></p>
                     </div>
                     <div class="card text-center">
-                        <img class="card-img-top" src="../static/images/mainpage-slide-01.png" alt="sample">
+                        <img class="card-img-top" src="/images/mainpage-slide-01.png" alt="sample">
                         <p class="pt-3">제품명 : <span class="product-name">A상품</span></p>
                     </div>
                     <div class="card text-center">
-                        <img class="card-img-top" src="../static/images/mainpage-slide-01.png" alt="sample">
+                        <img class="card-img-top" src="/images/mainpage-slide-01.png" alt="sample">
                         <p class="pt-3">제품명 : <span class="product-name">A상품</span></p>
                     </div>
                     <div class="card text-center">
-                        <img class="card-img-top" src="../static/images/mainpage-slide-01.png" alt="sample">
+                        <img class="card-img-top" src="/images/mainpage-slide-01.png" alt="sample">
                         <p class="pt-3">제품명 : <span class="product-name">A상품</span></p>
                     </div>
                 </div>
                 <div class="card-deck mt-4">
                     <div class="card text-center">
-                        <img class="card-img-top" src="../static/images/mainpage-slide-01.png" alt="sample">
+                        <img class="card-img-top" src="/images/mainpage-slide-01.png" alt="sample">
                         <p class="pt-3">제품명 : <span class="product-name">A상품</span></p>
                     </div>
                     <div class="card text-center">
-                        <img class="card-img-top" src="../static/images/mainpage-slide-01.png" alt="sample">
+                        <img class="card-img-top" src="/images/mainpage-slide-01.png" alt="sample">
                         <p class="pt-3">제품명 : <span class="product-name">A상품</span></p>
                     </div>
                     <div class="card text-center">
-                        <img class="card-img-top" src="../static/images/mainpage-slide-01.png" alt="sample">
+                        <img class="card-img-top" src="/images/mainpage-slide-01.png" alt="sample">
                         <p class="pt-3">제품명 : <span class="product-name">A상품</span></p>
                     </div>
                     <div class="card text-center">
-                        <img class="card-img-top" src="../static/images/mainpage-slide-01.png" alt="sample">
+                        <img class="card-img-top" src="/images/mainpage-slide-01.png" alt="sample">
                         <p class="pt-3">제품명 : <span class="product-name">A상품</span></p>
                     </div>
                 </div>

@@ -1,11 +1,15 @@
 package ezen.com.esmall.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
+@Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "products")
 public class Product {
@@ -37,7 +41,8 @@ public class Product {
     private Long categoryId;
 
     @Builder
-    public Product(String name, Integer price, Integer size, Integer stock, String description, LocalDateTime createAt, Long categoryId) {
+    public Product(String name, Integer price, Integer size, Integer stock, String description,
+                   LocalDateTime createAt, Long categoryId) {
         this.name = name;
         this.price = price;
         this.size = size;
@@ -54,4 +59,5 @@ public class Product {
         this.stock = stock;
         this.description = description;
     }
+
 }
