@@ -1,66 +1,199 @@
-<header th:fragment="header">
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../static/css/style.css">
+  <link rel="stylesheet" href="../static/css/home_style.css">
+
+  <script src="../static/js/jquery-1.12.4.min.js"></script>
+  <script src="../static/js/bootstrap.min.js"></script>
+  <script src="../static/js/popper.min.js"></script>
+  <script src="../static/js/script.js"></script>
+</head>
+
+<body>
+  <header th:fragment="header">
     <div class="notice-container">
     </div>
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
-        <div class="container-fluid">
-            <!-- 로고 -->
-            <div class="class col-2">
-                <a class="navbar-brand" href="home">
-                    <img alt="Adidas Logo" src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg">
-                </a>
-            </div>
-            <!-- 내비게이션 -->
-            <div class="collapse navbar-collapse col-6 position-relative">
-                <ul class="navbar-nav mb-2 mb-lg-0 position-absolute">
-                    <li class="nav-item ml-auto mr-auto" data-submenu="nike">
-                        <a aria-current="page" class="nav-link active" href="products?category=nike">NIKE</a>
-                    </li>
-                    <li class="nav-item ml-auto mr-auto" data-submenu="adidas">
-                        <a class="nav-link active" href="products?category=adidas">Adidas</a>
-                    </li>
-                    <li class="nav-item ml-auto mr-auto" data-submenu="newbalance">
-                        <a class="nav-link active" href="products?category=newbalance">NewBalance</a>
-                    </li>
-                    <li class="nav-item ml-auto mr-auto" data-submenu="etc">
-                        <a class="nav-link active" href="products?category=etc">ETC</a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- 사용자 섹션 -->
-            <div class="user-sec col-2 position-relative">
-
-                <div class="top-links position-absolute">
-                    <a class="mr-2" href="#">도움말</a>
-                    <a class="mr-2" href="#">주문 및 반품</a>
-                    <a class="mr-2" href="#">가입하기</a>
-                </div>
-
-                <!-- 검색 바 -->
-                <form class="d-flex search-bar position-absolute">
-                    <div class="input-group">
-                        <input aria-label="Search" class="form-control" placeholder="Search" type="search">
-                        <div class="input-group-append">
-                            <button class="btn" type="submit">
-                                <i class="bi bi-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-                <!-- 사용자 메뉴 -->
-                <div class="d-flex user-menu position-absolute">
-                    <a class="navi-link icon" href="#">
-                        <i class="bi bi-person"></i>
-                    </a>
-                    <a class="navi-link icon" href="#">
-                        <i class="bi bi-heart"></i>
-                    </a>
-                    <a class="navi-link icon" href="#">
-                        <i class="bi bi-bag"></i>
-                    </a>
-                </div>
-            </div>
+      <div class="container-fluid">
+        <!-- 로고 -->
+        <div class="class col-2">
+          <a class="navbar-brand" href="#">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" alt="Adidas Logo">
+          </a>
         </div>
+        <!-- 내비게이션 -->
+        <div class="collapse navbar-collapse col-6 position-relative">
+          <ul class="navbar-nav mb-2 mb-lg-0 position-absolute">
+            <li class="nav-item ml-auto mr-auto" data-submenu="brand">
+              <a class="nav-link active" aria-current="page" href="#" data-category="nike">NIKE</a>
+            </li>
+            <li class="nav-item ml-auto mr-auto" data-submenu="brand">
+              <a class="nav-link active" href="#" data-category="adidas">ADIDAS</a>
+            </li>
+            <li class="nav-item ml-auto mr-auto" data-submenu="brand">
+              <a class="nav-link active" href="#" data-category="vans">VANS</a>
+            </li>
+            <li class="nav-item ml-auto mr-auto" data-submenu="brand">
+              <a class="nav-link active" href="#" data-category="etc">ETC</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 사용자 섹션 -->
+        <div class="user-sec col-2 position-relative">
+
+          <div class="top-links position-absolute">
+            <a href="#" class="mr-2">도움말</a>
+            <a href="#" class="mr-2">주문 및 반품</a>
+            <a href="#" class="mr-2">가입하기</a>
+          </div>
+
+          <!-- 검색 바 -->
+          <form class="d-flex search-bar position-absolute">
+            <div class="input-group">
+              <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+              <div class="input-group-append">
+                <button class="btn" type="submit">
+                  <i class="bi bi-search"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+          <!-- 사용자 메뉴 -->
+          <div class="d-flex user-menu position-absolute">
+            <a href="#" class="navi-link icon">
+              <i class="bi bi-person"></i>
+            </a>
+            <a href="#" class="navi-link icon">
+              <i class="bi bi-heart"></i>
+            </a>
+            <a href="#" class="navi-link icon">
+              <i class="bi bi-bag"></i>
+            </a>
+          </div>
+        </div>
+      </div>
     </nav>
     <div class="header-menu"></div>
-</header>
+  </header>
+
+  <script>
+    
+//메뉴를 나타나게 하는 스크립트
+$(document).ready(function () {
+    // 각 메인 메뉴에 대응하는 소메뉴 내용
+    const submenuContents = {
+      brand: `<div class="row justify-content-center">
+                <div class="col-8 d-flex mx-4 px-4 justify-content-center">
+                    <div class="col-3">
+                        <h5>
+                            <a href="#" class="text-decoration-none" data-category="nike">NIKE</a>
+                        </h5>
+                        <ul class="list-unstyled">
+                            <li><a href="#" data-category="nike" data-subcategory="lifestyle">LifeStyle</a></li>
+                            <li><a href="#" data-category="nike" data-subcategory="running">Running</a></li>
+                            <li><a href="#" data-category="nike" data-subcategory="activity">Activity</a></li>
+                            <li><a href="#" data-category="nike" data-subcategory="etc">ETC</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-3">
+                        <h5>
+                            <a href="#" class="text-decoration-none" data-category="adidas">Adidas</a>
+                        </h5>
+                        <ul class="list-unstyled">
+                            <li><a href="#" data-category="adidas" data-subcategory="lifestyle">LifeStyle</a></li>
+                            <li><a href="#" data-category="adidas" data-subcategory="running">Running</a></li>
+                            <li><a href="#" data-category="adidas" data-subcategory="activity">Activity</a></li>
+                            <li><a href="#" data-category="adidas" data-subcategory="etc">ETC</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-3">
+                        <h5>
+                            <a href="#" class="text-decoration-none" data-category="vans">Vans</a>
+                        </h5>
+                        <ul class="list-unstyled">
+                            <li><a href="#" data-category="vans" data-subcategory="lifestyle">LifeStyle</a></li>
+                            <li><a href="#" data-category="vans" data-subcategory="running">Running</a></li>
+                            <li><a href="#" data-category="vans" data-subcategory="activity">Activity</a></li>
+                            <li><a href="#" data-category="vans" data-subcategory="etc">ETC</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-3">
+                        <h5>
+                            <a href="#" class="text-decoration-none" data-category="etc">ETC</a>
+                        </h5>
+                        <ul class="list-unstyled">
+                            <li><a href="#" data-category="etc" data-subcategory="lifestyle">LifeStyle</a></li>
+                            <li><a href="#" data-category="etc" data-subcategory="running">Running</a></li>
+                            <li><a href="#" data-category="etc" data-subcategory="activity">Activity</a></li>
+                            <li><a href="#" data-category="etc" data-subcategory="etc">ETC</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>`
+};
+
+
+    
+
+    // 메인 메뉴 항목에 마우스를 올렸을 때 소메뉴 내용을 표시
+    $('.nav-item').hover(
+        function () {
+            const submenuType = $(this).data('submenu');
+            $('.header-menu')
+                .html(submenuContents[submenuType])  // 해당 메뉴에 맞는 내용으로 변경
+                .stop()
+                .show();  // 소메뉴를 바로 표시
+        },
+        function () {
+            // 마우스를 메뉴 항목에서 벗어날 때는 소메뉴가 바로 사라지지 않도록
+            // .header-menu로 마우스가 이동했는지를 확인
+        }
+    );
+
+    // .header-menu에도 마우스 이벤트를 추가하여 유지되도록 설정
+    $('.header-menu').hover(
+        function () {
+            $(this).stop().show();
+        },
+        function () {
+            $(this).stop().hide();  // 마우스를 벗어나면 바로 숨김
+        }
+    );
+
+    // 전체 헤더 영역에서 마우스를 벗어나면 소메뉴를 숨김
+    $('header').mouseleave(function () {
+        $('.header-menu').stop().hide();  // 슬라이드 없이 바로 숨김
+    });
+
+    // 동적 링크 설정: 클릭 시 URL에 데이터를 추가
+    $(document).on('click', 'a[data-category]', function(event) {
+        event.preventDefault(); // 기본 링크 동작 방지
+        
+        const category = $(this).data('category');
+        const subcategory = $(this).data('subcategory');
+        const item = $(this).data('item');
+        
+        // 동적 URL 생성
+        let newUrl = `/products?category=${category}`;
+        if (subcategory) {
+            newUrl += `&subcategory=${encodeURIComponent(subcategory)}`;
+        }
+        
+        // URL 리디렉션
+        window.location.href = newUrl;
+    });
+});
+
+
+  </script>
+</body>
+
+</html>
