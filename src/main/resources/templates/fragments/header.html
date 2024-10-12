@@ -1,5 +1,4 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-
 <header th:fragment="header">
     <div class="notice-container">
     </div>
@@ -8,23 +7,24 @@
             <!-- 로고 -->
             <div class="class col-2">
                 <a class="navbar-brand" href="#">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" alt="Adidas Logo">
+                    <!-- 로고 이미지 수정 필요 -->
+                    <img alt="Adidas Logo" src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg">
                 </a>
             </div>
             <!-- 내비게이션 -->
-            <div class="collapse navbar-collapse col-6 position-relative">
+            <div class="hd-mainnav collapse navbar-collapse col-4 position-relative">
                 <ul class="navbar-nav mb-2 mb-lg-0 position-absolute">
                     <li class="nav-item ml-auto mr-auto" data-submenu="brand">
-                        <a class="nav-link active" aria-current="page" href="#" data-category="nike">NIKE</a>
+                        <a aria-current="page" class="nav-link active" data-category="nike" href="#">NIKE</a>
                     </li>
                     <li class="nav-item ml-auto mr-auto" data-submenu="brand">
-                        <a class="nav-link active" href="#" data-category="adidas">ADIDAS</a>
+                        <a class="nav-link active" data-category="adidas" href="#">ADIDAS</a>
                     </li>
                     <li class="nav-item ml-auto mr-auto" data-submenu="brand">
-                        <a class="nav-link active" href="#" data-category="vans">VANS</a>
+                        <a class="nav-link active" data-category="vans" href="#">VANS</a>
                     </li>
                     <li class="nav-item ml-auto mr-auto" data-submenu="brand">
-                        <a class="nav-link active" href="#" data-category="etc">ETC</a>
+                        <a class="nav-link active" data-category="etc" href="#">ETC</a>
                     </li>
                 </ul>
             </div>
@@ -33,15 +33,15 @@
             <div class="user-sec col-2 position-relative">
 
                 <div class="top-links position-absolute">
-                    <a href="#" class="mr-2">도움말</a>
-                    <a href="#" class="mr-2">주문 및 반품</a>
-                    <a href="#" class="mr-2">가입하기</a>
+                    <a class="mr-3" href="#">도움말</a>
+                    <a class="mr-3" href="#">주문 및 반품</a>
+                    <a class="mr-2" href="#">가입하기</a>
                 </div>
 
                 <!-- 검색 바 -->
                 <form class="d-flex search-bar position-absolute">
                     <div class="input-group">
-                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                        <input aria-label="Search" class="form-control" placeholder="Search" type="search">
                         <div class="input-group-append">
                             <button class="btn" type="submit">
                                 <i class="bi bi-search"></i>
@@ -51,13 +51,13 @@
                 </form>
                 <!-- 사용자 메뉴 -->
                 <div class="d-flex user-menu position-absolute">
-                    <a href="#" class="navi-link icon">
+                    <a class="navi-link icon" href="#">
                         <i class="bi bi-person"></i>
                     </a>
-                    <a href="#" class="navi-link icon">
+                    <a class="navi-link icon" href="#">
                         <i class="bi bi-heart"></i>
                     </a>
-                    <a href="#" class="navi-link icon">
+                    <a class="navi-link icon" href="#">
                         <i class="bi bi-bag"></i>
                     </a>
                 </div>
@@ -74,12 +74,12 @@
         // 각 메인 메뉴에 대응하는 소메뉴 내용
         const submenuContents = {
             brand: `<div class="row justify-content-center">
-                <div class="col-8 d-flex mx-4 px-4 justify-content-center">
+                <div class="hd-navmenu col-4 d-flex mx-4 px-4 justify-content-center bg-white pt-4">
                     <div class="col-3">
                         <h5>
-                            <a href="#" class="text-decoration-none" data-category="nike">NIKE</a>
+                            <a href="#" class="text-decoration-none pl-5" data-category="nike">NIKE</a>
                         </h5>
-                        <ul class="list-unstyled">
+                        <ul class="list-unstyled pl-5">
                             <li><a href="#" data-category="nike" data-subcategory="lifestyle">LifeStyle</a></li>
                             <li><a href="#" data-category="nike" data-subcategory="running">Running</a></li>
                             <li><a href="#" data-category="nike" data-subcategory="activity">Activity</a></li>
@@ -88,9 +88,9 @@
                     </div>
                     <div class="col-3">
                         <h5>
-                            <a href="#" class="text-decoration-none" data-category="adidas">Adidas</a>
+                            <a href="#" class="text-decoration-none  pl-5" data-category="adidas">ADIDAS</a>
                         </h5>
-                        <ul class="list-unstyled">
+                        <ul class="list-unstyled pl-5">
                             <li><a href="#" data-category="adidas" data-subcategory="lifestyle">LifeStyle</a></li>
                             <li><a href="#" data-category="adidas" data-subcategory="running">Running</a></li>
                             <li><a href="#" data-category="adidas" data-subcategory="activity">Activity</a></li>
@@ -99,9 +99,9 @@
                     </div>
                     <div class="col-3">
                         <h5>
-                            <a href="#" class="text-decoration-none" data-category="vans">Vans</a>
+                            <a href="#" class="text-decoration-none pl-5" data-category="vans">VANS</a>
                         </h5>
-                        <ul class="list-unstyled">
+                        <ul class="list-unstyled pl-5">
                             <li><a href="#" data-category="vans" data-subcategory="lifestyle">LifeStyle</a></li>
                             <li><a href="#" data-category="vans" data-subcategory="running">Running</a></li>
                             <li><a href="#" data-category="vans" data-subcategory="activity">Activity</a></li>
@@ -110,9 +110,9 @@
                     </div>
                     <div class="col-3">
                         <h5>
-                            <a href="#" class="text-decoration-none" data-category="etc">ETC</a>
+                            <a href="#" class="text-decoration-none pl-5" data-category="etc">ETC</a>
                         </h5>
-                        <ul class="list-unstyled">
+                        <ul class="list-unstyled pl-5">
                             <li><a href="#" data-category="etc" data-subcategory="lifestyle">LifeStyle</a></li>
                             <li><a href="#" data-category="etc" data-subcategory="running">Running</a></li>
                             <li><a href="#" data-category="etc" data-subcategory="activity">Activity</a></li>

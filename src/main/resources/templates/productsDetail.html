@@ -21,30 +21,30 @@
     <div class="row">
         <div class="col-7">
             <div class="img-box d-flex">
-                <div class="s-img">
-                    <img th:src="/images/${category}/${product.name}_02.png"
-                         th:alt="${product.name}02" class="simg">
-                    <img th:src="/images/${category}/${product.name}_03.png"
-                         th:alt="${product.name}03" class="simg">
-                    <img th:src="/images/${category}/${product.name}_04.png"
-                         th:alt="${product.name}04" class="simg">
-                    <img th:src="/images/${category}/${product.name}_05.png"
-                         th:alt="${product.name}05" class="simg">
-                    <img th:src="/images/${category}/${product.name}_06.png"
-                         th:alt="${product.name}06" class="simg">
+                <div class="s-img col-2 p-0">
+                    <img class="simg"
+                         th:alt="${product.name}+ '_02'" th:src="${imageUrls[1]}">
+                    <img class="simg"
+                         th:alt="${product.name}+ '_03'" th:src="${imageUrls[2]}">
+                    <img class="simg"
+                         th:alt="${product.name}+ '_04'" th:src="${imageUrls[3]}">
+                    <img class="simg"
+                         th:alt="${product.name}+ '_05'" th:src="${imageUrls[4]}">
+                    <img class="simg"
+                         th:alt="${product.name}+ '_06'" th:src="${imageUrls[5]}">
                 </div>
-                <div class="b-img ml-2">
-                    <img th:src="/images/${category}/${product.name}_01.png" th:alt="${product.name}01">
+                <div class="b-img col-10 px-0 pl-1">
+                    <img th:alt="${product.name}+ '_01'" th:src="${imageUrls[0]}">
                 </div>
             </div>
         </div>
         <div class="col-5">
             <div class="card">
                 <div class="card-header">
-                    <p>상품소개1</p>
-                    <h4>상품이름</h4>
-                    <p>상품소개2</p>
-                    <p>가격 <span id="price">10,000</span>원</p>
+                    <p th:text="${category}">브랜드</p>
+                    <h4 th:text="${product.name}">상품이름</h4>
+                    <p th:text="${product.description}">상품 설명</p>
+                    <p><span id="price" th:text="${product.price}"></span>원</p>
                 </div>
                 <div class="card-body">
                     <h4>구입가능한 사이즈</h4>
