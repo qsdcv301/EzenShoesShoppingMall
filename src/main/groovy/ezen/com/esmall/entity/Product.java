@@ -25,12 +25,6 @@ public class Product {
     @Column(name = "price", nullable = false)
     private Integer price;
 
-    @Column(name = "size", nullable = false)
-    private Integer size;
-
-    @Column(name = "stock", nullable = false)
-    private Integer stock;
-
     @Column(name = "description", nullable = false)
     private String description;
 
@@ -41,22 +35,18 @@ public class Product {
     private Long categoryId;
 
     @Builder
-    public Product(String name, Integer price, Integer size, Integer stock, String description,
+    public Product(String name, Integer price, String description,
                    LocalDateTime createAt, Long categoryId) {
         this.name = name;
         this.price = price;
-        this.size = size;
-        this.stock = stock;
         this.description = description;
         this.createAt = createAt;
         this.categoryId = categoryId;
     }
 
-    public void update(String name, Integer price, Integer size, Integer stock, String description) {
+    public void update(String name, Integer price, String description) {
         this.name = name;
         this.price = price;
-        this.size = size;
-        this.stock = stock;
         this.description = description;
     }
 

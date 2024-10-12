@@ -2,148 +2,149 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Shoes Shop</title>
-  <!-- 부트스트랩 아이콘 사용 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
-  <link href="/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="/css/style.css" rel="stylesheet" />
-  <script src="/js/jquery-1.12.4.min.js"></script>
-  <script src="/js/bootstrap.min.js"></script>
-  <script src="/js/popper.min.js"></script>
-  <script src="/js/mainpage.js"></script>
-  <script src="/js/script.js"></script>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Shoes Shop</title>
+    <!-- 부트스트랩 아이콘 사용 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"/>
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/css/style.css" rel="stylesheet"/>
+    <script src="/js/jquery-1.12.4.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/mainpage.js"></script>
+    <script src="/js/script.js"></script>
 </head>
 
 <body>
-  <header>
-    <div class="notice-container"></div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
-      <div class="container-fluid">
-        <!-- 로고 -->
-        <div class="class col-2">
-          <a class="navbar-brand" href="productsMain.html">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" alt="Adidas Logo" />
-          </a>
-        </div>
-        <!-- 내비게이션 -->
-        <div class="collapse navbar-collapse col-6 position-relative">
-          <ul class="navbar-nav mb-2 mb-lg-0 position-absolute">
-            <li class="nav-item ml-auto mr-auto">
-              <a class="nav-link" href="#">Poplular</a>
-            </li>
-            <li class="nav-item ml-auto mr-auto">
-              <a class="nav-link font-weight-bold" href="#">Nike</a>
-            </li>
-            <li class="nav-item ml-auto mr-auto">
-              <a class="nav-link font-weight-bold" href="#">Adidas</a>
-            </li>
-            <li class="nav-item ml-auto mr-auto">
-              <a class="nav-link font-weight-bold" href="#">NewBalance</a>
-            </li>
-            <li class="nav-item ml-auto mr-auto">
-              <a class="nav-link font-weight-bold" href="#">ETC</a>
-            </li>
-            <li class="nav-item ml-auto mr-auto">
-              <a class="nav-link" href="#">Sale</a>
-            </li>
-          </ul>
-        </div>
+<header th:replace="~{fragments/header :: header}"></header>
+<!--  <header>-->
+<!--    <div class="notice-container"></div>-->
+<!--    <nav class="navbar navbar-expand-lg navbar-light bg-white">-->
+<!--      <div class="container-fluid">-->
+<!--        &lt;!&ndash; 로고 &ndash;&gt;-->
+<!--        <div class="class col-2">-->
+<!--          <a class="navbar-brand" href="productsMain.html">-->
+<!--            <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" alt="Adidas Logo" />-->
+<!--          </a>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; 내비게이션 &ndash;&gt;-->
+<!--        <div class="collapse navbar-collapse col-6 position-relative">-->
+<!--          <ul class="navbar-nav mb-2 mb-lg-0 position-absolute">-->
+<!--            <li class="nav-item ml-auto mr-auto">-->
+<!--              <a class="nav-link" href="#">Poplular</a>-->
+<!--            </li>-->
+<!--            <li class="nav-item ml-auto mr-auto">-->
+<!--              <a class="nav-link font-weight-bold" href="#">Nike</a>-->
+<!--            </li>-->
+<!--            <li class="nav-item ml-auto mr-auto">-->
+<!--              <a class="nav-link font-weight-bold" href="#">Adidas</a>-->
+<!--            </li>-->
+<!--            <li class="nav-item ml-auto mr-auto">-->
+<!--              <a class="nav-link font-weight-bold" href="#">NewBalance</a>-->
+<!--            </li>-->
+<!--            <li class="nav-item ml-auto mr-auto">-->
+<!--              <a class="nav-link font-weight-bold" href="#">ETC</a>-->
+<!--            </li>-->
+<!--            <li class="nav-item ml-auto mr-auto">-->
+<!--              <a class="nav-link" href="#">Sale</a>-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--        </div>-->
 
-        <!-- 사용자 섹션 -->
-        <div class="user-sec col-2 position-relative">
-          <div class="top-links position-absolute">
-            <a href="#" class="mr-2">도움말</a>
-            <a href="#" class="mr-2">주문 및 반품</a>
-            <a href="#" class="mr-2">가입하기</a>
-          </div>
+<!--        &lt;!&ndash; 사용자 섹션 &ndash;&gt;-->
+<!--        <div class="user-sec col-2 position-relative">-->
+<!--          <div class="top-links position-absolute">-->
+<!--            <a href="#" class="mr-2">도움말</a>-->
+<!--            <a href="#" class="mr-2">주문 및 반품</a>-->
+<!--            <a href="#" class="mr-2">가입하기</a>-->
+<!--          </div>-->
 
-          <!-- 검색 바 -->
-          <form class="d-flex search-bar position-absolute">
-            <div class="input-group">
-              <input class="form-control" type="search" placeholder="Search" aria-label="Search" />
-              <div class="input-group-append">
-                <button class="btn" type="submit">
-                  <i class="bi bi-search"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-          <!-- 사용자 메뉴 -->
-          <div class="d-flex user-menu position-absolute">
-            <a href="#" class="navi-link icon">
-              <i class="bi bi-person"></i>
-            </a>
-            <a href="#" class="navi-link icon">
-              <i class="bi bi-heart"></i>
-            </a>
-            <a href="#" class="navi-link icon">
-              <i class="bi bi-bag"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-    </nav>
-    <div class="header-menu"></div>
-  </header>
+<!--          &lt;!&ndash; 검색 바 &ndash;&gt;-->
+<!--          <form class="d-flex search-bar position-absolute">-->
+<!--            <div class="input-group">-->
+<!--              <input class="form-control" type="search" placeholder="Search" aria-label="Search" />-->
+<!--              <div class="input-group-append">-->
+<!--                <button class="btn" type="submit">-->
+<!--                  <i class="bi bi-search"></i>-->
+<!--                </button>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </form>-->
+<!--          &lt;!&ndash; 사용자 메뉴 &ndash;&gt;-->
+<!--          <div class="d-flex user-menu position-absolute">-->
+<!--            <a href="#" class="navi-link icon">-->
+<!--              <i class="bi bi-person"></i>-->
+<!--            </a>-->
+<!--            <a href="#" class="navi-link icon">-->
+<!--              <i class="bi bi-heart"></i>-->
+<!--            </a>-->
+<!--            <a href="#" class="navi-link icon">-->
+<!--              <i class="bi bi-bag"></i>-->
+<!--            </a>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </nav>-->
+<!--    <div class="header-menu"></div>-->
+<!--  </header>-->
 
-  <div class="productsMain-products container">
+<div class="productsMain-products container">
     <div class="row">
-      <div class="col-12">
-        <div class="list-group list-group-horizontal align-items-center">
-          <a class="list-group-item border-0 mr-3" href="#">@ 뒤로가기</a>
-          <a class="list-group-item border-0 px-2" href="#">Home</a>/
-          <a class="list-group-item border-0 px-2" href="#">Adidas</a>/
-          <a class="list-group-item border-0 px-2" href="#">Running</a>/
-          <a class="list-group-item border-0 px-2" href="#">Series1</a>
+        <div class="col-12">
+            <div class="list-group list-group-horizontal align-items-center">
+                <a class="list-group-item border-0 mr-3" th:href="@{/products(category=${category})}">뒤로가기</a>
+                <a class="list-group-item border-0 px-2" th:href="@{/}">Home</a> /
+                <a class="list-group-item border-0 px-2" th:href="@{/products(category=${category})}">Nike</a> /
+                <a class="list-group-item border-0 px-2" th:href="@{/products(category=${category})}">Running</a>
+            </div>
         </div>
-      </div>
-      <div class="col-12">
-        <div class="pl-3">
-          <h2 class="pl-3 m-0 font-italic"><span>Adidas</span> · <span>Running</span> · <span>Series1</span></h2>
-          <h5 class="pl-3 m-0 font-italic text-uppercase">sportswear collection for women</h5>
-          <div class="my-3 ml-2 bg-dark" style="width: 400px; height: 5px;"></div>
+        <div class="col-12">
+            <div class="pl-3">
+                <h2 class="pl-3 m-0 font-italic"><span>Adidas</span> · <span>Running</span></h2>
+                <h5 class="pl-3 m-0 font-italic text-uppercase">sportswear collection for women</h5>
+                <div class="my-3 ml-2 bg-dark" style="width: 400px; height: 5px;"></div>
+            </div>
         </div>
-      </div>
     </div>
     <div class="col-12">
-      <div class="d-flex justify-content-between px-3 py-2">
-        <div>
-        </div>
-        <button type="button" class="btn btn-secondary">
-          Filter & Sort @
-        </button>
-      </div>
-      <div class="col-12">
-        <div class="d-flex flex-wrap products-images">
-          <div th:each="product : ${products}" class="col-4 mb-4">
-            <div class="card">
-              <img th:alt="${product.name}"
-                th:src="/images/${category}/${product.name}_${#strings.substring(product.name, product.name.size() - 2, product.name.size())}.png" />
-              <p class="pl-2 pt-2" th:text="${product.name}"></p>
-              <p class="pl-2" th:text="${product.description}"></p>
-              <p class="pl-2" th:text="${product.price}"> 원</p>
-              <a th:href="@{/productsDetail(productCode=${product.id}, category=${category})}"
-                class="btn btn-primary">상세 보기</a>
+        <div class="d-flex justify-content-between px-3 py-2">
+            <div>
             </div>
-          </div>
+            <button class="btn btn-secondary" type="button">
+                Filter & Sort @
+            </button>
         </div>
-      </div>
-      <div class="col-12">
-        <ul class="pagination justify-content-center">
-          <li class="page-item"><a class="page-link" href="#">&lt;</a></li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">4</a></li>
-          <li class="page-item"><a class="page-link" href="#">5</a></li>
-          <li class="page-item"><a class="page-link" href="#">&gt;</a></li>
-        </ul>
-      </div>
+        <div class="col-12">
+            <div class="d-flex flex-wrap products-images">
+                <div class="col-4 mb-4" th:each="product, image : ${products}">
+                    <div class="card">
+                        <img th:alt="${product.name}"
+                             th:src="${imageUrls[image.index]}"/>
+
+                        <p class="pl-2 pt-2" th:text="${product.name}"></p>
+                        <p class="pl-2" th:text="${product.description}"></p>
+                        <p class="pl-2" th:text="${product.price} + ' 원'"></p>
+                        <a class="btn btn-primary"
+                           th:href="@{/productsDetail(productCode=${product.id}, category=${category})}">상세 보기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="#">&lt;</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                <li class="page-item"><a class="page-link" href="#">&gt;</a></li>
+            </ul>
+        </div>
     </div>
-  </div>
-  <div th:replace="~{fragments/footer :: footer}"></div>
+</div>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
 
 </html>

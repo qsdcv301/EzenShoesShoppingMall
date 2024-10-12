@@ -29,7 +29,6 @@ public class ProductService {
         Product product = findById(id);
         if (product != null) {
             product.update(productDetails.getName(), productDetails.getPrice(),
-                    productDetails.getSize(), productDetails.getStock(),
                     productDetails.getDescription());
             return productsRepository.save(product);
         }
