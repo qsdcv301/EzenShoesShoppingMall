@@ -4,7 +4,7 @@ a {
 }
 
 .notice-container {
-    height: 50px;
+    height: 40px;
     background-color: #222;
     color: #fff;
     display: flex;
@@ -14,7 +14,7 @@ a {
 }
 
 .navbar {
-    height: 100px;
+    height: 85px;
     border-bottom: 1px solid #ddd;
     padding: 10px 0;
 }
@@ -31,8 +31,9 @@ a {
 }
 
 .search-bar {
-    width: 50%;
+    width: 70%;
     top: -5px;
+    margin-left: -75px;
 }
 
 .user-menu {
