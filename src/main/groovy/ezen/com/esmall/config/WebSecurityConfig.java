@@ -22,20 +22,22 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                                .requestMatchers("/", "/css/**", "/home", "/images/**", "/js/**", "/login",
-                                        "/products**",
-                                        "/productsDetail**",
-                                        "/register", "/user").permitAll()
-                                .anyRequest().authenticated()
-//                                .anyRequest().permitAll()
+//                                .requestMatchers("/", "/css/**", "/home", "/images/**", "/js/**", "/login",
+//                                        "/products**",
+//                                        "/productsDetail**",
+//                                        "/register", "/user").permitAll()
+//                                .anyRequest().authenticated()
+                                .anyRequest().permitAll()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
+                        .usernameParameter("uid")
+                        .passwordParameter("pw")
                         .defaultSuccessUrl("/")
                         .failureUrl("/login?error=true")
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/login")
+                        .logoutSuccessUrl("/")
                         .invalidateHttpSession(true)
                 )
                 .csrf(AbstractHttpConfigurer::disable); // CSRF 비활성화

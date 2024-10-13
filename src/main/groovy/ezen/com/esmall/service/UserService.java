@@ -25,15 +25,19 @@ public class UserService {
 
     public User create(User user) {
         // 비밀번호 암호화
-        user.setPw(passwordEncoder.encode(user.getPw()));
+        user.setPw(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
     public User update(Long id, User userDetails) {
         User user = findById(id);
         if (user != null) {
+            if (userDetails.getPw() != null && !userDetails.getPw().isEmpty()) {
+                user.setPw(passwordEncoder.encode(userDetails.getPw()));
+            }
             user.update(userDetails.getName(), userDetails.getUid(),
-                    userDetails.getPw(), userDetails.getTel(),
+                    user.getPw(),
+                    userDetails.getTel(),
                     userDetails.getAddrf(), userDetails.getAddrs(),
                     userDetails.getAddrt(), userDetails.getAddrl(),
                     userDetails.getLevel(), userDetails.getGrade());

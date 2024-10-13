@@ -1,11 +1,13 @@
 package ezen.com.esmall.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -55,14 +57,12 @@ public class User implements UserDetails {
     @Column(name = "grade", nullable = false)
     private Integer grade;
 
-    @Column(name = "cart_id", nullable = false)
-    private Integer cartId;
-
     @Builder
-    public User(String name, String uid, String pw, String tel, Integer addrf, String addrs, String addrt, String addrl, LocalDateTime createAt, Integer level, Integer grade, Integer cartId) {
+    public User(String name, String uid, String pw, String tel, Integer addrf, String addrs, String addrt,
+                String addrl, LocalDateTime createAt, Integer level, Integer grade) {
         this.name = name;
         this.uid = uid;
-        this.pw = encodePassword(pw);
+        this.pw = pw;
         this.tel = tel;
         this.addrf = addrf;
         this.addrs = addrs;
@@ -71,14 +71,14 @@ public class User implements UserDetails {
         this.createAt = createAt;
         this.level = level;
         this.grade = grade;
-        this.cartId = cartId;
     }
 
-    public void update(String name, String uid, String pw, String tel, Integer addrf, String addrs, String addrt, String addrl, Integer level, Integer grade) {
+    public void update(String name, String uid, String pw, String tel, Integer addrf, String addrs, String addrt,
+                       String addrl, Integer level, Integer grade) {
         this.name = name;
         this.uid = uid;
         if (pw != null && !pw.isEmpty()) {
-            this.pw = encodePassword(pw);
+            this.pw = pw;
         }
         this.pw = pw;
         this.tel = tel;
@@ -89,10 +89,7 @@ public class User implements UserDetails {
         this.level = level;
         this.grade = grade;
     }
-    private String encodePassword(String password) {
-        // PasswordEncoder 인스턴스를 이용해 비밀번호를 암호화합니다.
-        return new BCryptPasswordEncoder().encode(password);
-    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("user"));
