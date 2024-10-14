@@ -2,18 +2,23 @@ package ezen.com.esmall.controller;
 
 import ezen.com.esmall.entity.Category;
 import ezen.com.esmall.entity.Product;
-import ezen.com.esmall.service.CategoryService;
-import ezen.com.esmall.service.OrderService;
-import ezen.com.esmall.service.ProductService;
-import ezen.com.esmall.service.UserService;
+import ezen.com.esmall.entity.User;
+import ezen.com.esmall.service.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -21,16 +26,17 @@ import java.util.List;
 public class PageController {
 
     @Autowired
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
     private UserService userService;
-
     @Autowired
     private ProductService productService;
-
     @Autowired
     private OrderService orderService;
-
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private UserDetailService userDetailService;
 
 //    @ModelAttribute
 //    public void addUserToModel(Model model) {
@@ -50,18 +56,24 @@ public class PageController {
     }
 
     @PostMapping("/register")
-    public String register(Model model) {
-        return "register";
+    public String register(@RequestParam(value = "uid") String uid, @RequestParam(value = "pw") String pw,
+                           @RequestParam(value = "name") String name,
+                           Model model) {
+        User user = new User("name", uid, pw, "", 0, "", "", "", LocalDateTime.now(), 0, 0);
+        userService.create(user);
+        return "redirect:/";
     }
 
     @GetMapping("/login")
-    public String loginPage(@RequestParam String uid, @RequestParam String pw, Model model) {
-        return "redirect:/home";
+    public String loginPage(Model model) {
+        return "login";
     }
 
-    @PostMapping("/login")
-    public String login(@RequestParam String uid, @RequestParam String pw, Model model) {
-        return "redirect:/home";
+    @GetMapping("/logout")
+    public String logout(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+        new SecurityContextLogoutHandler().logout(request, response,
+                SecurityContextHolder.getContext().getAuthentication());
+        return "redirect:/";
     }
 
     @GetMapping({"/home", "/"})
