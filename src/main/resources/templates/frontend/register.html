@@ -154,6 +154,19 @@
             alert("아이디 중복 확인 기능은 서버 연동이 필요합니다.");
         });
 
+        //비밀번호 일치 확인
+        function validatePassword() {
+            const password = $('#password').val();
+            const confirmPassword = $('#confirmPassword').val();
+
+            if (password !== confirmPassword) {
+                alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+                return false;
+            }
+
+            return true;
+        }
+
         // 주소 검색
         $('#searchAddress').click(function() {
             new daum.Postcode({
@@ -238,9 +251,10 @@
 
         // 폼 제출
         $('#signupForm').submit(function(e) {
-            e.preventDefault();
             combineEmail(); // 폼 제출 전 이메일 조합
-            if (validateBirthdate()) {
+            e.preventDefault();
+            // 생년월일과 비밀번호 검증이 모두 통과해야 폼 제출
+            if (validateBirthdate() && validatePassword()) {
                 alert("회원가입 기능은 서버 연동이 필요합니다.");
                 console.log("Full Email: " + $('#fullEmail').val()); // 확인용 로그
             }
