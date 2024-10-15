@@ -17,7 +17,14 @@
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        .btn-sign-up:hover{
+        .btn-sign-up {
+            height: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .btn-sign-up:hover {
             background-color: #777777;
             border-color: #777777;
         }
@@ -86,7 +93,21 @@
                         </div>
                         <div class="form-group">
                             <label for="email">이메일</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="emailId" name="emailId" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">@</span>
+                                </div>
+                                <select class="form-control" id="emailDomainSelect">
+                                    <option value="">선택</option>
+                                    <option value="naver.com">naver.com</option>
+                                    <option value="gmail.com">gmail.com</option>
+                                    <option value="hanmail.net">hanmail.net</option>
+                                    <option value="direct">직접 입력</option>
+                                </select>
+                                <input type="text" class="form-control" id="emailDomainDirect" name="emailDomain" style="display:none;" placeholder="도메인 입력">
+                            </div>
+                            <input type="hidden" id="fullEmail" name="email">
                         </div>
                     </div>
                 </div>
@@ -94,22 +115,30 @@
                 <div class="card mb-3">
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="address">주소</label>
+                            <label for="postcode">우편번호</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="address" name="address" readonly>
+                                <input type="text" class="form-control" id="postcode" name="postcode" readonly>
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-secondary" type="button" id="searchAddress">주소 검색</button>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="address">주소</label>
+                            <input type="text" class="form-control" id="address" name="address" readonly>
+                        </div>
+                        <div class="form-group">
                             <label for="detailAddress">상세 주소</label>
                             <input type="text" class="form-control" id="detailAddress" name="detailAddress">
+                        </div>
+                        <div class="form-group">
+                            <label for="extraAddress">참고항목</label>
+                            <input type="text" class="form-control" id="extraAddress" name="extraAddress" readonly>
                         </div>
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-dark btn-block btn-sign-up mt-4 mb-2">가입하기</button>
+                <button type="submit" class="btn btn-dark btn-block btn-sign-up">가입하기</button>
             </form>
         </div>
     </div>
@@ -129,11 +158,58 @@
         $('#searchAddress').click(function() {
             new daum.Postcode({
                 oncomplete: function(data) {
-                    $('#address').val(data.address);
+                    var addr = '';
+                    var extraAddr = '';
+
+                    if (data.userSelectedType === 'R') {
+                        addr = data.roadAddress;
+                    } else {
+                        addr = data.jibunAddress;
+                    }
+
+                    if(data.userSelectedType === 'R'){
+                        if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                            extraAddr += data.bname;
+                        }
+                        if(data.buildingName !== '' && data.apartment === 'Y'){
+                            extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                        }
+                        if(extraAddr !== ''){
+                            extraAddr = ' (' + extraAddr + ')';
+                        }
+                        $('#extraAddress').val(extraAddr);
+                    } else {
+                        $('#extraAddress').val('');
+                    }
+
+                    $('#postcode').val(data.zonecode);
+                    $('#address').val(addr);
                     $('#detailAddress').focus();
                 }
             }).open();
         });
+
+        // 이메일 도메인 선택 또는 직접 입력
+        $('#emailDomainSelect').change(function() {
+            var domain = $(this).val();
+            if (domain === 'direct') {
+                $('#emailDomainDirect').show().val('').focus();
+            } else {
+                $('#emailDomainDirect').hide().val(domain);
+            }
+            combineEmail();
+        });
+
+        // 이메일 조합
+        function combineEmail() {
+            var emailId = $('#emailId').val();
+            var emailDomain = $('#emailDomainDirect').val() || $('#emailDomainSelect').val();
+            if (emailId && emailDomain) {
+                $('#fullEmail').val(emailId + '@' + emailDomain);
+            }
+        }
+
+        $('#emailId, #emailDomainDirect').on('input', combineEmail);
 
         // 생년월일 유효성 검사
         function validateBirthdate() {
@@ -163,8 +239,10 @@
         // 폼 제출
         $('#signupForm').submit(function(e) {
             e.preventDefault();
+            combineEmail(); // 폼 제출 전 이메일 조합
             if (validateBirthdate()) {
                 alert("회원가입 기능은 서버 연동이 필요합니다.");
+                console.log("Full Email: " + $('#fullEmail').val()); // 확인용 로그
             }
         });
     });
