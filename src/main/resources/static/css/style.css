@@ -127,3 +127,89 @@ a {
 .b-img img {
     max-width: 100%;
 }
+
+/* 임시 */
+/* header */
+header {
+
+}
+
+/* header 로고*/
+
+
+/* header 내비게이션*/
+/* .hd-mainnav ul{
+     border: 1px solid #222;
+} */
+
+.hd-mainnav li{
+    margin-bottom: 2px;
+}
+
+.hd-mainnav a{
+    color: #222;
+    font-weight: bold;
+    text-decoration: underline 3px solid #222;
+    text-underline-offset: 16px;
+}
+
+/* header 사용자 섹션 */
+.user-sec a{
+    color: #222;
+    font-size: 13px;
+    font-weight: 500;
+}
+/* header 검색 바 */
+
+
+/* header 사용자 메뉴 */
+
+
+/* header 내비게이션 메뉴 */
+.hd-navmenu {
+    margin-left: 120px;
+}
+
+.hd-navmenu h5 {
+    color: #222;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.hd-navmenu ul {
+    color: #222;
+    font-size: 16px;
+}
+
+/* footer_html.css */
+.footer{
+    margin: 0;
+    padding: 0;
+}
+
+.footer-box h5 {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #222;
+}
+
+.footer-box a {
+    font-size: 14px;
+    color: #222;
+    margin-bottom: 2px;
+}
+
+.footer-box p {
+    font-size: 14px;
+    color: #222;
+    margin-top: -15px;
+}
+
+.copyright p{
+    font-size: 12px;
+}
+
+.footer-subnav a {
+    font-size: 13px;
+}

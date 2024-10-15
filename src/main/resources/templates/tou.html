@@ -13,7 +13,6 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script src="/js/mainpage.js"></script>
     <script src="/js/script.js"></script>
     <style>
         .terms-container {
@@ -103,38 +102,6 @@
         </div>
     </form>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
-    const allCheck = document.getElementById('allCheck');
-    const termsCheck = document.getElementById('termsCheck');
-    const privacyCheck = document.getElementById('privacyCheck');
-
-    allCheck.addEventListener('change', function() {
-        termsCheck.checked = this.checked;
-        privacyCheck.checked = this.checked;
-    });
-
-    termsCheck.addEventListener('change', updateAllCheck);
-    privacyCheck.addEventListener('change', updateAllCheck);
-
-    function updateAllCheck() {
-        allCheck.checked = termsCheck.checked && privacyCheck.checked;
-    }
-
-    document.getElementById('termsForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (termsCheck.checked && privacyCheck.checked) {
-            alert('약관에 동의하셨습니다. 회원가입 페이지로 이동합니다.');
-            window.location.href = '/registerOk';
-
-        } else {
-            alert('모든 약관에 동의해주세요.');
-        }
-    });
-</script>
-<div th:replace="~{fragments/footer :: footer}"></div>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
 </html>
