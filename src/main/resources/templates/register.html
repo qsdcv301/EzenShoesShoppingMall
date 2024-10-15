@@ -1,34 +1,29 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Shoes Shop</title>
-    <!-- 부트스트랩 아이콘 사용 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
-    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="/css/style.css" rel="stylesheet"/>
-    <script src="/js/jquery-1.12.4.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/popper.min.js"></script>
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script src="/js/mainpage.js"></script>
-    <script src="/js/script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
             background-color: #f8f9fa;
         }
-
         .signup-container {
             max-width: 500px;
             margin: 50px auto;
             padding: 20px;
             background-color: #fff;
             border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-
+        .btn-sign-up {
+            height: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
         .btn-sign-up:hover {
             background-color: #777777;
             border-color: #777777;
@@ -36,118 +31,185 @@
     </style>
 </head>
 <body>
-<header th:replace="~{fragments/header :: header}"></header>
-<div class="container">
-    <div class="signup-container">
-        <h2 class="text-center mb-4">회원가입</h2>
-        <form action="register" id="signupForm" method="post">
-            <div class="card mb-3">
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="uid">아이디</label>
-                        <div class="input-group">
-                            <input class="form-control" id="uid" name="uid" type="text">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" id="checkUid" type="button">중복 확인
-                                </button>
+    <div class="container">
+        <div class="signup-container">
+            <h2 class="text-center mb-4">회원가입</h2>
+            <form id="signupForm">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="username">아이디</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="username" name="username" required>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" id="checkUsername">중복 확인</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="pw">비밀번호</label>
-                        <input class="form-control" id="pw" name="pw" type="password">
-                    </div>
-                    <div class="form-group">
-                        <label for="confirmPw">비밀번호 확인</label>
-                        <input class="form-control" id="confirmPw" name="confirmPw"
-                               type="password">
+                        <div class="form-group">
+                            <label for="password">비밀번호</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">비밀번호 확인</label>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="card mb-3">
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="name">실명</label>
-                        <input class="form-control" id="name" name="name" type="text">
-                    </div>
-                    <div class="form-group">
-                        <label for="birthdate">생년월일</label>
-                        <input class="form-control" id="birthdate" maxlength="8" name="birthdate" placeholder="YYYYMMDD"
-                               type="text">
-                        <small class="form-text text-muted">예: 19930325</small>
-                    </div>
-                    <div class="form-group">
-                        <label>성별</label>
-                        <div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" id="male" name="gender" type="radio"
-                                       value="male">
-                                <label class="form-check-label" for="male">남성</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" id="female" name="gender" type="radio"
-                                       value="female">
-                                <label class="form-check-label" for="female">여성</label>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="name">실명</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="birthdate">생년월일</label>
+                            <input type="text" class="form-control" id="birthdate" name="birthdate" placeholder="YYYYMMDD" maxlength="8" required>
+                            <small class="form-text text-muted">예: 19930325</small>
+                        </div>
+                        <div class="form-group">
+                            <label>성별</label>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="male" value="male" required>
+                                    <label class="form-check-label" for="male">남성</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="female" value="female" required>
+                                    <label class="form-check-label" for="female">여성</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="card mb-3">
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="phone">휴대폰 번호</label>
-                        <input class="form-control" id="tel" name="tel" type="tel">
-                        <small class="form-text text-muted">예: 01012341234</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">이메일</label>
-                        <input class="form-control" id="email" name="email" type="email">
-                    </div>
-                </div>
-            </div>
-
-            <div class="card mb-3">
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="address">주소</label>
-                        <div class="input-group">
-                            <input class="form-control" id="address" name="address" readonly type="text">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" id="searchAddress" type="button">주소 검색
-                                </button>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="phone">휴대폰 번호</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" required>
+                            <small class="form-text text-muted">예: 01012341234</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">이메일</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="emailId" name="emailId" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">@</span>
+                                </div>
+                                <select class="form-control" id="emailDomainSelect">
+                                    <option value="">선택</option>
+                                    <option value="naver.com">naver.com</option>
+                                    <option value="gmail.com">gmail.com</option>
+                                    <option value="hanmail.net">hanmail.net</option>
+                                    <option value="direct">직접 입력</option>
+                                </select>
+                                <input type="text" class="form-control" id="emailDomainDirect" name="emailDomain" style="display:none;" placeholder="도메인 입력">
                             </div>
+                            <input type="hidden" id="fullEmail" name="email">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="detailAddress">상세 주소</label>
-                        <input class="form-control" id="detailAddress" name="detailAddress" type="text">
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="postcode">우편번호</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="postcode" name="postcode" readonly>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" id="searchAddress">주소 검색</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">주소</label>
+                            <input type="text" class="form-control" id="address" name="address" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="detailAddress">상세 주소</label>
+                            <input type="text" class="form-control" id="detailAddress" name="detailAddress">
+                        </div>
+                        <div class="form-group">
+                            <label for="extraAddress">참고항목</label>
+                            <input type="text" class="form-control" id="extraAddress" name="extraAddress" readonly>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <button class="btn btn-dark btn-block btn-sign-up mt-4 mb-2" type="submit">가입하기</button>
-        </form>
+                <button type="submit" class="btn btn-dark btn-block btn-sign-up">가입하기</button>
+            </form>
+        </div>
     </div>
-</div>
-<script>
-    $(document).ready(function () {
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+    $(document).ready(function() {
         // 아이디 중복 확인
-        $('#checkUid').click(function () {
+        $('#checkUsername').click(function() {
             alert("아이디 중복 확인 기능은 서버 연동이 필요합니다.");
         });
 
         // 주소 검색
-        $('#searchAddress').click(function () {
+        $('#searchAddress').click(function() {
             new daum.Postcode({
-                oncomplete: function (data) {
-                    $('#address').val(data.address);
+                oncomplete: function(data) {
+                    var addr = '';
+                    var extraAddr = '';
+
+                    if (data.userSelectedType === 'R') {
+                        addr = data.roadAddress;
+                    } else {
+                        addr = data.jibunAddress;
+                    }
+
+                    if(data.userSelectedType === 'R'){
+                        if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                            extraAddr += data.bname;
+                        }
+                        if(data.buildingName !== '' && data.apartment === 'Y'){
+                            extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                        }
+                        if(extraAddr !== ''){
+                            extraAddr = ' (' + extraAddr + ')';
+                        }
+                        $('#extraAddress').val(extraAddr);
+                    } else {
+                        $('#extraAddress').val('');
+                    }
+
+                    $('#postcode').val(data.zonecode);
+                    $('#address').val(addr);
                     $('#detailAddress').focus();
                 }
             }).open();
         });
+
+        // 이메일 도메인 선택 또는 직접 입력
+        $('#emailDomainSelect').change(function() {
+            var domain = $(this).val();
+            if (domain === 'direct') {
+                $('#emailDomainDirect').show().val('').focus();
+            } else {
+                $('#emailDomainDirect').hide().val(domain);
+            }
+            combineEmail();
+        });
+
+        // 이메일 조합
+        function combineEmail() {
+            var emailId = $('#emailId').val();
+            var emailDomain = $('#emailDomainDirect').val() || $('#emailDomainSelect').val();
+            if (emailId && emailDomain) {
+                $('#fullEmail').val(emailId + '@' + emailDomain);
+            }
+        }
+
+        $('#emailId, #emailDomainDirect').on('input', combineEmail);
 
         // 생년월일 유효성 검사
         function validateBirthdate() {
@@ -173,8 +235,17 @@
 
             return true;
         }
+
+        // 폼 제출
+        $('#signupForm').submit(function(e) {
+            e.preventDefault();
+            combineEmail(); // 폼 제출 전 이메일 조합
+            if (validateBirthdate()) {
+                alert("회원가입 기능은 서버 연동이 필요합니다.");
+                console.log("Full Email: " + $('#fullEmail').val()); // 확인용 로그
+            }
+        });
     });
-</script>
-<div th:replace="~{fragments/footer :: footer}"></div>
+    </script>
 </body>
 </html>
