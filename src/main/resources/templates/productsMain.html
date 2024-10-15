@@ -93,7 +93,6 @@
     <div class="row">
         <div class="col-12">
             <div class="list-group list-group-horizontal align-items-center">
-                <a class="list-group-item border-0 mr-3" th:href="@{/products(category=${category})}">뒤로가기</a>
                 <a class="list-group-item border-0 px-2" th:href="@{/}">Home</a> /
                 <a class="list-group-item border-0 px-2" th:href="@{/products(category=${category})}">Nike</a> /
                 <a class="list-group-item border-0 px-2" th:href="@{/products(category=${category})}">Running</a>
@@ -101,8 +100,8 @@
         </div>
         <div class="col-12">
             <div class="pl-3">
-                <h2 class="pl-3 m-0 font-italic"><span>Adidas</span> · <span>Running</span></h2>
-                <h5 class="pl-3 m-0 font-italic text-uppercase">sportswear collection for women</h5>
+                <h2 class="pl-3 m-0 font-italic"><span th:text="${category}">카테고리</span> · <span>Running</span></h2>
+                <h5 class="pl-3 m-0 font-italic text-uppercase" th:text="${category} + ' 의 ㅁㅁ상품'">설명글</h5>
                 <div class="my-3 ml-2 bg-dark" style="width: 400px; height: 5px;"></div>
             </div>
         </div>
@@ -118,16 +117,16 @@
         <div class="col-12">
             <div class="d-flex flex-wrap products-images">
                 <div class="col-4 mb-4" th:each="product, image : ${products}">
-                    <div class="card">
-                        <img th:alt="${product.name}"
-                             th:src="${imageUrls[image.index]}"/>
+                    <a th:href="@{/productsDetail(productCode=${product.id}, category=${category})}" style="text-decoration: none; color: inherit;">
+                        <div class="card">
+                            <img th:alt="${product.name}" th:src="${imageUrls[image.index]}" />
 
-                        <p class="pl-2 pt-2" th:text="${product.name}"></p>
-                        <p class="pl-2" th:text="${product.description}"></p>
-                        <p class="pl-2" th:text="${product.price} + ' 원'"></p>
-                        <a class="btn btn-primary"
-                           th:href="@{/productsDetail(productCode=${product.id}, category=${category})}">상세 보기</a>
-                    </div>
+                            <p class="pl-2 pt-2" th:text="${product.name}"></p>
+                            <p class="pl-2" th:text="${product.description}"></p>
+                            <p class="pl-2" th:text="${product.price} + ' 원'"></p>
+                        </div>
+                    </a>
+
                 </div>
             </div>
         </div>
