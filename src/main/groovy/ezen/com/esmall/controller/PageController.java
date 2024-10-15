@@ -51,6 +51,11 @@ public class PageController {
 //    }
 
     @GetMapping("/register")
+    public String touPage(Model model) {
+        return "tou";
+    }
+
+    @GetMapping("/registerOk")
     public String registerPage(Model model) {
         return "register";
     }
