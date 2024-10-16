@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -95,8 +94,8 @@
 <div th:replace="~{fragments/footer :: footer}"></div>
 <script>
     //클릭한 이미지로 이미지 변경
-    $(document).ready(function(){
-        $(".simg").on('click', function(){
+    $(document).ready(function () {
+        $(".simg").on('click', function () {
             //클릭한 두 이미지의 src를 가져옴
             var mainImgSrc = $(".b-img img").attr('src');
             var subImgSrc = $(this).attr('src');

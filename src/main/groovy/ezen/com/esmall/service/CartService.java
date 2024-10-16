@@ -41,4 +41,8 @@ public class CartService {
     public void delete(Long id) {
         cartRepository.deleteById(id);
     }
+
+    public List<Cart> findAllByUserId(long productId) {
+        return cartRepository.findAllByUserId(productId);
+    }
 }
