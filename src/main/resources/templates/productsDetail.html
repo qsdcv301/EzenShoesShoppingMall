@@ -92,20 +92,6 @@
     </div>
 </div>
 <div th:replace="~{fragments/footer :: footer}"></div>
-<script>
-    //클릭한 이미지로 이미지 변경
-    $(document).ready(function () {
-        $(".simg").on('click', function () {
-            //클릭한 두 이미지의 src를 가져옴
-            var mainImgSrc = $(".b-img img").attr('src');
-            var subImgSrc = $(this).attr('src');
-
-            //가져온 두 src값을 바꿈(이미지 이동)
-            $('.b-img img').attr('src', subImgSrc);
-            $(this).attr('src', mainImgSrc);
-        });
-    });
-</script>
 </body>
 
 </html>
