@@ -116,16 +116,16 @@
         <div class="col-12">
             <div class="d-flex flex-wrap products-images">
                 <div class="col-4 mb-4" th:each="product, image : ${products}">
-                    <a th:href="@{/productsDetail(productCode=${product.id}, category=${category})}" style="text-decoration: none; color: inherit;">
+                    <a th:href="@{/productsDetail(productCode=${product.id}, category=${category})}"
+                       style="text-decoration: none; color: inherit;">
                         <div class="card">
-                            <img th:alt="${product.name}" th:src="${imageUrls[image.index]}" />
+                            <img th:alt="${product.name}" th:src="${imageUrls[image.index]}"/>
 
                             <p class="pl-2 pt-2" th:text="${product.name}"></p>
                             <p class="pl-2" th:text="${product.description}"></p>
                             <p class="pl-2" th:text="${product.price} + ' 원'"></p>
                         </div>
                     </a>
-
                 </div>
             </div>
         </div>
@@ -168,7 +168,7 @@
         }
 
         // 동적 링크 설정: 카테고리 및 서브카테고리 버튼 클릭 시 URL에 데이터를 추가하고 리디렉트
-        $(document).on('click', '#category-button, #subcategory-button', function(event) {
+        $(document).on('click', '#category-button, #subcategory-button', function (event) {
             event.preventDefault(); // 기본 링크 동작 방지
 
             const category = $(this).data('category');

@@ -1,142 +1,93 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>신발 쇼핑몰</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Shoes Shop</title>
+    <!-- 부트스트랩 아이콘 사용 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"/>
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/css/style.css" rel="stylesheet"/>
+    <script src="/js/jquery-1.12.4.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/script.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
         }
+
         .header, .footer {
             text-align: center;
             padding: 20px;
             background-color: #f8f9fa;
         }
+
         .product-card {
             border: 1px solid #ddd;
             margin-bottom: 15px;
         }
+
         .product-card img {
             width: 100px;
             height: auto;
         }
+
         .total-price {
             background-color: #f8f9fa;
             padding: 20px;
             border-radius: 5px;
         }
+
         .btn-primary {
             background-color: #007bff;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>헤더가 들어갈부분</h1>
-    </div>
-
-    <div class="container my-4">
-        <div class="row">
-            <div class="col-md-8">
-                <h2>주문 상품 요약</h2>
-                <div id="product-list">
-                    <div class="product-card card" data-price="89000">
-                        <div class="card-body d-flex align-items-center">
-                            <input type="checkbox" class="mr-3 product-checkbox">
-                            <img src="images/1.png" alt="상품 이미지" class="img-thumbnail mr-3">
-                            <div>
-                                <h5 class="card-title">나이키 에어맥스</h5>
-                                <p class="card-text">상품요약정보(사이즈, 색상 등)</p>
-                                <p class="card-text">가격: 89,000원</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-card card" data-price="89000">
-                        <div class="card-body d-flex align-items-center">
-                            <input type="checkbox" class="mr-3 product-checkbox">
-                            <img src="images/1.png" alt="상품 이미지" class="img-thumbnail mr-3">
-                            <div>
-                                <h5 class="card-title">나이키 에어맥스</h5>
-                                <p class="card-text">상품요약정보(사이즈, 색상 등)</p>
-                                <p class="card-text">가격: 89,000원</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-card card" data-price="89000">
-                        <div class="card-body d-flex align-items-center">
-                            <input type="checkbox" class="mr-3 product-checkbox">
-                            <img src="images/1.png" alt="상품 이미지" class="img-thumbnail mr-3">
-                            <div>
-                                <h5 class="card-title">나이키 에어맥스</h5>
-                                <p class="card-text">상품요약정보(사이즈, 색상 등)</p>
-                                <p class="card-text">가격: 89,000원</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+<header th:replace="~{fragments/header :: header}"></header>
+<div class="container my-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>주문 상품 요약</h2>
+            <div id="product-list">
                 <div class="mt-3">
-                    <button id="select-all" class="btn btn-secondary">전체 선택</button>
+                    <button id="select-all" class="btn btn-secondary">전체 선택/해제</button>
                     <button id="delete-selected" class="btn btn-danger">선택 삭제</button>
                 </div>
-            </div>
 
-            <div class="col-md-4 total-price">
-                <h2>Total Price</h2>
-                <p>주문 상품 수: <span id="item-count">0</span></p>
-                <p>상품 총액: <span id="total-amount">0 원</span></p>
-                <p>할인 금액: <span id="discount">0 원</span></p>
-                <p>배송비: <span id="shipping-cost">3,000 원</span></p>
-                <hr>
-                <p><strong>전체 주문 금액: </strong><span id="final-amount">0 원</span></p>
-                <button class="btn btn-primary btn-block">구매하기</button>
+                <!-- 상품 추가 루프 -->
+                <div class="product-card card mt-3" th:each="product, index : ${productList}">
+                    <div class="card-body d-flex align-items-center">
+                        <input type="checkbox" class="mr-3 product-checkbox">
+                        <img th:src="${imageUrls.get(index.index)}"
+                             th:alt="${product.name}" class="img-thumbnail mr-3">
+                        <div>
+                            <h5 class="card-title" th:text="${product.name}">나이키 에어맥스</h5>
+                            <p class="card-text" th:text="${product.description}">상품 정보</p>
+                            <p class="card-text">
+                                가격: <span th:text="${product.price}">89,000원</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- /상품 추가 루프 -->
             </div>
         </div>
+
+        <div class="col-md-4 total-price">
+            <h2>Total Price</h2>
+            <p>주문 상품 수: <span id="item-count">0</span></p>
+            <p>상품 총액: <span id="total-amount">0 원</span></p>
+            <p>배송비: <span id="shipping-cost">3,000 원</span></p>
+            <small class="text-muted">50,000원 이상 배송비 무료</small>
+            <hr>
+            <p><strong>전체 주문 금액: </strong><span id="final-amount">0 원</span></p>
+            <button class="btn btn-primary btn-block">구매하기</button>
+        </div>
     </div>
+</div>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
 
-    <div class="footer">
-        푸터
-    </div>
-    <!--챗gpt로 임의로 작성해봄-->
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            function updateTotalPrice() {
-                let totalPrice = 0;
-                let itemCount = 0;
-                $('.product-checkbox:checked').each(function() {
-                    totalPrice += parseInt($(this).closest('.product-card').data('price'));
-                    itemCount++;
-                });
-                
-                $('#item-count').text(itemCount);
-                $('#total-amount').text(totalPrice.toLocaleString() + ' 원');
-                
-                const shippingCost = itemCount > 0 ? 3000 : 0;
-                $('#shipping-cost').text(shippingCost.toLocaleString() + ' 원');
-                
-                const finalAmount = totalPrice + shippingCost;
-                $('#final-amount').text(finalAmount.toLocaleString() + ' 원');
-            }
-
-            $('.product-checkbox').change(updateTotalPrice);
-
-            $('#select-all').click(function() {
-                $('.product-checkbox').prop('checked', true);
-                updateTotalPrice();
-            });
-
-            $('#delete-selected').click(function() {
-                $('.product-checkbox:checked').closest('.product-card').remove();
-                updateTotalPrice();
-            });
-        });
-    </script> -->
 </body>
 </html>

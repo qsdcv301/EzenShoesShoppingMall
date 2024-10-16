@@ -37,18 +37,8 @@ public class PageController {
     private CategoryService categoryService;
     @Autowired
     private UserDetailService userDetailService;
-
-//    @ModelAttribute
-//    public void addUserToModel(Model model) {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication != null && authentication.isAuthenticated()) {
-//            String username = authentication.getName(); // 로그인한 사용자 이름
-//            model.addAttribute("username", username);
-//            // 필요시 추가 정보를 가져올 수 있습니다. 예를 들어, User 엔티티를 가져오는 코드 추가
-//            // User user = userService.findByUsername(username);
-//            // model.addAttribute("user", user);
-//        }
-//    }
+    @Autowired
+    private CartService cartService;
 
     @GetMapping("/register")
     public String touPage(Model model) {
