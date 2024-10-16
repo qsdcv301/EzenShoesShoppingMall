@@ -251,77 +251,75 @@ $('header').on('click', '', function (event) {
     /**********************    회원가입  페이지 스크립트    ************************/
     /*********************************************************************************/
 
-/*********************************************************************************/
-/**********************    상품 장바구니 페이지 스크립트    ************************/
-/*********************************************************************************/
+    /*********************************************************************************/
+    /**********************    상품 장바구니 페이지 스크립트    ************************/
+    /*********************************************************************************/
 
-
-    // 가격 정보를 저장할 변수
+// 가격 정보를 저장할 변수
     var deliveryFee = 3000; // 기본 배송비 3000원
     var freeDeliveryThreshold = 50000; // 5만원 이상 무료 배송
 
-    // 선택한 상품 가격 계산 함수
+// 선택한 상품 가격 계산 함수
     function calculatePrices() {
         var totalPrice = 0;
+        var itemCount = 0;
 
         // 체크된 상품들의 가격을 합산
-        $(".cart_checkbox:checked").each(function () {
-            // 가격에서 '원'이나 공백 제거 후 숫자로 변환
+        $(".product-checkbox:checked").each(function () {
             var itemPrice = $(this)
-                .closest(".cart_item")
-                .find(".cart_item_price")
+                .closest(".product-card")
+                .find(".card-text")
                 .text()
-                .replace(/[^0-9]/g, "");
-            itemPrice = parseFloat(itemPrice); // 문자열을 숫자로 변환
+                .replace(/[^0-9]/g, ""); // 숫자 외의 문자 제거
+            itemPrice = parseFloat(itemPrice); // 숫자 변환
+
             if (!isNaN(itemPrice)) {
                 totalPrice += itemPrice;
+                itemCount++;
             }
         });
 
-        // 합산한 가격을 표시
-        $(".cart_total_price").text(totalPrice + "원");
+        // 합산된 가격과 항목 수를 표시
+        $("#item-count").text(itemCount);
+        $("#total-amount").text(totalPrice + " 원");
 
         // 배송비 처리
-        if (totalPrice >= freeDeliveryThreshold) {
-            $(".cart_delivery_fee").text("0원"); // 배송비를 0원으로 표시
-        } else {
-            $(".cart_delivery_fee").text(deliveryFee + "원"); // 배송비 표시
-        }
+        var shippingCost = totalPrice >= freeDeliveryThreshold ? 0 : deliveryFee;
+        $("#shipping-cost").text(shippingCost + " 원");
 
-        // 최종 합계 계산 (배송비 추가)
-        var finalTotal =
-            totalPrice >= freeDeliveryThreshold
-                ? totalPrice
-                : totalPrice + deliveryFee;
-        $(".cart_final_total").text(finalTotal + "원");
+        // 최종 합계 계산
+        var finalTotal = totalPrice + shippingCost;
+        $("#final-amount").text(finalTotal + " 원");
     }
 
-    // 전체 선택/해제
-    $("#selectAll").on("change", function () {
-        $(".cart_checkbox").prop("checked", this.checked);
-        calculatePrices(); // 전체 선택/해제 후 가격 재계산
+// 전체 선택/해제 기능
+    $("#select-all").on("click", function () {
+        var allChecked = $(".product-checkbox:checked").length === $(".product-checkbox").length;
+        $(".product-checkbox").prop("checked", !allChecked);
+        calculatePrices(); // 가격 재계산
     });
 
-    // 체크박스를 선택할 때마다 가격 계산
-    $(".cart_checkbox").on("change", function () {
+// 선택된 항목 삭제
+    $("#delete-selected").on("click", function () {
+        $(".product-checkbox:checked").each(function () {
+            $(this).closest(".product-card").remove(); // 선택된 상품 삭제
+        });
+        calculatePrices(); // 가격 재계산
+    });
+
+// 체크박스 변경 시 가격 재계산
+    $(".product-checkbox").on("change", function () {
         calculatePrices();
     });
 
-    // 선택된 항목 삭제
-    $(".cart_delete").on("click", function () {
-        $(".cart_checkbox:checked").each(function () {
-            $(this).closest(".cart_item").remove(); // 해당 상품을 DOM에서 제거
-        });
-        calculatePrices(); // 선택된 항목 삭제 후 가격 재계산
+// 초기 가격 계산 (페이지 로드 시)
+    $(document).ready(function () {
+        calculatePrices();
     });
+    /*********************************************************************************/
+    /**********************  상품 장바구니 페이지 스크립트 끝   ************************/
+    /*********************************************************************************/
 
-    // 초기 계산 (페이지 로드 시)
-    calculatePrices();
-
-
-/*********************************************************************************/
-/**********************  상품 장바구니 페이지 스크립트 끝   ************************/
-/*********************************************************************************/
 
 //     tou
     const allCheck = document.getElementById('allCheck');
