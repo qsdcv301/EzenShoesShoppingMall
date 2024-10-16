@@ -56,14 +56,22 @@ public class UserDataController {
         }
         List<Cart> cartList = cartService.findAllByUserId(userId);
         List<Product> productList = new ArrayList<>();
+        List<String> imageUrls = new ArrayList<>();
         for (Cart cart : cartList) {
             Product product = productService.findById(cart.getProductId());
             if (product != null) {
                 productList.add(product);
+                String imageUrl = String.format("/images/%s/%s_%s.png",
+                        categoryService.findById(product.getCategoryId()).getName(),
+                        product.getName(),
+                        product.getName().substring(product.getName().length() - 2));
+                imageUrls.add(imageUrl);
+                System.out.println(imageUrls);
             }
         }
         model.addAttribute("cartList", cartList);
         model.addAttribute("productList", productList);
+        model.addAttribute("imageUrls", imageUrls);
         return "cart";
     }
 }

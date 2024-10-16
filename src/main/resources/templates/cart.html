@@ -51,35 +51,34 @@
         <div class="col-md-8">
             <h2>주문 상품 요약</h2>
             <div id="product-list">
-                <!-- 상품 추가루프 -->
-                <div class="product-card card" th:each="cart:${cartList}">
-                    <div class="card-body d-flex align-items-center">
-                        <input type="checkbox" class="mr-3 product-checkbox">
-                        <img src="images/1.png" alt="상품 이미지" class="img-thumbnail mr-3">
-                        <div>
-                            <h5 class="card-title">나이키 에어맥스</h5>
-                            <p class="card-text">상품요약정보(사이즈, 색상 등)</p>
-                            <p class="card-text">가격: 89,000원</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- /상품 추가루프 -->
                 <div class="mt-3">
                     <button id="select-all" class="btn btn-secondary">전체 선택</button>
                     <button id="delete-selected" class="btn btn-danger">선택 삭제</button>
                 </div>
+                <!-- 상품 추가루프 -->
+                <div class="product-card card" th:each="product, index : ${productList}">
+                    <div class="card-body d-flex align-items-center">
+                        <input type="checkbox" class="mr-3 product-checkbox">
+                        <img th:src="${imageUrls.get(index.index)}" th:alt="${product.name}" class="img-thumbnail mr-3">
+                        <div>
+                            <h5 class="card-title" th:text="${product.name}">나이키 에어맥스</h5>
+                            <p class="card-text" th:text="${product.description}">상품요약정보(사이즈, 색상 등)</p>
+                            <p class="card-text" th:text="${product.price}">가격: 89,000원</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- /상품 추가루프 -->
             </div>
-
-            <div class="col-md-4 total-price">
-                <h2>Total Price</h2>
-                <p>주문 상품 수: <span id="item-count">0</span></p>
-                <p>상품 총액: <span id="total-amount">0 원</span></p>
-                <p>할인 금액: <span id="discount">0 원</span></p>
-                <p>배송비: <span id="shipping-cost">3,000 원</span></p>
-                <hr>
-                <p><strong>전체 주문 금액: </strong><span id="final-amount">0 원</span></p>
-                <button class="btn btn-primary btn-block">구매하기</button>
-            </div>
+        </div>
+        <div class="col-md-4 total-price">
+            <h2>Total Price</h2>
+            <p>주문 상품 수: <span id="item-count">0</span></p>
+            <p>상품 총액: <span id="total-amount">0 원</span></p>
+            <p>할인 금액: <span id="discount">0 원</span></p>
+            <p>배송비: <span id="shipping-cost">3,000 원</span></p>
+            <hr>
+            <p><strong>전체 주문 금액: </strong><span id="final-amount">0 원</span></p>
+            <button class="btn btn-primary btn-block">구매하기</button>
         </div>
     </div>
 </div>

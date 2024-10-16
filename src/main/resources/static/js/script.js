@@ -86,7 +86,7 @@ $('header').mouseleave(function () {
 });
 
 // 동적 링크 설정: 클릭 시 URL에 데이터를 추가
-$(document).on('click', '', function (event) {
+$('header').on('click', '', function (event) {
     event.preventDefault(); // 기본 링크 동작 방지
 
     const category = $(this).data('category');
