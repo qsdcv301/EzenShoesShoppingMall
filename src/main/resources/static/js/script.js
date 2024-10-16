@@ -85,23 +85,32 @@ $('header').mouseleave(function () {
     $('.header-menu').stop().hide();  // 슬라이드 없이 바로 숨김
 });
 
-// 동적 링크 설정: 클릭 시 URL에 데이터를 추가
-$('header').on('click', '', function (event) {
-    event.preventDefault(); // 기본 링크 동작 방지
+// 동적 링크 설정: 메뉴 항목 클릭 시 URL에 데이터를 추가
+    $('header').on('click', '[data-category]', function (event) {
+        event.preventDefault(); // 기본 링크 동작 방지
 
-    const category = $(this).data('category');
-    const subcategory = $(this).data('subcategory');
-    const item = $(this).data('item');
+        const category = $(this).data('category');
+        const subcategory = $(this).data('subcategory');
+        const item = $(this).data('item');
 
-    // 동적 URL 생성
-    let newUrl = `/products?category=${category}`;
-    if (subcategory) {
-        newUrl += `&subcategory=${encodeURIComponent(subcategory)}`;
-    }
+        // 카테고리 데이터가 존재하는지 확인
+        if (!category) {
+            console.warn('카테고리가 정의되지 않았습니다.');
+            return;
+        }
 
-    // URL 리디렉션
-    window.location.href = newUrl;
-});
+        // 동적 URL 생성
+        let newUrl = `/products?category=${category}`;
+        if (subcategory) {
+            newUrl += `&subcategory=${encodeURIComponent(subcategory)}`;
+        }
+        if (item) {
+            newUrl += `&item=${encodeURIComponent(item)}`;
+        }
+
+        // URL 리디렉션
+        window.location.href = newUrl;
+    });
 /*********************************************************************************/
 /**********************       헤더 페이지 스크립트 끝       ************************/
 /*********************************************************************************/
