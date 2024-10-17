@@ -237,3 +237,67 @@ header {
 .footer-subnav a {
     font-size: 13px;
 }
+
+/*login page*/
+
+.login-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.login-card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-card-header {
+    /* background-color: #222222; */
+    border-bottom: none;
+    text-align: center;
+    padding: 20px;
+}
+
+.login-card-header h3 {
+    color: #ddd;
+    margin-bottom: 0;
+    font-weight: bold;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.btn-login {
+    border-color: #222222;
+    font-weight: bold;
+}
+
+.btn-login:hover {
+    background-color: #777777;
+    border-color: #777777;
+}
+
+/*register page*/
+
+.signup-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-sign-up {
+    height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.btn-sign-up:hover {
+    background-color: #777777;
+    border-color: #777777;
+}
