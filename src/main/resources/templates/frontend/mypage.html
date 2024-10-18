@@ -81,28 +81,68 @@
                     <div class="card-body">
                         <h5 class="card-title">개인 정보</h5>
                         <ul class="list-group list-group-flush">
-                            <!-- 개인정보항목 -->
+                            <!-- 수정 불가능한 정보 -->
                             <li class="list-group-item"><strong>아이디:</strong> <span id="userId">user123</span></li>
                             <li class="list-group-item"><strong>이름:</strong> <span id="userName">홍길동</span></li>
-                            <li class="list-group-item">
-                                <strong>이메일:</strong>
-                                <input type="email" id="userEmail" value="user123@example.com"
-                                    class="form-control mt-2">
-                            </li>
+                            <li class="list-group-item"><strong>성별:</strong> <span id="userGender">남성</span></li>
+                            <li class="list-group-item"><strong>생년월일:</strong> <span id="userBirthday">19900101</span></li>
+                            
+                            <!-- 수정 가능한 정보 -->                            
                             <li class="list-group-item">
                                 <strong>휴대폰 번호:</strong>
-                                <input type="tel" id="userPhone" value="010-1234-5678" class="form-control mt-2">
+                                <input type="tel" id="userPhone" value="01012341234" class="form-control mt-2">
+                                <small class="form-text text-muted">예: 01012341234</small>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>이메일:</strong>
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" id="emailId" name="emailId" required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">@</span>
+                                        </div>
+                                        <select class="form-control" id="emailDomainSelect">
+                                            <option value="">선택</option>
+                                            <option value="naver.com">naver.com</option>
+                                            <option value="gmail.com">gmail.com</option>
+                                            <option value="hanmail.net">hanmail.net</option>
+                                            <option value="direct">직접 입력</option>
+                                        </select>
+                                        <input type="text" class="form-control" id="emailDomainDirect"
+                                            name="emailDomain" style="display:none;" placeholder="도메인 입력">
+                                    </div>
+                                    <input type="hidden" id="fullEmail" name="email">
+                                </div>
                             </li>
                             <li class="list-group-item">
                                 <strong>배송지 주소:</strong>
                                 <div class="mt-2">
-                                    <!-- 우편번호 검색 및 주소 입력 -->
-                                    <input type="text" id="postcode" placeholder="우편번호" readonly>
-                                    <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-                                    <input type="text" id="address" placeholder="주소" class="mt-2" style="width: 100%;"
-                                        readonly><br>
-                                    <input type="text" id="detailAddress" placeholder="상세주소" class="mt-2"
-                                        style="width: 100%;">
+                                    <div class="form-group">
+                                        <label for="postcode">우편번호</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="postcode" name="postcode"
+                                                readonly>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" type="button"
+                                                    id="searchAddress">주소 검색</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="address">주소</label>
+                                        <input type="text" class="form-control mb-3" id="address" name="address"
+                                            readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="detailAddress">상세 주소</label>
+                                        <input type="text" class="form-control mb-3" id="detailAddress"
+                                            name="detailAddress">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="extraAddress">참고항목</label>
+                                        <input type="text" class="form-control mb-3" id="extraAddress"
+                                            name="extraAddress" readonly>
+                                    </div>
                                 </div>
                             </li>
                         </ul>
@@ -134,8 +174,8 @@
                                     <strong>주문번호:</strong> 12346<br>
                                     <strong>상품명:</strong> 스니커즈 B<br>
                                     <strong>구매일:</strong> 2024-09-15<br>
-                                    <strong>배송 현황:</strong> <span class="delivery-status delivery-in-progress">배송
-                                        중</span><br>
+                                    <strong>배송 현황:</strong>
+                                    <span class="delivery-status delivery-in-progress">배송 중</span><br>
                                     <button class="btn btn-secondary btn-sm mt-2 open-review" data-order="12346"
                                         data-product="스니커즈 B" data-delivery-status="배송 중" disabled>배송 중</button>
                                 </li>
@@ -143,8 +183,8 @@
                                     <strong>주문번호:</strong> 12347<br>
                                     <strong>상품명:</strong> 축구화 C<br>
                                     <strong>구매일:</strong> 2024-09-15<br>
-                                    <strong>배송 현황:</strong> <span class="delivery-status delivery-preparing">상품 준비
-                                        중</span><br>
+                                    <strong>배송 현황:</strong>
+                                    <span class="delivery-status delivery-preparing">상품 준비 중</span><br>
                                     <button class="btn btn-secondary btn-sm mt-2 open-review" data-order="12347"
                                         data-product="축구화 C" data-delivery-status="상품 준비 중" disabled>상품 준비 중</button>
                                 </li>
@@ -169,7 +209,11 @@
                 <input type="text" class="form-control" id="productName" readonly>
             </div>
             <div class="form-group">
-                <label for="reviewText">후기 내용</label>
+                <label for="freviewText">한줄 후기</label>
+                <input class="form-control" id="freviewText" rows="1" required></input>
+            </div>
+            <div class="form-group">
+                <label for="reviewText">상세 후기</label>
                 <textarea class="form-control" id="reviewText" rows="3" required></textarea>
             </div>
             <!-- starRating -->
@@ -184,11 +228,6 @@
                 </div>
                 <input type="hidden" id="rating" name="rating" required>
             </div>
-            <!-- 파일첨부 -->
-            <div class="form-group">
-                <label for="imageUpload">사진 첨부</label>
-                <input type="file" class="form-control-file" id="imageUpload" accept="image/*">
-            </div>
             <button type="button" class="btn btn-dark" id="submitReview">제출</button>
         </form>
     </div>
@@ -196,23 +235,24 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        // 구매목록 토글//
         document.addEventListener('DOMContentLoaded', function () {
             const toggleBtn = document.getElementById('togglePurchaseList');
             const purchaseList = document.getElementById('purchaseList');
             const reviewSidebar = document.getElementById('reviewSidebar');
             const closeReview = document.getElementById('closeReview');
-
+    
+            // 구매목록 토글
             toggleBtn.addEventListener('click', function () {
                 purchaseList.classList.toggle('show');
                 this.querySelector('i').classList.toggle('fa-chevron-down');
                 this.querySelector('i').classList.toggle('fa-chevron-up');
-
+    
                 if (!purchaseList.classList.contains('show')) {
                     closeReviewSidebar();
                 }
             });
-            //후기 작성 버튼//
+    
+            // 후기 작성 버튼
             document.querySelectorAll('.open-review').forEach(button => {
                 const deliveryStatus = button.getAttribute('data-delivery-status');
                 if (deliveryStatus !== '배송완료') {
@@ -228,28 +268,28 @@
                     });
                 }
             });
-
-            //후기 사이드바 닫기//
+    
+            // 후기 사이드바 닫기
             closeReview.addEventListener('click', closeReviewSidebar);
-
+    
             function closeReviewSidebar() {
                 reviewSidebar.classList.remove('show');
                 document.getElementById('reviewForm').reset();
                 updateStars(0);
             }
-
-            //starRating//
+    
+            // 별점 기능
             const starRating = document.getElementById('starRating');
             const ratingInput = document.getElementById('rating');
             const stars = starRating.querySelectorAll('.fa-star');
-
+    
             starRating.addEventListener('click', function (e) {
                 if (e.target.classList.contains('fa-star')) {
                     const rating = e.target.getAttribute('data-rating');
                     updateStars(rating);
                 }
             });
-
+    
             function updateStars(rating) {
                 stars.forEach((star, index) => {
                     if (index < rating) {
@@ -262,8 +302,8 @@
                 });
                 ratingInput.value = rating;
             }
-
-            //후기제출//
+    
+            // 후기 제출
             document.getElementById('submitReview').addEventListener('click', function () {
                 const product = document.getElementById('productName').value;
                 const review = document.getElementById('reviewText').value;
@@ -275,34 +315,91 @@
                     alert('후기와 별점을 작성해주세요.');
                 }
             });
-
+    
+            // 변경사항 저장
             document.getElementById('saveChanges').addEventListener('click', function () {
-                const email = document.getElementById('userEmail').value;
+                const email = document.getElementById('fullEmail').value;
                 const phone = document.getElementById('userPhone').value;
                 const postcode = document.getElementById('postcode').value;
                 const address = document.getElementById('address').value;
                 const detailAddress = document.getElementById('detailAddress').value;
-
+    
+                // 여기에 서버로 데이터를 전송하는 코드를 추가할 수 있습니다.
                 alert('변경사항이 저장되었습니다.\n이메일: ' + email + '\n휴대폰: ' + phone +
                     '\n주소: ' + postcode + ' ' + address + ' ' + detailAddress);
             });
-        });
-
-        function execDaumPostcode() {
-            new daum.Postcode({
-                oncomplete: function (data) {
-                    var addr = '';
-                    if (data.userSelectedType === 'R') {
-                        addr = data.roadAddress;
-                    } else {
-                        addr = data.jibunAddress;
+    
+            // 주소 검색
+            document.getElementById('searchAddress').addEventListener('click', function() {
+                new daum.Postcode({
+                    oncomplete: function(data) {
+                        var addr = '';
+                        var extraAddr = '';
+    
+                        if (data.userSelectedType === 'R') {
+                            addr = data.roadAddress;
+                        } else {
+                            addr = data.jibunAddress;
+                        }
+    
+                        if(data.userSelectedType === 'R'){
+                            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                                extraAddr += data.bname;
+                            }
+                            if(data.buildingName !== '' && data.apartment === 'Y'){
+                                extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                            }
+                            if(extraAddr !== ''){
+                                extraAddr = ' (' + extraAddr + ')';
+                            }
+                            document.getElementById("extraAddress").value = extraAddr;
+                        } else {
+                            document.getElementById("extraAddress").value = '';
+                        }
+    
+                        document.getElementById('postcode').value = data.zonecode;
+                        document.getElementById("address").value = addr;
+                        document.getElementById("detailAddress").focus();
                     }
-                    document.getElementById('postcode').value = data.zonecode;
-                    document.getElementById("address").value = addr;
-                    document.getElementById("detailAddress").focus();
+                }).open();
+            });
+    
+            // 이메일 도메인 선택 또는 직접 입력
+            document.getElementById('emailDomainSelect').addEventListener('change', function() {
+                var domain = this.value;
+                if (domain === 'direct') {
+                    document.getElementById('emailDomainDirect').style.display = 'block';
+                    document.getElementById('emailDomainDirect').value = '';
+                    document.getElementById('emailDomainDirect').focus();
+                    this.style.display = 'none';
+                } else {
+                    document.getElementById('emailDomainDirect').style.display = 'none';
+                    document.getElementById('emailDomainDirect').value = domain;
+                    this.style.display = 'block';
                 }
-            }).open();
-        }
+                combineEmail();
+            });
+    
+            document.getElementById('emailDomainDirect').addEventListener('blur', function() {
+                if (this.value === '') {
+                    this.style.display = 'none';
+                    document.getElementById('emailDomainSelect').style.display = 'block';
+                    document.getElementById('emailDomainSelect').value = '';
+                }
+            });
+    
+            // 이메일 조합
+            function combineEmail() {
+                var emailId = document.getElementById('emailId').value;
+                var emailDomain = document.getElementById('emailDomainDirect').value || document.getElementById('emailDomainSelect').value;
+                if (emailId && emailDomain) {
+                    document.getElementById('fullEmail').value = emailId + '@' + emailDomain;
+                }
+            }
+    
+            document.getElementById('emailId').addEventListener('input', combineEmail);
+            document.getElementById('emailDomainDirect').addEventListener('input', combineEmail);
+        });
     </script>
 </body>
 
