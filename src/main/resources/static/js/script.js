@@ -205,6 +205,25 @@ $(document).ready(function () {
         $(this).attr('src', mainImgSrc);
     });
 
+    // 버튼 클릭 이벤트 처리
+    $('#size-buttons .size-btn').on('click', function() {
+        // 모든 버튼의 active와 faded 클래스를 초기화
+        $('#size-buttons .size-btn').removeClass('active faded');
+
+        // 클릭한 버튼에 active 클래스 추가
+        $(this).addClass('active');
+
+        // 클릭되지 않은 버튼들에 faded 클래스 추가
+        $('#size-buttons .size-btn').not(this).addClass('faded');
+
+        // 선택한 사이즈 값 가져오기
+        const selectedSize = $(this).text();
+        console.log('선택된 사이즈:', selectedSize);
+
+        // 사이즈 가이드 링크에 선택한 사이즈 추가
+        $('#size-guide-link').attr('href', '/size-guide?size=' + selectedSize);
+    });
+
     /*********************************************************************************/
     /**********************       상품 디테일 페이지 스크립트 끝       ************************/
     /*********************************************************************************/
