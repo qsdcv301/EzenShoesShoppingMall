@@ -42,7 +42,11 @@ public class CartService {
         cartRepository.deleteById(id);
     }
 
-    public List<Cart> findAllByUserId(long productId) {
-        return cartRepository.findAllByUserId(productId);
+    public List<Cart> findAllByUserId(long userId) {
+        return cartRepository.findAllByUserId(userId);
+    }
+
+    public List<Cart> findByUserIdAndProductIds(Long userId, List<Long> productIds) {
+        return cartRepository.findByUserIdAndProductIdIn(userId, productIds);
     }
 }
