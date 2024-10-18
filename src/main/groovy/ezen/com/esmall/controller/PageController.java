@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
@@ -51,11 +52,10 @@ public class PageController {
     }
 
     @PostMapping("/register")
-    public String register(@RequestParam(value = "uid") String uid, @RequestParam(value = "pw") String pw,
-                           @RequestParam(value = "name") String name,
-                           Model model) {
-        User user = new User("name", uid, pw, "", 0, "", "", "", LocalDateTime.now(), 0, 0);
-        userService.create(user);
+    public String register(@RequestBody User user, Model model) {
+        User userData = new User(user.getName(), user.getUid(), user.getPw(), user.getTel(), user.getAddrf(), user.getAddrs(),
+                user.getAddrt(), user.getAddrl(), null, 1, 1, user.getEmail(), user.getGender(), user.getBirthday());
+        userService.create(userData);
         return "redirect:/";
     }
 

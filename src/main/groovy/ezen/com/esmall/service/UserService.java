@@ -25,25 +25,30 @@ public class UserService {
 
     public User create(User user) {
         // 비밀번호 암호화
-        user.setPw(passwordEncoder.encode(user.getPassword()));
+        user.setPw(passwordEncoder.encode(user.getPw())); // 비밀번호 설정 부분 수정
         return userRepository.save(user);
     }
 
     public User update(Long id, User userDetails) {
         User user = findById(id);
         if (user != null) {
+            // 비밀번호가 제공되면 암호화 후 설정
             if (userDetails.getPw() != null && !userDetails.getPw().isEmpty()) {
-                user.setPw(passwordEncoder.encode(userDetails.getPw()));
+                user.setPw(passwordEncoder.encode(userDetails.getPw())); // 새 비밀번호로 업데이트
             }
+            // 모든 필드 업데이트
             user.update(userDetails.getName(), userDetails.getUid(),
-                    user.getPw(),
+                    user.getPw(), // 비밀번호는 필요에 따라 업데이트
                     userDetails.getTel(),
                     userDetails.getAddrf(), userDetails.getAddrs(),
                     userDetails.getAddrt(), userDetails.getAddrl(),
-                    userDetails.getLevel(), userDetails.getGrade());
+                    userDetails.getLevel(), userDetails.getGrade(),
+                    userDetails.getEmail(), // 이메일 업데이트
+                    userDetails.getGender(), // 성별 업데이트
+                    userDetails.getBirthday()); // 생년월일 업데이트
             return userRepository.save(user);
         }
-        return null;
+        return null; // 사용자가 존재하지 않을 경우 null 반환
     }
 
     public void delete(Long id) {

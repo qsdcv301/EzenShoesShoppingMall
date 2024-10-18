@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -27,7 +28,7 @@ public class User implements UserDetails {
     @Column(name = "name", nullable = false, length = 50)
     private String name;
 
-    @Column(name = "uid", nullable = false, length = 50)
+    @Column(name = "uid", nullable = false, length = 50, unique = true)
     private String uid;
 
     @Column(name = "pw", nullable = false, length = 225)
@@ -48,7 +49,7 @@ public class User implements UserDetails {
     @Column(name = "addrl", length = 225)
     private String addrl;
 
-    @Column(name = "create_at")
+    @Column(name = "create_at", updatable = false)
     private LocalDateTime createAt;
 
     @Column(name = "level", nullable = false)
@@ -57,9 +58,22 @@ public class User implements UserDetails {
     @Column(name = "grade", nullable = false)
     private Integer grade;
 
+    @Column(name = "email", length = 100)
+    private String email; // 이메일 필드
+
+    @Column(name = "gender", length = 15)
+    private String gender; // 성별 필드
+
+    @Column(name = "birthday") // 생년월일
+    private int birthday;
+
+    @Column(name = "ezcoin", nullable = false)
+    private Integer ezcoin = 0; // 기본값 0
+
     @Builder
     public User(String name, String uid, String pw, String tel, Integer addrf, String addrs, String addrt,
-                String addrl, LocalDateTime createAt, Integer level, Integer grade) {
+                String addrl, LocalDateTime createAt, Integer level, Integer grade, String email,
+                String gender, Integer birthday) {
         this.name = name;
         this.uid = uid;
         this.pw = pw;
@@ -68,19 +82,21 @@ public class User implements UserDetails {
         this.addrs = addrs;
         this.addrt = addrt;
         this.addrl = addrl;
-        this.createAt = createAt;
+        this.createAt = createAt != null ? createAt : LocalDateTime.now(); // 현재 시간으로 초기화
         this.level = level;
         this.grade = grade;
+        this.email = email;
+        this.gender = gender;
+        this.birthday = birthday;
     }
 
     public void update(String name, String uid, String pw, String tel, Integer addrf, String addrs, String addrt,
-                       String addrl, Integer level, Integer grade) {
+                       String addrl, Integer level, Integer grade, String email, String gender, Integer birthday) {
         this.name = name;
         this.uid = uid;
         if (pw != null && !pw.isEmpty()) {
             this.pw = pw;
         }
-        this.pw = pw;
         this.tel = tel;
         this.addrf = addrf;
         this.addrs = addrs;
@@ -88,6 +104,9 @@ public class User implements UserDetails {
         this.addrl = addrl;
         this.level = level;
         this.grade = grade;
+        this.email = email;
+        this.gender = gender;
+        this.birthday = birthday;
     }
 
     @Override
