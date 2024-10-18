@@ -1,10 +1,10 @@
 $(document).ready(function () {
-/*********************************************************************************/
-/**********************        헤더 페이지 스크립트         ************************/
-/*********************************************************************************/
+    /*********************************************************************************/
+    /**********************        헤더 페이지 스크립트         ************************/
+    /*********************************************************************************/
 // 각 메인 메뉴에 대응하는 소메뉴 내용
-const submenuContents = {
-    brand: `<div class="row justify-content-center">
+    const submenuContents = {
+        brand: `<div class="row justify-content-center">
                 <div class="hd-navmenu col-4 d-flex mx-4 px-4 justify-content-center bg-white pt-4">
                     <div class="col-3">
                         <h5>
@@ -52,38 +52,38 @@ const submenuContents = {
                     </div>
                 </div>
             </div>`
-};
+    };
 
 
 // 메인 메뉴 항목에 마우스를 올렸을 때 소메뉴 내용을 표시
-$('.nav-item').hover(
-    function () {
-        const submenuType = $(this).data('submenu');
-        $('.header-menu')
-            .html(submenuContents[submenuType])  // 해당 메뉴에 맞는 내용으로 변경
-            .stop()
-            .show();  // 소메뉴를 바로 표시
-    },
-    function () {
-        // 마우스를 메뉴 항목에서 벗어날 때는 소메뉴가 바로 사라지지 않도록
-        // .header-menu로 마우스가 이동했는지를 확인
-    }
-);
+    $('.nav-item').hover(
+        function () {
+            const submenuType = $(this).data('submenu');
+            $('.header-menu')
+                .html(submenuContents[submenuType])  // 해당 메뉴에 맞는 내용으로 변경
+                .stop()
+                .show();  // 소메뉴를 바로 표시
+        },
+        function () {
+            // 마우스를 메뉴 항목에서 벗어날 때는 소메뉴가 바로 사라지지 않도록
+            // .header-menu로 마우스가 이동했는지를 확인
+        }
+    );
 
 // .header-menu에도 마우스 이벤트를 추가하여 유지되도록 설정
-$('.header-menu').hover(
-    function () {
-        $(this).stop().show();
-    },
-    function () {
-        $(this).stop().hide();  // 마우스를 벗어나면 바로 숨김
-    }
-);
+    $('.header-menu').hover(
+        function () {
+            $(this).stop().show();
+        },
+        function () {
+            $(this).stop().hide();  // 마우스를 벗어나면 바로 숨김
+        }
+    );
 
 // 전체 헤더 영역에서 마우스를 벗어나면 소메뉴를 숨김
-$('header').mouseleave(function () {
-    $('.header-menu').stop().hide();  // 슬라이드 없이 바로 숨김
-});
+    $('header').mouseleave(function () {
+        $('.header-menu').stop().hide();  // 슬라이드 없이 바로 숨김
+    });
 
 // 동적 링크 설정: 메뉴 항목 클릭 시 URL에 데이터를 추가
     $('header').on('click', '[data-category]', function (event) {
@@ -111,14 +111,14 @@ $('header').mouseleave(function () {
         // URL 리디렉션
         window.location.href = newUrl;
     });
-/*********************************************************************************/
-/**********************       헤더 페이지 스크립트 끝       ************************/
-/*********************************************************************************/
+    /*********************************************************************************/
+    /**********************       헤더 페이지 스크립트 끝       ************************/
+    /*********************************************************************************/
 
 
-/*********************************************************************************/
-/**********************       메인 페이지 스크립트 시작       ************************/
-/*********************************************************************************/
+    /*********************************************************************************/
+    /**********************       메인 페이지 스크립트 시작       ************************/
+    /*********************************************************************************/
 
     //메인페이지 상품 데크(5개 가로배열 돼 있는 곳) 버튼 누르면 이동
     const visibleCount = 5; // 화면에 보일 이미지 개수
@@ -141,9 +141,9 @@ $('header').mouseleave(function () {
     });
 
 
-/*********************************************************************************/
-/**********************       메인 페이지 스크립트 끝       ************************/
-/*********************************************************************************/
+    /*********************************************************************************/
+    /**********************       메인 페이지 스크립트 끝       ************************/
+    /*********************************************************************************/
 
 
     /*********************************************************************************/
@@ -190,9 +190,9 @@ $('header').mouseleave(function () {
     /**********************      상품 메인 페이지 스크립트 끝     ************************/
     /*********************************************************************************/
 
-/*********************************************************************************/
-/**********************      상품 디테일 페이지 스크립트 시작      ************************/
-/*********************************************************************************/
+    /*********************************************************************************/
+    /**********************      상품 디테일 페이지 스크립트 시작      ************************/
+    /*********************************************************************************/
 
 //클릭한 이미지로 이미지 변경
     $(".simg").on('click', function () {
@@ -205,24 +205,43 @@ $('header').mouseleave(function () {
         $(this).attr('src', mainImgSrc);
     });
 
-/*********************************************************************************/
-/**********************       상품 디테일 페이지 스크립트 끝       ************************/
-/*********************************************************************************/
-    
-    
+    // 버튼 클릭 이벤트 처리
+    $('#size-buttons .size-btn').on('click', function() {
+        // 모든 버튼의 active와 faded 클래스를 초기화
+        $('#size-buttons .size-btn').removeClass('active faded');
+
+        // 클릭한 버튼에 active 클래스 추가
+        $(this).addClass('active');
+
+        // 클릭되지 않은 버튼들에 faded 클래스 추가
+        $('#size-buttons .size-btn').not(this).addClass('faded');
+
+        // 선택한 사이즈 값 가져오기
+        const selectedSize = $(this).text();
+        console.log('선택된 사이즈:', selectedSize);
+
+        // 사이즈 가이드 링크에 선택한 사이즈 추가
+        $('#size-guide-link').attr('href', '/size-guide?size=' + selectedSize);
+    });
+
+    /*********************************************************************************/
+    /**********************       상품 디테일 페이지 스크립트 끝       ************************/
+    /*********************************************************************************/
+
+
     /*********************************************************************************/
     /**********************    회원가입 페이지 스크립트    ************************/
     /*********************************************************************************/
 
     // 아이디 중복 확인
-    $('#checkUsername').click(function() {
+    $('#checkUsername').click(function () {
         alert("아이디 중복 확인 기능은 서버 연동이 필요합니다.");
     });
 
     // 주소 검색
-    $('#searchAddress').click(function() {
+    $('#searchAddress').click(function () {
         new daum.Postcode({
-            oncomplete: function(data) {
+            oncomplete: function (data) {
                 var addr = '';
                 var extraAddr = '';
 
@@ -232,14 +251,14 @@ $('header').mouseleave(function () {
                     addr = data.jibunAddress;
                 }
 
-                if(data.userSelectedType === 'R'){
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                if (data.userSelectedType === 'R') {
+                    if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
                         extraAddr += data.bname;
                     }
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                    if (data.buildingName !== '' && data.apartment === 'Y') {
                         extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
                     }
-                    if(extraAddr !== ''){
+                    if (extraAddr !== '') {
                         extraAddr = ' (' + extraAddr + ')';
                     }
                     $('#extraAddress').val(extraAddr);
@@ -255,7 +274,7 @@ $('header').mouseleave(function () {
     });
 
     // 이메일 도메인 선택 또는 직접 입력
-    $('#emailDomainSelect').change(function() {
+    $('#emailDomainSelect').change(function () {
         var domain = $(this).val();
         if (domain === 'direct') {
             $('#emailDomainDirect').show().val('').focus();
@@ -302,7 +321,7 @@ $('header').mouseleave(function () {
     }
 
     // 폼 제출
-    $('#signupForm').submit(function(e) {
+    $('#signupForm').submit(function (e) {
         e.preventDefault();
         combineEmail(); // 폼 제출 전 이메일 조합
         if (validateBirthdate()) {
@@ -331,7 +350,7 @@ $('header').mouseleave(function () {
         $(".product-checkbox:checked").each(function () {
             var itemPrice = $(this)
                 .closest(".product-card")
-                .find(".card-text")
+                .find(".card-text span")
                 .text()
                 .replace(/[^0-9]/g, ""); // 숫자 외의 문자 제거
             itemPrice = parseFloat(itemPrice); // 숫자 변환
@@ -344,15 +363,15 @@ $('header').mouseleave(function () {
 
         // 합산된 가격과 항목 수를 표시
         $("#item-count").text(itemCount);
-        $("#total-amount").text(totalPrice + " 원");
+        $("#total-amount").text(totalPrice.toLocaleString() + " 원");
 
         // 배송비 처리
         var shippingCost = totalPrice >= freeDeliveryThreshold ? 0 : deliveryFee;
-        $("#shipping-cost").text(shippingCost + " 원");
+        $("#shipping-cost").text(shippingCost.toLocaleString() + " 원");
 
         // 최종 합계 계산
         var finalTotal = totalPrice + shippingCost;
-        $("#final-amount").text(finalTotal + " 원");
+        $("#final-amount").text(finalTotal.toLocaleString() + " 원");
     }
 
 // 전체 선택/해제 기능
@@ -364,10 +383,37 @@ $('header').mouseleave(function () {
 
 // 선택된 항목 삭제
     $("#delete-selected").on("click", function () {
+        var selectedProducts = [];
+
         $(".product-checkbox:checked").each(function () {
+            var productId = $(this).closest(".product-card").find("input[name='product-id']").val();
+            selectedProducts.push(productId); // 선택된 상품의 ID 저장
             $(this).closest(".product-card").remove(); // 선택된 상품 삭제
         });
-        calculatePrices(); // 가격 재계산
+
+        if (selectedProducts.length === 0) {
+            alert("삭제할 상품을 선택해 주세요.");
+            return;
+        }
+
+        // AJAX 요청으로 선택된 상품 삭제
+        $.ajax({
+            type: "POST",
+            url: "/deleteCart",  // 서버에서 삭제 요청을 처리할 URL
+            data: JSON.stringify({productIds: selectedProducts}),
+            contentType: "application/json",
+            success: function (response) {
+                if (response.success) {
+                    alert("선택된 상품이 삭제되었습니다.");
+                    calculatePrices(); // 가격 재계산
+                } else {
+                    alert("상품 삭제에 실패했습니다.");
+                }
+            },
+            error: function () {
+                alert("서버에 오류가 발생했습니다.");
+            }
+        });
     });
 
 // 체크박스 변경 시 가격 재계산
@@ -379,6 +425,7 @@ $('header').mouseleave(function () {
     $(document).ready(function () {
         calculatePrices();
     });
+
     /*********************************************************************************/
     /**********************  상품 장바구니 페이지 스크립트 끝   ************************/
     /*********************************************************************************/
@@ -389,7 +436,7 @@ $('header').mouseleave(function () {
     const termsCheck = document.getElementById('termsCheck');
     const privacyCheck = document.getElementById('privacyCheck');
 
-    allCheck.addEventListener('change', function() {
+    allCheck.addEventListener('change', function () {
         termsCheck.checked = this.checked;
         privacyCheck.checked = this.checked;
     });
@@ -401,7 +448,7 @@ $('header').mouseleave(function () {
         allCheck.checked = termsCheck.checked && privacyCheck.checked;
     }
 
-    document.getElementById('termsForm').addEventListener('submit', function(e) {
+    document.getElementById('termsForm').addEventListener('submit', function (e) {
         e.preventDefault();
         if (termsCheck.checked && privacyCheck.checked) {
             alert('약관에 동의하셨습니다. 회원가입 페이지로 이동합니다.');

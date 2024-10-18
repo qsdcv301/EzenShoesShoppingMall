@@ -2,6 +2,7 @@ package ezen.com.esmall.controller;
 
 import ezen.com.esmall.entity.Category;
 import ezen.com.esmall.entity.Product;
+import ezen.com.esmall.entity.ProductSize;
 import ezen.com.esmall.entity.User;
 import ezen.com.esmall.service.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -102,19 +103,31 @@ public class PageController {
 
     @GetMapping("/productsDetail")
     public String productsDetail(@RequestParam(value = "productCode") Long productCode,
-                                 @RequestParam(value = "category", required = false) String category, Model model) {
+                                 @RequestParam(value = "category", required = false) String category,
+                                 Model model) {
+        // 상품 정보 조회
         Product product = productService.findById(productCode);
+
+        // 상품 이미지 URL 생성
         String[] imageUrls = new String[6];
         for (int i = 0; i < imageUrls.length; i++) {
             imageUrls[i] = String.format("/images/%s/%s_0%d.png",
-                    category,
-                    product.getName(),
-                    i + 1);
+                    category, product.getName(), i + 1);
         }
+
+        // 구입 가능한 사이즈 가져오기
+        List<ProductSize> sizes = product.getSizes();
+
+        // 모델에 데이터 추가
         model.addAttribute("imageUrls", imageUrls);
         model.addAttribute("category", category);
         model.addAttribute("product", product);
+        model.addAttribute("sizes", sizes);  // 사이즈 정보 추가
+
         return "productsDetail";
     }
 
+
 }
+
+
