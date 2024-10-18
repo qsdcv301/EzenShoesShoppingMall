@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -33,6 +34,12 @@ public class Product {
 
     @Column(name = "category_id", nullable = false)
     private Long categoryId;
+
+    // Product와 ProductSize 간의 연관관계 매핑
+    @OneToMany
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    private List<ProductSize> sizes;
+
 
     @Builder
     public Product(String name, Integer price, String description,

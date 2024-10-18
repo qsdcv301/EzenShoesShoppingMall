@@ -2,19 +2,23 @@ package ezen.com.esmall.controller;
 
 import ezen.com.esmall.entity.Cart;
 import ezen.com.esmall.entity.Product;
+import ezen.com.esmall.entity.User;
+import ezen.com.esmall.repository.CartRepository;
 import ezen.com.esmall.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
@@ -34,6 +38,8 @@ public class UserDataController {
     private CategoryService categoryService;
     @Autowired
     private CartService cartService;
+    @Autowired
+    private CartRepository cartRepository;
 
     @ModelAttribute
     public void addUserToModel(Model model) {
@@ -72,6 +78,47 @@ public class UserDataController {
         model.addAttribute("cartList", cartList);
         model.addAttribute("productList", productList);
         model.addAttribute("imageUrls", imageUrls);
+        model.addAttribute("userid", userId);
         return "cart";
     }
+
+    @PostMapping("/deleteCart")
+    public ResponseEntity<?> deleteProducts(@RequestBody Map<String, List<String>> request) {
+        Long currentUserId = getCurrentUserId();
+        List<String> productIds = request.get("productIds");
+
+        if (productIds == null || productIds.isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("success", false, "message", "삭제할 상품이 없습니다."));
+        }
+
+        // cartService에서 현재 사용자와 해당 productIds에 해당하는 cart 항목들만 조회
+        List<Cart> cartList = cartService.findByUserIdAndProductIds(currentUserId, productIds.stream()
+                .map(Long::parseLong).collect(Collectors.toList()));
+
+        if (cartList.isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("success", false, "message", "해당하는 장바구니 항목이 없습니다."));
+        }
+
+        // 일치하는 cart 항목 삭제
+        for (Cart cart : cartList) {
+            cartService.delete(cart.getId());
+        }
+
+        return ResponseEntity.ok().body(Map.of("success", true));
+    }
+
+
+    private Long getCurrentUserId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User userDetails = (User) authentication.getPrincipal();
+        return userDetails.getId();
+    }
+
+//    @PostMapping("addCart")
+//    @ResponseBody
+//    public String addCart(@RequestParam("productid") ,Model model){
+//
+//        return "1";
+//    }
+
 }
