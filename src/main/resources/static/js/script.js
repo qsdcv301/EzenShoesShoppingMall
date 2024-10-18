@@ -85,23 +85,32 @@ $('header').mouseleave(function () {
     $('.header-menu').stop().hide();  // 슬라이드 없이 바로 숨김
 });
 
-// 동적 링크 설정: 클릭 시 URL에 데이터를 추가
-$('header').on('click', '', function (event) {
-    event.preventDefault(); // 기본 링크 동작 방지
+// 동적 링크 설정: 메뉴 항목 클릭 시 URL에 데이터를 추가
+    $('header').on('click', '[data-category]', function (event) {
+        event.preventDefault(); // 기본 링크 동작 방지
 
-    const category = $(this).data('category');
-    const subcategory = $(this).data('subcategory');
-    const item = $(this).data('item');
+        const category = $(this).data('category');
+        const subcategory = $(this).data('subcategory');
+        const item = $(this).data('item');
 
-    // 동적 URL 생성
-    let newUrl = `/products?category=${category}`;
-    if (subcategory) {
-        newUrl += `&subcategory=${encodeURIComponent(subcategory)}`;
-    }
+        // 카테고리 데이터가 존재하는지 확인
+        if (!category) {
+            console.warn('카테고리가 정의되지 않았습니다.');
+            return;
+        }
 
-    // URL 리디렉션
-    window.location.href = newUrl;
-});
+        // 동적 URL 생성
+        let newUrl = `/products?category=${category}`;
+        if (subcategory) {
+            newUrl += `&subcategory=${encodeURIComponent(subcategory)}`;
+        }
+        if (item) {
+            newUrl += `&item=${encodeURIComponent(item)}`;
+        }
+
+        // URL 리디렉션
+        window.location.href = newUrl;
+    });
 /*********************************************************************************/
 /**********************       헤더 페이지 스크립트 끝       ************************/
 /*********************************************************************************/
@@ -136,14 +145,68 @@ $('header').on('click', '', function (event) {
 /**********************       메인 페이지 스크립트 끝       ************************/
 /*********************************************************************************/
 
+
+    /*********************************************************************************/
+    /**********************      상품 메인 페이지 스크립트 시작      ************************/
+    /*********************************************************************************/
+
+    // 현재 페이지의 URL에서 쿼리 파라미터를 가져옴
+    const params = new URLSearchParams(window.location.search);
+
+    // 'category'와 'subcategory' 파라미터 값 가져오기
+    const category = params.get('category');
+    const subcategory = params.get('subcategory');
+
+    // 가져온 파라미터 값으로 페이지의 특정 요소를 업데이트하거나 버튼에 설정
+    if (category) {
+        console.log(`Category: ${category}`);
+        $('#category-button').text(category);
+    }
+
+    if (subcategory) {
+        console.log(`Subcategory: ${subcategory}`);
+        $('#subcategory-button').text(subcategory);
+    }
+
+    // 동적 링크 설정: 카테고리 및 서브카테고리 버튼 클릭 시 URL에 데이터를 추가하고 리디렉트
+    $(document).on('click', '#category-button, #subcategory-button', function (event) {
+        event.preventDefault(); // 기본 링크 동작 방지
+
+        const category = $(this).data('category');
+        const subcategory = $(this).data('subcategory');
+
+        // URL 생성 시 undefined 또는 렌더링되지 않은 변수가 있으면 제외
+        let newUrl = `/products?category=${category}`;
+
+        if (subcategory && subcategory !== "${subcategory}") {
+            newUrl += `&subcategory=${encodeURIComponent(subcategory)}`;
+        }
+
+        // URL 리디렉션
+        window.location.href = newUrl;
+    });
+
+    /*********************************************************************************/
+    /**********************      상품 메인 페이지 스크립트 끝     ************************/
+    /*********************************************************************************/
+
 /*********************************************************************************/
-/**********************      상품 페이지 스크립트 시작      ************************/
+/**********************      상품 디테일 페이지 스크립트 시작      ************************/
 /*********************************************************************************/
 
+//클릭한 이미지로 이미지 변경
+    $(".simg").on('click', function () {
+        //클릭한 두 이미지의 src를 가져옴
+        var mainImgSrc = $(".b-img img").attr('src');
+        var subImgSrc = $(this).attr('src');
 
+        //가져온 두 src값을 바꿈(이미지 이동)
+        $('.b-img img').attr('src', subImgSrc);
+        $(this).attr('src', mainImgSrc);
+    });
 
 /*********************************************************************************/
-/**********************       상품 페이지 스크립트 끝       ************************/
+/**********************       상품 디테일 페이지 스크립트 끝       ************************/
 /*********************************************************************************/
     
     
