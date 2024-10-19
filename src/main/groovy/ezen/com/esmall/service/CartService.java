@@ -49,4 +49,5 @@ public class CartService {
     public List<Cart> findByUserIdAndProductIds(Long userId, List<Long> productIds) {
         return cartRepository.findByUserIdAndProductIdIn(userId, productIds);
     }
+    
 }

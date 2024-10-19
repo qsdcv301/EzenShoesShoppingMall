@@ -13,10 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +55,7 @@ public class UserDataController {
 
     @GetMapping("/mypage")
     public String myPage(Model model) {
-        
+
         return "mypage";
     }
 
@@ -122,11 +119,27 @@ public class UserDataController {
         return userDetails.getId();
     }
 
-//    @PostMapping("addCart")
-//    @ResponseBody
-//    public String addCart(@RequestParam("productid") ,Model model){
-//
-//        return "1";
-//    }
+    @PostMapping("/addCart")
+    @ResponseBody
+    public ResponseEntity<?> addCart(@RequestBody Map<String, Object> request) {
+        Long currentUserId = getCurrentUserId(); // 현재 사용자 ID 가져오기
+        Long productId = Long.parseLong((String) request.get("product_id"));
+        Integer size = Integer.parseInt((String) request.get("size"));
+        Integer quantity = Integer.parseInt((String) request.get("quantity"));
+
+        // 장바구니에 추가하는 로직 작성
+        Cart newCartItem = Cart.builder()
+                .userId(currentUserId)
+                .productId(productId)
+                .size(size)
+                .quantity(quantity)
+                .build();
+
+        // 장바구니에 상품 추가
+        cartService.create(newCartItem);
+
+        return ResponseEntity.ok(Map.of("success", true, "message", "상품이 장바구니에 추가되었습니다."));
+    }
+
 
 }

@@ -222,8 +222,37 @@ $(document).ready(function () {
 
         // 사이즈 가이드 링크에 선택한 사이즈 추가
         $('#size-guide-link').attr('href', '/size-guide?size=' + selectedSize);
+
+        // 선택한 사이즈를 폼의 hidden input에 설정
+        $('input[name="size"]').val(selectedSize);
     });
 
+    $('form[name="addCart"]').on('submit', function (event) {
+        event.preventDefault(); // 폼 제출을 막음
+
+        // 폼 데이터를 객체로 변환
+        var formData = {
+            product_id: $(this).find('input[name="product_id"]').val(),
+            size: $(this).find('input[name="size"]').val(),
+            quantity: $(this).find('input[name="quantity"]').val()
+        };
+
+        // AJAX 요청 보내기
+        $.ajax({
+            url: '/addCart', // 요청을 보낼 URL
+            type: 'POST', // 요청 방식
+            contentType: 'application/json', // 요청 본문 형식
+            data: JSON.stringify(formData), // 폼 데이터 JSON 형식으로 변환
+            success: function (response) {
+                alert('장바구니에 상품이 추가되었습니다!');
+                // 성공 시 추가적인 동작을 여기에 추가할 수 있음
+            },
+            error: function (xhr, status, error) {
+                alert('상품 추가에 실패했습니다: ' + xhr.responseText);
+                // 실패 시 추가적인 동작을 여기에 추가할 수 있음
+            }
+        });
+    });
     /*********************************************************************************/
     /**********************       상품 디테일 페이지 스크립트 끝       ************************/
     /*********************************************************************************/
