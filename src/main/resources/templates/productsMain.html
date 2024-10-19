@@ -35,41 +35,32 @@
             </div>
         </div>
     </div>
-    <div class="col-12">
-        <div class="d-flex justify-content-between px-3 py-2">
-            <div>
-            </div>
-            <button class="btn btn-secondary" type="button">
-                Filter & Sort @
-            </button>
-        </div>
-        <div class="col-12">
-            <div class="d-flex flex-wrap products-images">
-                <div class="col-4 mb-4" th:each="product, image : ${products}">
-                    <a style="text-decoration: none; color: inherit;"
-                       th:href="@{/productsDetail(productCode=${product.id}, category=${category})}">
-                        <div class="card">
-                            <img th:alt="${product.name}" th:src="${imageUrls[image.index]}"/>
+    <div class="col-12 mt-5">
+        <div class="d-flex flex-wrap products-images">
+            <div class="col-4 mb-4" th:each="product, image : ${products}">
+                <a style="text-decoration: none; color: inherit;"
+                   th:href="@{/productsDetail(productCode=${product.id}, category=${category})}">
+                    <div class="card">
+                        <img th:alt="${product.name}" th:src="${imageUrls[image.index]}"/>
 
-                            <p class="pl-2 pt-2" th:text="${product.name}"></p>
-                            <p class="pl-2" th:text="${product.description}"></p>
-                            <p class="pl-2" th:text="${product.price} + ' 원'"></p>
-                        </div>
-                    </a>
-                </div>
+                        <p class="pl-2 pt-2" th:text="${product.name}"></p>
+                        <p class="pl-2" th:text="${product.description}"></p>
+                        <p class="pl-2" th:text="${product.price} + ' 원'"></p>
+                    </div>
+                </a>
             </div>
         </div>
-        <div class="col-12">
-            <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link" href="#">&lt;</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item"><a class="page-link" href="#">&gt;</a></li>
-            </ul>
-        </div>
+    </div>
+    <div class="col-12">
+        <ul class="pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="#">&lt;</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">5</a></li>
+            <li class="page-item"><a class="page-link" href="#">&gt;</a></li>
+        </ul>
     </div>
 </div>
 <footer th:replace="~{fragments/footer :: footer}"></footer>
