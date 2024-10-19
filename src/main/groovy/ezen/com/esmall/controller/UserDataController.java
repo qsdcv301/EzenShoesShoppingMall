@@ -55,8 +55,22 @@ public class UserDataController {
 
     @GetMapping("/mypage")
     public String myPage(Model model) {
-
+        Long userId = (Long) model.getAttribute("userid");
+        if (userId == null) {
+            return "redirect:/login";
+        }
+        User user = userService.findById(userId);
+        model.addAttribute("user", user);
         return "mypage";
+    }
+
+    @PostMapping("/updateUser")
+    public ResponseEntity<String> updateUserInfo(@RequestBody User user) {
+        // userInfo 객체에서 수정된 정보 가져오기
+        // 예: userService.updateUser(userInfo);
+
+        // 성공적으로 업데이트되었다고 가정
+        return ResponseEntity.ok("변경사항 저장 완료");
     }
 
     @GetMapping("/cart")
@@ -83,7 +97,6 @@ public class UserDataController {
         model.addAttribute("cartList", cartList);
         model.addAttribute("productList", productList);
         model.addAttribute("imageUrls", imageUrls);
-        model.addAttribute("userid", userId);
         return "cart";
     }
 
@@ -111,7 +124,6 @@ public class UserDataController {
 
         return ResponseEntity.ok().body(Map.of("success", true));
     }
-
 
     private Long getCurrentUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
