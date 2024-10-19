@@ -47,7 +47,8 @@
                             <strong>이메일:</strong>
                             <div class="form-group">
                                 <div class="input-group mb-3">
-                                    <input class="form-control" id="emailId" name="emailId" required type="text">
+                                    <input class="form-control" id="emailId" name="emailId" required
+                                           type="text">
                                     <div class="input-group-append">
                                         <span class="input-group-text">@</span>
                                     </div>
@@ -61,7 +62,7 @@
                                     <input class="form-control" id="emailDomainDirect" name="emailDomain"
                                            placeholder="도메인 입력" style="display:none;" type="text">
                                 </div>
-                                <input id="fullEmail" name="email" type="hidden">
+                                <input id="fullEmail" name="email" th:value="${user.email}" type="hidden">
                             </div>
                         </li>
                         <li class="list-group-item">
@@ -198,6 +199,13 @@
         const purchaseList = document.getElementById('purchaseList');
         const reviewSidebar = document.getElementById('reviewSidebar');
         const closeReview = document.getElementById('closeReview');
+
+        const fullEmail = $('#fullEmail').val();
+        if (fullEmail) {
+            const emailParts = fullEmail.split('@');
+            $('#emailId').val(emailParts[0]); // 사용자 부분
+            $('#emailDomainDirect').val(emailParts[1]); // 도메인 부분
+        }
 
         // 구매목록 토글
         toggleBtn.addEventListener('click', function () {
