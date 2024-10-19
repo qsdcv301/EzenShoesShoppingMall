@@ -321,3 +321,57 @@ header {
     color: #a1a1a1; /* 연한 회색 글씨 */
     border-color: #d6d6d6;
 }
+
+/***** mypage *****/
+/* 구매 목록 토글 애니메이션 스타일*/
+.purchase-list {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.purchase-list.show {
+    max-height: 1000px;
+}
+
+/* sidebar */
+#reviewSidebar {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100%;
+    background-color: #f8f9fa;
+    transition: right 0.3s ease-out;
+    z-index: 1050;
+    padding: 20px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#reviewSidebar.show {
+    right: 0;
+}
+
+/* starRating */
+#starRating {
+    font-size: 24px;
+    color: #ffc107;
+    cursor: pointer;
+}
+
+/* 배송 상태 */
+.delivery-status {
+    font-weight: bold;
+}
+
+.delivery-completed {
+    color: #28a745;
+}
+
+.delivery-in-progress {
+    color: #ffc107;
+}
+
+.delivery-preparing {
+    color: #dc3545;
+}

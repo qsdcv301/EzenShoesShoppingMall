@@ -55,38 +55,42 @@
                         <a href="#" id="size-guide-link">사이즈 가이드</a>
                     </div>
 
-                    <button class="btn btn-dark px-5 py-3 my-5" type="submit">장바구니 담기<span class="ml-5">화살표</span>
+                    <button class="btn btn-dark px-5 py-3 my-5" type="submit">장바구니 담기<span class="ml-5"><i
+                            class="bi bi-arrow-right-square"></i></span>
                     </button>
                     <p>배송 / 반품 / 교환</p>
                     <p>세탁 및 취급 시 주의사항</p>
                     <p>품질 보증 및 AS 정보</p>
                     <p>상품 제조연월 정보</p>
-                    <h4>리뷰 (<span>74</span>) <p class="float-right"><span>*</span> <span>*</span>
-                        <span>*</span>
-                        <span>*</span>
-                        <span>*</span>
-                        <span>화살표</span>
-                    </p>
-                    </h4>
-                    <div class="review"></div>
-                    <hr>
-                    <p>유저 아이디</p>
-                    <p><span>*</span> <span>*</span>
-                        <span>*</span>
-                        <span>*</span>
-                        <span>*</span>
-                        <span class="float-right">리뷰작성날짜</span>
-                    </p>
-                    <p>리뷰 내용</p>
-                    <hr>
-                    <p>유저 아이디</p>
-                    <p><span>*</span> <span>*</span>
-                        <span>*</span>
-                        <span>*</span>
-                        <span>*</span>
-                        <span class="float-right">리뷰작성날짜</span>
-                    </p>
-                    <p>리뷰 내용</p>
+                    <div class="reviews">
+                        <h4>리뷰 (<span th:text="${reviewsCount}">74</span>)
+                            <p class="float-right">
+                                <span>화살표 접었다 펴기</span>
+                            </p>
+                        </h4>
+                        <div class="review" th:each="reviewDetail : ${reviewDetails}">
+                            <hr>
+                            <!-- 사용자 ID 출력 -->
+                            <p th:text="${reviewDetail['userId']}">유저아이디</p>
+
+                            <p>
+                                <!-- reviewDetail에서 review 데이터를 가져옴 -->
+                                <!-- star_rate에 따라 별 출력 -->
+                                <span th:each="i : ${#numbers.sequence(1, reviewDetail['review'].starRate > 5 ? 5 : reviewDetail['review'].starRate)}">★</span>
+                                <!-- 남은 별은 빈 별로 출력 -->
+                                <span th:each="i : ${#numbers.sequence(reviewDetail['review'].starRate + 1, 5)}"
+                                      th:if="${reviewDetail['review'].starRate < 5}">☆</span>
+
+                                <!-- 리뷰 작성 날짜 출력 -->
+                                <span class="float-right"
+                                      th:text="'작성날짜 : ' + ${reviewDetail['formattedCreateAt']}">
+            리뷰작성날짜
+        </span>
+                            </p>
+                            <!-- 리뷰 내용 출력 -->
+                            <p th:text="${reviewDetail['review'].comment}">리뷰 내용</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <input name="product_id" th:value="${product.id}" type="hidden">
