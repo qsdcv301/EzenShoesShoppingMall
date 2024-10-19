@@ -237,18 +237,35 @@ $(document).ready(function () {
             quantity: $(this).find('input[name="quantity"]').val()
         };
 
-        // AJAX 요청 보내기
+        if (!formData.size) {
+            alert('사이즈를 선택 해야합니다.');
+            return;
+        }
+
         $.ajax({
             url: '/addCart', // 요청을 보낼 URL
             type: 'POST', // 요청 방식
             contentType: 'application/json', // 요청 본문 형식
             data: JSON.stringify(formData), // 폼 데이터 JSON 형식으로 변환
-            success: function (response) {
-                alert('장바구니에 상품이 추가되었습니다!');
-                // 성공 시 추가적인 동작을 여기에 추가할 수 있음
+            success: function (response, status, xhr) {
+                if (xhr.status === 200) { // HTTP 응답 코드가 200일 때만
+                    if (response.redirect) {
+                        // 로그인 페이지로 리디렉션
+                        window.location.href = response.redirect;
+                    } else {
+                        alert('장바구니에 상품이 추가되었습니다!');
+                        // 성공 시 추가적인 동작을 여기에 추가할 수 있음
+                    }
+                }
             },
             error: function (xhr, status, error) {
-                alert('상품 추가에 실패했습니다: ' + xhr.responseText);
+                let errorMessage = '상품 추가에 실패했습니다.';
+                if (xhr.status === 401) {
+                    // 로그인 필요
+                    errorMessage = '로그인이 필요합니다. 로그인 페이지로 이동합니다.';
+                    window.location.href = xhr.responseJSON.redirect; // 로그인 페이지로 리디렉션
+                }
+                alert(errorMessage);
                 // 실패 시 추가적인 동작을 여기에 추가할 수 있음
             }
         });

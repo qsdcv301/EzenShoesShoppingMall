@@ -22,12 +22,12 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-//                                .requestMatchers("/", "/css/**", "/home", "/images/**", "/js/**", "/login",
-//                                        "/products**",
-//                                        "/productsDetail**",
-//                                        "/register", "/user").permitAll()
-//                                .anyRequest().authenticated()
-                                .anyRequest().permitAll()
+                        .requestMatchers("/", "/css/**", "/home", "/images/**", "/js/**", "/login",
+                                "/help", "/registerOk",
+                                "/products**",
+                                "/productsDetail**",
+                                "/register", "/user").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
