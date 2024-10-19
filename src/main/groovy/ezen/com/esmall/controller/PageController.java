@@ -1,9 +1,6 @@
 package ezen.com.esmall.controller;
 
-import ezen.com.esmall.entity.Category;
-import ezen.com.esmall.entity.Product;
-import ezen.com.esmall.entity.ProductSize;
-import ezen.com.esmall.entity.User;
+import ezen.com.esmall.entity.*;
 import ezen.com.esmall.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -35,6 +32,8 @@ public class PageController {
     private OrderService orderService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private SubCategoryService subCategoryService;
     @Autowired
     private UserDetailService userDetailService;
     @Autowired
@@ -100,22 +99,43 @@ public class PageController {
     }
 
     @GetMapping("/products")
-    public String productsMain(@RequestParam(value = "category", required = false) String category
-            , Model model) {
-        List<Product> products = productService.findAllByCategoryId(
-                categoryService.findByName(category).map(Category::getId).orElseThrow(() -> new IllegalArgumentException("Invalid category: " + category))
-        );
+    public String productsMain(@RequestParam(value = "category", required = false) String category,
+                               @RequestParam(value = "subcategory", required = false) String subcategory,
+                               Model model) {
+        List<Product> products;
+
+        if (category != null && !category.isEmpty()) {
+            // 카테고리가 제공된 경우
+            Long categoryId = categoryService.findByName(category)
+                    .map(Category::getId)
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid category: " + category));
+
+            if (subcategory != null && !subcategory.isEmpty()) {
+                // 서브카테고리도 제공된 경우
+                Long subcategoryId = subCategoryService.findByName(subcategory)
+                        .map(SubCategory::getId)
+                        .orElseThrow(() -> new IllegalArgumentException("Invalid subcategory: " + subcategory));
+                products = productService.findAllByCategoryIdAndSubcategoryId(categoryId, subcategoryId);
+            } else {
+                // 서브카테고리는 제공되지 않은 경우
+                products = productService.findAllByCategoryId(categoryId);
+            }
+        } else {
+            // 카테고리와 서브카테고리 모두 제공되지 않은 경우
+            products = productService.findAll();  // 모든 상품을 조회
+        }
 
         String[] imageUrls = new String[products.size()];
         for (int i = 0; i < products.size(); i++) {
             Product product = products.get(i);
             String imageUrl = String.format("/images/%s/%s_%s.png",
-                    category,
+                    category != null ? category : "default",  // 카테고리가 없을 경우 default 폴더 사용
                     product.getName(),
                     product.getName().substring(product.getName().length() - 2));
             imageUrls[i] = imageUrl;
         }
 
+        model.addAttribute("subcategory", subcategory);
         model.addAttribute("category", category);
         model.addAttribute("products", products);
         model.addAttribute("imageUrls", imageUrls);

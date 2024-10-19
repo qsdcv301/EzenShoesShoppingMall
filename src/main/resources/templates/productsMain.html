@@ -22,20 +22,41 @@
     <div class="row">
         <div class="col-12">
             <div class="list-group list-group-horizontal align-items-center">
-                <a class="list-group-item border-0 px-2" th:href="@{/}">Home</a> /
-                <a class="list-group-item border-0 px-2" th:href="@{/products(category=${category})}">Nike</a> /
-                <a class="list-group-item border-0 px-2" th:href="@{/products(category=${category})}">Running</a>
+                <a class="list-group-item border-0 px-2" th:href="@{/}">home</a>
+                <span>/</span>
+                <a class="list-group-item border-0 px-2" th:href="@{/products}">products</a>
+                <span th:if="${category != null and !category.isEmpty()}">/</span>
+                <!-- 카테고리가 존재할 때만 출력 -->
+                <a class="list-group-item border-0 px-2"
+                   th:href="@{/products(category=${category})}"
+                   th:if="${category != null and !category.isEmpty()}"
+                   th:text="${category}">Nike</a>
+                <span th:if="${subcategory != null and !subcategory.isEmpty()}">/</span>
+                <!-- 서브카테고리가 존재할 때만 출력 -->
+                <a class="list-group-item border-0 px-2"
+                   th:href="@{/products(category=${category}, subcategory=${subcategory})}"
+                   th:if="${subcategory != null and !subcategory.isEmpty()}"
+                   th:text="${subcategory}">Running</a>
             </div>
+
         </div>
-        <div class="col-12">
+        <div class="col-12 mt-2">
             <div class="pl-3">
-                <h2 class="pl-3 m-0 font-italic"><span th:text="${category}">카테고리</span> · <span>Running</span></h2>
-                <h5 class="pl-3 m-0 font-italic text-uppercase" th:text="${category} + ' 의 ㅁㅁ상품'">설명글</h5>
+                <h2 class="pl-4 m-0 font-italic">
+                    <span th:if="${category == null or category.isEmpty()} and (${subcategory == null or subcategory.isEmpty()})">
+    모든 상품
+</span>
+                    <span class="text-uppercase" th:text="${category}">카테고리</span>
+                    <span th:if="${subcategory != null and !subcategory.isEmpty()}"> · </span>
+                    <span class="text-uppercase"
+                          th:text="${subcategory}">
+                        Running</span>
+                </h2>
                 <div class="my-3 ml-2 bg-dark" style="width: 400px; height: 5px;"></div>
             </div>
         </div>
     </div>
-    <div class="col-12 mt-5">
+    <div class="col-12 mt-3">
         <div class="d-flex flex-wrap products-images">
             <div class="col-4 mb-4" th:each="product, image : ${products}">
                 <a style="text-decoration: none; color: inherit;"
