@@ -47,22 +47,22 @@
                 </div>
 
                 <!-- 검색 바 -->
-                <form class="d-flex search-bar position-absolute">
-                    <div class="input-group">
-                        <input aria-label="Search" class="form-control" placeholder="Search" type="search">
-                        <div class="input-group-append">
-                            <button class="btn" type="submit">
-                                <i class="bi bi-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
+                <!--                <form class="d-flex search-bar position-absolute">-->
+                <!--                    <div class="input-group">-->
+                <!--                        <input aria-label="Search" class="form-control" placeholder="Search" type="search">-->
+                <!--                        <div class="input-group-append">-->
+                <!--                            <button class="btn" type="submit">-->
+                <!--                                <i class="bi bi-search"></i>-->
+                <!--                            </button>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </form>-->
                 <!-- 사용자 메뉴 -->
-                <div class="d-flex user-menu position-absolute">
-                    <a class="navi-link icon" href="#">
+                <div class="d-flex user-menu position-absolute pr-3" sec:authorize="isAuthenticated()">
+                    <a class="navi-link icon mr-2" href="/mypage">
                         <i class="bi bi-person"></i>
                     </a>
-                    <a class="navi-link icon" href="#">
+                    <a class="navi-link icon" href="/cart">
                         <i class="bi bi-bag"></i>
                     </a>
                 </div>
