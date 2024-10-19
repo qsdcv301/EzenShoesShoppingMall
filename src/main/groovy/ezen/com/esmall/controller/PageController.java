@@ -91,8 +91,12 @@ public class PageController {
 
     @GetMapping({"/home", "/"})
     public String home(Model model) {
-//        model.addAttribute("user1", userService.findById(1L));
         return "home";
+    }
+
+    @GetMapping("/help")
+    public String help(Model model) {
+        return "help";
     }
 
     @GetMapping("/products")
