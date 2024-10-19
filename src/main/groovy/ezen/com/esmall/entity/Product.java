@@ -35,6 +35,9 @@ public class Product {
     @Column(name = "category_id", nullable = false)
     private Long categoryId;
 
+    @Column(name = "subcategory_id", nullable = false)
+    private Long subcategoryId;
+
     // Product와 ProductSize 간의 연관관계 매핑
     @OneToMany
     @JoinColumn(name = "product_id", referencedColumnName = "id")
@@ -43,12 +46,13 @@ public class Product {
 
     @Builder
     public Product(String name, Integer price, String description,
-                   LocalDateTime createAt, Long categoryId) {
+                   LocalDateTime createAt, Long categoryId, Long subcategoryId) {
         this.name = name;
         this.price = price;
         this.description = description;
         this.createAt = createAt;
         this.categoryId = categoryId;
+        this.subcategoryId = subcategoryId;
     }
 
     public void update(String name, Integer price, String description) {
