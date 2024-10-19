@@ -63,11 +63,7 @@
                     <p>품질 보증 및 AS 정보</p>
                     <p>상품 제조연월 정보</p>
                     <div class="reviews">
-                        <h4>리뷰 (<span th:text="${reviewsCount}">74</span>)
-                            <p class="float-right">
-                                <span>화살표 접었다 펴기</span>
-                            </p>
-                        </h4>
+                        <h4>리뷰 (<span th:text="${reviewsCount}">74</span>)</h4>
                         <div class="review" th:each="reviewDetail : ${reviewDetails}">
                             <hr>
                             <!-- 사용자 ID 출력 -->

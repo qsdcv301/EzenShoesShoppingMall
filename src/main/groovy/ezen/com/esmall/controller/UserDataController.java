@@ -7,7 +7,9 @@ import ezen.com.esmall.repository.CartRepository;
 import ezen.com.esmall.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -129,13 +131,22 @@ public class UserDataController {
 
     private Long getCurrentUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User userDetails = (User) authentication.getPrincipal();
-        return userDetails.getId();
+        if (authentication != null && authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken)) {
+            User userDetails = (User) authentication.getPrincipal();
+            return userDetails.getId(); // User 클래스에 getId() 메서드가 있어야 합니다.
+        }
+        return null; // 로그인하지 않은 경우
     }
+
 
     @PostMapping("/addCart")
     @ResponseBody
-    public ResponseEntity<?> addCart(@RequestBody Map<String, Object> request) {
+    public ResponseEntity<?> addCart(@RequestBody Map<String, Object> request, Model model) {
+        Long userId = getCurrentUserId();
+        if (userId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("redirect", "/login"));
+        }
         Long currentUserId = getCurrentUserId(); // 현재 사용자 ID 가져오기
         Long productId = Long.parseLong((String) request.get("product_id"));
         Integer size = Integer.parseInt((String) request.get("size"));
@@ -154,6 +165,5 @@ public class UserDataController {
 
         return ResponseEntity.ok(Map.of("success", true, "message", "상품이 장바구니에 추가되었습니다."));
     }
-
 
 }

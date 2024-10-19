@@ -9,8 +9,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -90,6 +90,9 @@ public class User implements UserDetails {
         this.birthday = birthday;
     }
 
+    public User(String uid, String password, Collection<? extends GrantedAuthority> authorities) {
+    }
+
     public void update(String name, String uid, String pw, String tel, Integer addrf, String addrs, String addrt,
                        String addrl, Integer level, Integer grade, String email, String gender, Integer birthday) {
         this.name = name;
@@ -111,8 +114,22 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("user"));
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        switch (grade) { // grade를 사용하여 권한 설정
+            case 1:
+                authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+                break;
+            case 99:
+                authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+                break;
+            // 필요에 따라 더 많은 권한 추가 가능
+            default:
+                authorities.add(new SimpleGrantedAuthority("ROLE_GUEST"));
+                break;
+        }
+        return authorities;
     }
+
 
     @Override
     public String getUsername() {
