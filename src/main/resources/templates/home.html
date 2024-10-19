@@ -10,8 +10,6 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/home_html.css" rel="stylesheet">
-
-
     <script src="/js/jquery-1.12.4.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/popper.min.js"></script>
@@ -22,16 +20,27 @@
 <header th:replace="~{fragments/header :: header}"></header>
 <div class="mainimg slide container-fluid">
     <div class="mainimg-continer row overflow-hidden">
-        <div class="mimg-1 col-12">
-            <img class="min-vw-100" src="/images/mainpage-slide-01.png" alt="mainpage-slide-01">
-            <h2>THE GAME</h2> <!-- 폰트색상: #fff 폰트사이즈: px -->
-            <p>오늘의 스트릿 스타일을 리드하는 <br> 70년대 러닝의 아이콘</p> <!-- 폰트색상: #fff 폰트사이즈: px -->
-            <button type="button" class="btn btn-outline-dark">지금 구매하기 <i class="bi bi-arrow-right"></i></button>
+        <!-- 첫 번째 이미지 섹션 -->
+        <div class="mimg-1 col-12" style="position: relative;">
+            <img alt="mainpage-slide-01" class="min-vw-100" src="/images/mainpage-slide-01.png"
+                 style="width: 100%;">
+            <div style="position: absolute; bottom: 80px; left: 150px; text-align: left; color: #fff;">
+                <h2 style="font-size: 45px; font-weight: bold; margin-bottom: 15px;">THE GAME</h2>
+                <p style="font-size: 23px; font-weight: 400; margin-bottom: 30px;">오늘의 스트릿 스타일을 리드하는 <br> 70년대 러닝의 아이콘
+                </p>
+                <button class="btn btn-outline-light" style="font-size: 22px;" type="button">지금 구매하기 <i
+                        class="bi bi-arrow-right"></i></button>
+            </div>
         </div>
-        <div class="mimg-2 col-12">
-            <img class="min-vw-100" src="/images/mainpage-slide-02.png" alt="mainpage-slide-02">
-            <h2>THE GAME NEVER STOPS</h2> <!-- 폰트색상: #fff 폰트사이즈: px -->
-            <button type="button" class="btn btn-outline-dark">구매하기 <i class="bi bi-arrow-right"></i></button>
+        <!-- 두 번째 이미지 섹션 -->
+        <div class="mimg-2 col-12" style="position: relative;">
+            <img alt="mainpage-slide-02" class="min-vw-100" src="/images/mainpage-slide-02.png"
+                 style="width: 100%;">
+            <div style="position: absolute; bottom: 80px; left: 150px; text-align: left; color: #fff;">
+                <h2 style="font-size: 45px; font-weight: bold; margin-bottom: 30px;">THE GAME NEVER STOPS</h2>
+                <button class="btn btn-outline-light" style="font-size: 22px;" type="button">구매하기 <i
+                        class="bi bi-arrow-right"></i></button>
+            </div>
         </div>
     </div>
 </div>
@@ -43,27 +52,28 @@
                 <button class="slider-btn left-btn position-absolute"><i class="bi bi-chevron-left"></i></button>
                 <div class="slider-items card-deck d-flex">
                     <div class="card">
-                        <img class="card-img-top" src="/images/mainpage-slide-01.png" alt="sample">
+                        <img alt="sample" class="card-img-top" src="/images/mainpage-slide-01.png">
                     </div>
                     <div class="card">
-                        <img class="card-img-top" src="/images/mainpage-slide-02.png" alt="sample">
+                        <img alt="sample" class="card-img-top" src="/images/mainpage-slide-02.png">
                     </div>
                     <div class="card">
-                        <img class="card-img-top" src="/images/mainpage-slide-03.png" alt="sample">
+                        <img alt="sample" class="card-img-top" src="/images/mainpage-slide-03.png">
                     </div>
                     <div class="card">
-                        <img class="card-img-top" src="/images/mainpage-slide-04.png" alt="sample">
+                        <img alt="sample" class="card-img-top" src="/images/mainpage-slide-04.png">
                     </div>
                     <div class="card">
-                        <img class="card-img-top" src="/images/mainpage-slide-05.png" alt="sample">
+                        <img alt="sample" class="card-img-top" src="/images/mainpage-slide-05.png">
                     </div>
                     <div class="card">
-                        <img class="card-img-top" src="/images/mainpage-slide-06.png" alt="sample">
+                        <img alt="sample" class="card-img-top" src="/images/mainpage-slide-06.png">
                     </div>
                 </div>
                 <button class="slider-btn right-btn position-absolute"><i class="bi bi-chevron-right"></i></button>
             </div>
         </div>
+
     </div>
 </div>
 <div class="styling container my-5">
@@ -72,24 +82,24 @@
             <h3 class="text-left">SHOSE STYLING</h3>
             <div class="card-deck">
                 <div class="card">
-                    <img class="card-img-top" src="/images/mainpage-slide-01.png" alt="sample">
+                    <img alt="sample" class="card-img-top" src="/images/mainpage-slide-01.png">
                 </div>
                 <div class="card">
-                    <img src="/images/mainpage-slide-01.png" alt="sample">
+                    <img alt="sample" src="/images/mainpage-slide-01.png">
                 </div>
                 <div class="card">
-                    <img src="/images/mainpage-slide-01.png" alt="sample">
+                    <img alt="sample" src="/images/mainpage-slide-01.png">
                 </div>
             </div>
             <div class="card-deck my-4">
                 <div class="card">
-                    <img class="card-img-top" src="/images/mainpage-slide-01.png" alt="sample">
+                    <img alt="sample" class="card-img-top" src="/images/mainpage-slide-01.png">
                 </div>
                 <div class="card">
-                    <img src="/images/mainpage-slide-01.png" alt="sample">
+                    <img alt="sample" src="/images/mainpage-slide-01.png">
                 </div>
                 <div class="card">
-                    <img src="/images/mainpage-slide-01.png" alt="sample">
+                    <img alt="sample" src="/images/mainpage-slide-01.png">
                 </div>
             </div>
             <h3 class="text-center">SLIDE STYLING</h3>
@@ -102,44 +112,44 @@
     <div class="row">
         <div class="col-12">
             <h3 class="text-left">
-                <button type="button" class="btn btn-outline-dark">TREND NOW ⚡</button>
-                <button type="button" class="btn btn-outline-dark">BEST OF PRODUCTS 🔥</button>
-                <button type="button" class="btn btn-outline-dark">NEW ITEM ✨</button>
-                <button type="button" class="btn btn-outline-dark">전체보기</button>
+                <button class="btn btn-outline-dark" type="button">TREND NOW ⚡</button>
+                <button class="btn btn-outline-dark" type="button">BEST OF PRODUCTS 🔥</button>
+                <button class="btn btn-outline-dark" type="button">NEW ITEM ✨</button>
+                <button class="btn btn-outline-dark" type="button">전체보기</button>
             </h3>
             <div class="card-deck">
                 <div class="card text-center">
-                    <img class="card-img-top" src="/images/mainpage-slide-01.png" alt="sample">
+                    <img alt="sample" class="card-img-top" src="/images/mainpage-slide-01.png">
                     <p class="pt-3">제품명 : <span class="product-name">A상품</span></p>
                 </div>
                 <div class="card text-center">
-                    <img class="card-img-top" src="/images/mainpage-slide-01.png" alt="sample">
+                    <img alt="sample" class="card-img-top" src="/images/mainpage-slide-01.png">
                     <p class="pt-3">제품명 : <span class="product-name">A상품</span></p>
                 </div>
                 <div class="card text-center">
-                    <img class="card-img-top" src="/images/mainpage-slide-01.png" alt="sample">
+                    <img alt="sample" class="card-img-top" src="/images/mainpage-slide-01.png">
                     <p class="pt-3">제품명 : <span class="product-name">A상품</span></p>
                 </div>
                 <div class="card text-center">
-                    <img class="card-img-top" src="/images/mainpage-slide-01.png" alt="sample">
+                    <img alt="sample" class="card-img-top" src="/images/mainpage-slide-01.png">
                     <p class="pt-3">제품명 : <span class="product-name">A상품</span></p>
                 </div>
             </div>
             <div class="card-deck mt-4">
                 <div class="card text-center">
-                    <img class="card-img-top" src="/images/mainpage-slide-01.png" alt="sample">
+                    <img alt="sample" class="card-img-top" src="/images/mainpage-slide-01.png">
                     <p class="pt-3">제품명 : <span class="product-name">A상품</span></p>
                 </div>
                 <div class="card text-center">
-                    <img class="card-img-top" src="/images/mainpage-slide-01.png" alt="sample">
+                    <img alt="sample" class="card-img-top" src="/images/mainpage-slide-01.png">
                     <p class="pt-3">제품명 : <span class="product-name">A상품</span></p>
                 </div>
                 <div class="card text-center">
-                    <img class="card-img-top" src="/images/mainpage-slide-01.png" alt="sample">
+                    <img alt="sample" class="card-img-top" src="/images/mainpage-slide-01.png">
                     <p class="pt-3">제품명 : <span class="product-name">A상품</span></p>
                 </div>
                 <div class="card text-center">
-                    <img class="card-img-top" src="/images/mainpage-slide-01.png" alt="sample">
+                    <img alt="sample" class="card-img-top" src="/images/mainpage-slide-01.png">
                     <p class="pt-3">제품명 : <span class="product-name">A상품</span></p>
                 </div>
             </div>
@@ -147,6 +157,31 @@
     </div>
 </div>
 <div th:replace="~{fragments/footer :: footer}"></div>
+
+<script>
+    //이미지 슬라이드 버튼
+    $(document).ready(function () {
+        const visibleCount = 5; // 화면에 보일 이미지 개수
+        const sliderItems = $('.slider-items');
+        const cards = $('.slider-items .card');
+        const totalItems = cards.length;
+
+        // 초기 설정: 슬라이더 폭을 이미지 개수에 맞게 설정
+        sliderItems.css('width', `${totalItems * 100 / visibleCount}%`);
+        cards.css('width', `${100 / totalItems}%`);
+
+        // 왼쪽 버튼 클릭 이벤트
+        $('.left-btn').click(function () {
+            sliderItems.prepend(sliderItems.children().last());
+        });
+
+        // 오른쪽 버튼 클릭 이벤트
+        $('.right-btn').click(function () {
+            sliderItems.append(sliderItems.children().first());
+        });
+    });
+
+</script>
 </body>
 
 </html>

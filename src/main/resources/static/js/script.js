@@ -482,7 +482,6 @@ $(document).ready(function () {
     /**********************  상품 장바구니 페이지 스크립트 끝   ************************/
     /*********************************************************************************/
 
-
 //     tou
     const allCheck = document.getElementById('allCheck');
     const termsCheck = document.getElementById('termsCheck');
@@ -511,36 +510,12 @@ $(document).ready(function () {
         }
     });
 
-    // 마이페이지 시작
+    /*********************************************************************************/
+    /**********************  마이 페이지 스크립트   ************************/
+    /*********************************************************************************/
 
-    document.getElementById('saveChanges').addEventListener('click', function () {
-        const email = document.getElementById('fullEmail').value;
-        const phone = document.getElementById('userPhone').value;
-        const addrf = document.getElementById('addrf').value; // 우편번호
-        const addrs = document.getElementById('addrs').value; // 주소
-        const addrt = document.getElementById('addrt').value; // 상세 주소
-        const addrl = document.getElementById('addrl').value; // 참고 사항
-
-        // AJAX 요청 보내기
-        $.ajax({
-            type: 'POST',
-            url: '/updateUser', // 서버의 URL을 설정
-            contentType: 'application/json',
-            data: JSON.stringify({
-                email: email,
-                tel: phone,
-                addrf: addrf,
-                addrs: addrs,
-                addrt: addrt,
-                addrl: addrl,
-            }),
-            success: function (response) {
-                alert('변경사항이 저장되었습니다.');
-            },
-            error: function (xhr, status, error) {
-                alert('변경사항 저장에 실패했습니다. 다시 시도해 주세요.');
-            }
-        });
-    });
+    /********************************************************************************/
+    /**********************  마이 페이지 스크립트 끝   ************************/
+    /*********************************************************************************/
 
 });
