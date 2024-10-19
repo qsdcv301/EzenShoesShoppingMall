@@ -206,7 +206,7 @@ $(document).ready(function () {
     });
 
     // 버튼 클릭 이벤트 처리
-    $('#size-buttons .size-btn').on('click', function() {
+    $('#size-buttons .size-btn').on('click', function () {
         // 모든 버튼의 active와 faded 클래스를 초기화
         $('#size-buttons .size-btn').removeClass('active faded');
 
@@ -261,14 +261,14 @@ $(document).ready(function () {
                     if (extraAddr !== '') {
                         extraAddr = ' (' + extraAddr + ')';
                     }
-                    $('#extraAddress').val(extraAddr);
+                    $('#addrl').val(extraAddr);
                 } else {
-                    $('#extraAddress').val('');
+                    $('#addrl').val('');
                 }
 
-                $('#postcode').val(data.zonecode);
-                $('#address').val(addr);
-                $('#detailAddress').focus();
+                $('#addrf').val(data.zonecode);
+                $('#addrs').val(addr);
+                $('#addrt').focus();
             }
         }).open();
     });
@@ -323,10 +323,33 @@ $(document).ready(function () {
     // 폼 제출
     $('#signupForm').submit(function (e) {
         e.preventDefault();
-        combineEmail(); // 폼 제출 전 이메일 조합
+        combineEmail();
+        var formData = {
+            name: $('#name').val(),
+            uid: $('#uid').val(),
+            pw: $('#pw').val(),
+            tel: $('#phone').val(),
+            addrf: $('#addrf').val(),
+            addrs: $('#addrs').val(),
+            addrt: $('#addrt').val(),
+            addrl: $('#addrl').val(),
+            email: $('#fullEmail').val(),
+            gender: $('input[name="gender"]:checked').val(),
+            birthday: $('#birthdate').val()
+        };
         if (validateBirthdate()) {
-            alert("회원가입 기능은 서버 연동이 필요합니다.");
-            console.log("Full Email: " + $('#fullEmail').val()); // 확인용 로그
+            $.ajax({
+                url: '/register',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function (response) {
+                    window.location.href = '/';
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
         }
     });
     /*********************************************************************************/
