@@ -16,7 +16,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
@@ -38,6 +42,8 @@ public class PageController {
     private UserDetailService userDetailService;
     @Autowired
     private CartService cartService;
+    @Autowired
+    private ReviewService reviewService;
 
     @ModelAttribute
     public void addUserToModel(Model model) {
@@ -148,6 +154,19 @@ public class PageController {
                                  Model model) {
         // 상품 정보 조회
         Product product = productService.findById(productCode);
+        List<Review> reviews = reviewService.findAllByProductId(productCode);
+        int reviewsCount = reviewService.countAllByProductId(productCode);
+
+        // 각 리뷰에 대해 사용자 정보 포함한 데이터를 준비
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy-MM-dd");
+        List<Map<String, Object>> reviewDetails = new ArrayList<>();
+        for (Review review : reviews) {
+            Map<String, Object> reviewData = new HashMap<>();
+            reviewData.put("review", review);
+            reviewData.put("userId", userService.findById(review.getUserId()).getUid());
+            reviewData.put("formattedCreateAt", review.getCreateAt().format(formatter));
+            reviewDetails.add(reviewData);
+        }
 
         // 상품 이미지 URL 생성
         String[] imageUrls = new String[6];
@@ -164,6 +183,8 @@ public class PageController {
         model.addAttribute("category", category);
         model.addAttribute("product", product);
         model.addAttribute("sizes", sizes);  // 사이즈 정보 추가
+        model.addAttribute("reviewsCount", reviewsCount);
+        model.addAttribute("reviewDetails", reviewDetails); // 리뷰 데이터 추가
 
         return "productsDetail";
     }
