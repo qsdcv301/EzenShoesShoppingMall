@@ -1,3 +1,4 @@
+<html lang="ko" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <header th:fragment="header">
     <div class="notice-container">
     </div>
@@ -7,40 +8,48 @@
             <div class="class col-2">
                 <a class="navbar-brand" href="#">
                     <!-- 로고 이미지 수정 필요 -->
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" alt="Adidas Logo">
+                    <img alt="Adidas Logo" src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg">
                 </a>
             </div>
             <!-- 내비게이션 -->
             <div class="hd-mainnav collapse navbar-collapse col-4 position-relative">
                 <ul class="navbar-nav mb-2 mb-lg-0 position-absolute">
                     <li class="nav-item ml-auto mr-auto" data-submenu="brand">
-                        <a class="nav-link active" aria-current="page" href="#" data-category="nike">NIKE</a>
+                        <a aria-current="page" class="nav-link active" data-category="nike" href="#">NIKE</a>
                     </li>
                     <li class="nav-item ml-auto mr-auto" data-submenu="brand">
-                        <a class="nav-link active" href="#" data-category="adidas">ADIDAS</a>
+                        <a class="nav-link active" data-category="adidas" href="#">ADIDAS</a>
                     </li>
                     <li class="nav-item ml-auto mr-auto" data-submenu="brand">
-                        <a class="nav-link active" href="#" data-category="vans">VANS</a>
+                        <a class="nav-link active" data-category="vans" href="#">VANS</a>
                     </li>
                     <li class="nav-item ml-auto mr-auto" data-submenu="brand">
-                        <a class="nav-link active" href="#" data-category="etc">ETC</a>
+                        <a class="nav-link active" data-category="etc" href="#">ETC</a>
                     </li>
                 </ul>
             </div>
 
             <!-- 사용자 섹션 -->
             <div class="user-sec col-2 position-relative">
-
                 <div class="top-links position-absolute">
-                    <a href="#" class="mr-3">도움말</a>
-                    <a href="#" class="mr-3">주문 및 반품</a>
-                    <a href="#" class="mr-2">가입하기</a>
+                    <div sec:authorize="isAuthenticated()">
+                        <!-- 로그인된 경우 -->
+                        <a class="mr-3" href="/help">도움말</a>
+                        <a class="mr-3" href="/logout">로그아웃</a>
+                        <span class="mr-3" th:text="${username} + '님 환영합니다!'"></span>
+                    </div>
+                    <div sec:authorize="!isAuthenticated()">
+                        <!-- 로그인되지 않은 경우 -->
+                        <a class="mr-3" href="/login">로그인</a>  <!-- 로그인 페이지로 연결 -->
+                        <a class="mr-3" href="/register">회원가입</a> <!-- 회원가입 페이지로 연결 -->
+                        <a class="mr-3" href="/help">도움말</a>
+                    </div>
                 </div>
 
                 <!-- 검색 바 -->
                 <form class="d-flex search-bar position-absolute">
                     <div class="input-group">
-                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                        <input aria-label="Search" class="form-control" placeholder="Search" type="search">
                         <div class="input-group-append">
                             <button class="btn" type="submit">
                                 <i class="bi bi-search"></i>
@@ -50,13 +59,10 @@
                 </form>
                 <!-- 사용자 메뉴 -->
                 <div class="d-flex user-menu position-absolute">
-                    <a href="#" class="navi-link icon">
+                    <a class="navi-link icon" href="#">
                         <i class="bi bi-person"></i>
                     </a>
-                    <a href="#" class="navi-link icon">
-                        <i class="bi bi-heart"></i>
-                    </a>
-                    <a href="#" class="navi-link icon">
+                    <a class="navi-link icon" href="#">
                         <i class="bi bi-bag"></i>
                     </a>
                 </div>

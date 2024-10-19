@@ -13,7 +13,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +56,11 @@ public class UserDataController {
         // 인증되지 않은 경우에는 아무런 일이 없으므로 추가적인 작업이 필요 없음
     }
 
+    @GetMapping("/mypage")
+    public String myPage(Model model) {
+        
+        return "mypage";
+    }
 
     @GetMapping("/cart")
     public String cartPage(Model model) {

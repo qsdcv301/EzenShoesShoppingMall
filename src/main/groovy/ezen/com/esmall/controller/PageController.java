@@ -10,17 +10,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -42,6 +40,24 @@ public class PageController {
     @Autowired
     private CartService cartService;
 
+    @ModelAttribute
+    public void addUserToModel(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            String userName = authentication.getName();
+            try {
+                Long userId = userDetailService.loadUserByUsername(userName).getId();
+                model.addAttribute("username", userName);
+                model.addAttribute("userid", userId);
+            } catch (UsernameNotFoundException e) {
+                model.addAttribute("username", "Guest"); // 예외 발생 시 기본값 설정
+            }
+        } else {
+            model.addAttribute("username", "Guest"); // 인증되지 않은 경우 기본값
+        }
+    }
+
     @GetMapping("/register")
     public String touPage(Model model) {
         return "tou";
@@ -54,7 +70,8 @@ public class PageController {
 
     @PostMapping("/register")
     public String register(@RequestBody User user, Model model) {
-        User userData = new User(user.getName(), user.getUid(), user.getPw(), user.getTel(), user.getAddrf(), user.getAddrs(),
+        User userData = new User(user.getName(), user.getUid(), user.getPw(), user.getTel(), user.getAddrf(),
+                user.getAddrs(),
                 user.getAddrt(), user.getAddrl(), null, 1, 1, user.getEmail(), user.getGender(), user.getBirthday());
         userService.create(userData);
         return "redirect:/";

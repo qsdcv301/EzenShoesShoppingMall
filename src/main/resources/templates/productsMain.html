@@ -17,76 +17,6 @@
 
 <body>
 <header th:replace="~{fragments/header :: header}"></header>
-<!--  <header>-->
-<!--    <div class="notice-container"></div>-->
-<!--    <nav class="navbar navbar-expand-lg navbar-light bg-white">-->
-<!--      <div class="container-fluid">-->
-<!--        &lt;!&ndash; 로고 &ndash;&gt;-->
-<!--        <div class="class col-2">-->
-<!--          <a class="navbar-brand" href="productsMain.html">-->
-<!--            <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" alt="Adidas Logo" />-->
-<!--          </a>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; 내비게이션 &ndash;&gt;-->
-<!--        <div class="collapse navbar-collapse col-6 position-relative">-->
-<!--          <ul class="navbar-nav mb-2 mb-lg-0 position-absolute">-->
-<!--            <li class="nav-item ml-auto mr-auto">-->
-<!--              <a class="nav-link" href="#">Poplular</a>-->
-<!--            </li>-->
-<!--            <li class="nav-item ml-auto mr-auto">-->
-<!--              <a class="nav-link font-weight-bold" href="#">Nike</a>-->
-<!--            </li>-->
-<!--            <li class="nav-item ml-auto mr-auto">-->
-<!--              <a class="nav-link font-weight-bold" href="#">Adidas</a>-->
-<!--            </li>-->
-<!--            <li class="nav-item ml-auto mr-auto">-->
-<!--              <a class="nav-link font-weight-bold" href="#">NewBalance</a>-->
-<!--            </li>-->
-<!--            <li class="nav-item ml-auto mr-auto">-->
-<!--              <a class="nav-link font-weight-bold" href="#">ETC</a>-->
-<!--            </li>-->
-<!--            <li class="nav-item ml-auto mr-auto">-->
-<!--              <a class="nav-link" href="#">Sale</a>-->
-<!--            </li>-->
-<!--          </ul>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; 사용자 섹션 &ndash;&gt;-->
-<!--        <div class="user-sec col-2 position-relative">-->
-<!--          <div class="top-links position-absolute">-->
-<!--            <a href="#" class="mr-2">도움말</a>-->
-<!--            <a href="#" class="mr-2">주문 및 반품</a>-->
-<!--            <a href="#" class="mr-2">가입하기</a>-->
-<!--          </div>-->
-
-<!--          &lt;!&ndash; 검색 바 &ndash;&gt;-->
-<!--          <form class="d-flex search-bar position-absolute">-->
-<!--            <div class="input-group">-->
-<!--              <input class="form-control" type="search" placeholder="Search" aria-label="Search" />-->
-<!--              <div class="input-group-append">-->
-<!--                <button class="btn" type="submit">-->
-<!--                  <i class="bi bi-search"></i>-->
-<!--                </button>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </form>-->
-<!--          &lt;!&ndash; 사용자 메뉴 &ndash;&gt;-->
-<!--          <div class="d-flex user-menu position-absolute">-->
-<!--            <a href="#" class="navi-link icon">-->
-<!--              <i class="bi bi-person"></i>-->
-<!--            </a>-->
-<!--            <a href="#" class="navi-link icon">-->
-<!--              <i class="bi bi-heart"></i>-->
-<!--            </a>-->
-<!--            <a href="#" class="navi-link icon">-->
-<!--              <i class="bi bi-bag"></i>-->
-<!--            </a>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </nav>-->
-<!--    <div class="header-menu"></div>-->
-<!--  </header>-->
 
 <div class="productsMain-products container">
     <div class="row">
@@ -116,8 +46,8 @@
         <div class="col-12">
             <div class="d-flex flex-wrap products-images">
                 <div class="col-4 mb-4" th:each="product, image : ${products}">
-                    <a th:href="@{/productsDetail(productCode=${product.id}, category=${category})}"
-                       style="text-decoration: none; color: inherit;">
+                    <a style="text-decoration: none; color: inherit;"
+                       th:href="@{/productsDetail(productCode=${product.id}, category=${category})}">
                         <div class="card">
                             <img th:alt="${product.name}" th:src="${imageUrls[image.index]}"/>
 
