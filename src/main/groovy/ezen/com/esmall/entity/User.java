@@ -72,17 +72,18 @@ public class User implements UserDetails {
 
     @Builder
     public User(String name, String uid, String pw, String tel, Integer addrf, String addrs, String addrt,
-                String addrl, LocalDateTime createAt, Integer level, Integer grade, String email,
+                String addrl, Integer level, Integer grade, String email,
                 String gender, Integer birthday) {
         this.name = name;
         this.uid = uid;
-        this.pw = pw;
+        if (pw != null && !pw.isEmpty()) {
+            this.pw = pw;
+        }
         this.tel = tel;
         this.addrf = addrf;
         this.addrs = addrs;
         this.addrt = addrt;
         this.addrl = addrl;
-        this.createAt = createAt != null ? createAt : LocalDateTime.now(); // 현재 시간으로 초기화
         this.level = level;
         this.grade = grade;
         this.email = email;
@@ -93,13 +94,13 @@ public class User implements UserDetails {
     public User(String uid, String password, Collection<? extends GrantedAuthority> authorities) {
     }
 
-    public void update(String name, String uid, String pw, String tel, Integer addrf, String addrs, String addrt,
+    public void update(String name, String uid, String tel, Integer addrf, String addrs, String addrt,
                        String addrl, Integer level, Integer grade, String email, String gender, Integer birthday) {
         this.name = name;
         this.uid = uid;
-        if (pw != null && !pw.isEmpty()) {
-            this.pw = pw;
-        }
+//        if (pw != null && !pw.isEmpty()) {
+//            this.pw = pw;
+//        }
         this.tel = tel;
         this.addrf = addrf;
         this.addrs = addrs;

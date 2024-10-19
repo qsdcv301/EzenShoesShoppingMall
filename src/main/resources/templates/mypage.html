@@ -22,7 +22,8 @@
         <div class="col-lg-8 col-xl-6 mx-auto">
             <h2 class="mb-4 h3">마이페이지</h2>
             <!-- 개인정보카드 -->
-            <div class="card mb-4 w-100 w-md-75 mx-auto">
+            <form action="/updateUser" class="card mb-4 w-100 w-md-75 mx-auto" id="updateUser" method="post"
+                  name="updateUser">
                 <div class="card-body">
                     <h5 class="card-title">개인 정보</h5>
                     <ul class="list-group list-group-flush">
@@ -40,7 +41,8 @@
                         <!-- 수정 가능한 정보 -->
                         <li class="list-group-item">
                             <strong>휴대폰 번호:</strong>
-                            <input class="form-control mt-2" id="userPhone" th:value="${user.tel}" type="tel">
+                            <input class="form-control mt-2" id="userPhone" name="tel" th:value="${user.tel}"
+                                   type="tel">
                             <small class="form-text text-muted">예: 01012341234</small>
                         </li>
                         <li class="list-group-item">
@@ -59,7 +61,7 @@
                                         <option value="hanmail.net">hanmail.net</option>
                                         <option value="direct">직접 입력</option>
                                     </select>
-                                    <input class="form-control" id="emailDomainDirect" name="emailDomain"
+                                    <input class="form-control" id="emailDomainDirect"
                                            placeholder="도메인 입력" style="display:none;" type="text">
                                 </div>
                                 <input id="fullEmail" name="email" th:value="${user.email}" type="hidden">
@@ -108,7 +110,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </form>
 
             <!-- 구매목록카드 -->
             <div class="card w-100 w-md-75 mx-auto">
@@ -190,7 +192,7 @@
             </div>
             <input id="rating" name="rating" required type="hidden">
         </div>
-        <button class="btn btn-dark" id="submitReview" type="button">제출</button>
+        <button class="btn btn-dark" id="submitReview" type="submit">제출</button>
     </form>
 </div>
 <script>
@@ -199,13 +201,6 @@
         const purchaseList = document.getElementById('purchaseList');
         const reviewSidebar = document.getElementById('reviewSidebar');
         const closeReview = document.getElementById('closeReview');
-
-        const fullEmail = $('#fullEmail').val();
-        if (fullEmail) {
-            const emailParts = fullEmail.split('@');
-            $('#emailId').val(emailParts[0]); // 사용자 부분
-            $('#emailDomainDirect').val(emailParts[1]); // 도메인 부분
-        }
 
         // 구매목록 토글
         toggleBtn.addEventListener('click', function () {
@@ -282,57 +277,46 @@
             }
         });
 
-        // 변경사항 저장
-        document.getElementById('saveChanges').addEventListener('click', function () {
-            const email = document.getElementById('fullEmail').value;
-            const phone = document.getElementById('userPhone').value;
-            const postcode = document.getElementById('postcode').value;
-            const address = document.getElementById('address').value;
-            const detailAddress = document.getElementById('detailAddress').value;
+        // 이메일 관련
+        const fullEmail = $('#fullEmail').val();
+        if (fullEmail) {
+            const emailParts = fullEmail.split('@');
+            const userEmailId = emailParts[0]; // 사용자 부분
+            const userEmailDomain = emailParts[1]; // 도메인 부분
 
-            // 여기에 서버로 데이터를 전송하는 코드를 추가할 수 있습니다.
-            alert('변경사항이 저장되었습니다.\n이메일: ' + email + '\n휴대폰: ' + phone +
-                '\n주소: ' + postcode + ' ' + address + ' ' + detailAddress);
-        });
+            $('#emailId').val(userEmailId); // 사용자 부분 입력
+            $('#emailDomainDirect').val(userEmailDomain); // 도메인 부분 입력
 
-        // 이메일 도메인 선택 또는 직접 입력
-        document.getElementById('emailDomainSelect').addEventListener('change', function () {
-            var domain = this.value;
-            if (domain === 'direct') {
-                document.getElementById('emailDomainDirect').style.display = 'block';
-                document.getElementById('emailDomainDirect').value = '';
-                document.getElementById('emailDomainDirect').focus();
-                this.style.display = 'none';
-            } else {
-                document.getElementById('emailDomainDirect').style.display = 'none';
-                document.getElementById('emailDomainDirect').value = domain;
-                this.style.display = 'block';
-            }
-            combineEmail();
-        });
+            // 도메인 선택 설정
+            const domainSelect = $('#emailDomainSelect');
+            const domainOptions = domainSelect.find('option');
 
-        document.getElementById('emailDomainDirect').addEventListener('blur', function () {
-            if (this.value === '') {
-                this.style.display = 'none';
-                document.getElementById('emailDomainSelect').style.display = 'block';
-                document.getElementById('emailDomainSelect').value = '';
-            }
-        });
+            let domainFound = false;
 
-        // 이메일 조합
-        function combineEmail() {
-            var emailId = document.getElementById('emailId').value;
-            var emailDomain = document.getElementById('emailDomainDirect').value || document.getElementById('emailDomainSelect').value;
-            if (emailId && emailDomain) {
-                document.getElementById('fullEmail').value = emailId + '@' + emailDomain;
+            domainOptions.each(function () {
+                if ($(this).val() === userEmailDomain) {
+                    domainSelect.val(userEmailDomain); // 일치하는 도메인 선택
+                    domainFound = true;
+                }
+            });
+
+            if (!domainFound) {
+                domainSelect.val('direct'); // 일치하지 않으면 "직접 입력" 선택
+                $('#emailDomainDirect').show(); // "직접 입력" 입력 필드 표시
+                $('#emailDomainDirect').val(userEmailDomain); // 도메인 직접 입력 필드에 값 설정
             }
         }
 
-        document.getElementById('emailId').addEventListener('input', combineEmail);
-        document.getElementById('emailDomainDirect').addEventListener('input', combineEmail);
+        // 도메인 선택이 "직접 입력"으로 변경될 때
+        $('#emailDomainSelect').change(function () {
+            if ($(this).val() === 'direct') {
+                $('#emailDomainDirect').show();
+            } else {
+                $('#emailDomainDirect').hide();
+            }
+        });
     });
 </script>
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
-
 </html>

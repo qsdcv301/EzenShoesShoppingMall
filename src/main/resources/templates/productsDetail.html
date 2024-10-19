@@ -84,6 +84,7 @@
         </span>
                             </p>
                             <!-- 리뷰 내용 출력 -->
+                            <p th:text="${reviewDetail['review'].title}">리뷰 제목</p>
                             <p th:text="${reviewDetail['review'].comment}">리뷰 내용</p>
                         </div>
                     </div>

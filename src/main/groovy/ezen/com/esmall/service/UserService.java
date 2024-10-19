@@ -33,12 +33,15 @@ public class UserService {
         User user = findById(id);
         if (user != null) {
             // 비밀번호가 제공되면 암호화 후 설정
-            if (userDetails.getPw() != null && !userDetails.getPw().isEmpty()) {
-                user.setPw(passwordEncoder.encode(userDetails.getPw())); // 새 비밀번호로 업데이트
-            }
+//            if (userDetails.getPw() != null && !userDetails.getPw().isEmpty()) {
+//                user.setPw(passwordEncoder.encode(userDetails.getPw())); // 새 비밀번호로 업데이트
+//            } else {
+//                // 새 비밀번호가 제공되지 않으면 기존 비밀번호를 유지
+//                userDetails.setPw(user.getPw());
+//            }
             // 모든 필드 업데이트
             user.update(userDetails.getName(), userDetails.getUid(),
-                    user.getPw(), // 비밀번호는 필요에 따라 업데이트
+//                    userDetails.getPw(), // 비밀번호는 현재 비밀번호로 설정
                     userDetails.getTel(),
                     userDetails.getAddrf(), userDetails.getAddrs(),
                     userDetails.getAddrt(), userDetails.getAddrl(),

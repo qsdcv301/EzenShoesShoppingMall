@@ -68,15 +68,6 @@ public class UserDataController {
         return "mypage";
     }
 
-    @PostMapping("/updateUser")
-    public ResponseEntity<String> updateUserInfo(@RequestBody User user) {
-        // userInfo 객체에서 수정된 정보 가져오기
-        // 예: userService.updateUser(userInfo);
-
-        // 성공적으로 업데이트되었다고 가정
-        return ResponseEntity.ok("변경사항 저장 완료");
-    }
-
     @GetMapping("/cart")
     public String cartPage(Model model) {
         Long userId = (Long) model.getAttribute("userid");
@@ -164,6 +155,27 @@ public class UserDataController {
         cartService.create(newCartItem);
 
         return ResponseEntity.ok(Map.of("success", true, "message", "상품이 장바구니에 추가되었습니다."));
+    }
+
+    @PostMapping("/updateUser")
+    public String updateUser(@ModelAttribute User user, Model model) {
+        Long userId = getCurrentUserId();
+        User existingUser = userService.findById(userId);
+        existingUser.setTel(user.getTel());
+        existingUser.setAddrf(user.getAddrf());
+        existingUser.setAddrs(user.getAddrs());
+        existingUser.setAddrt(user.getAddrt());
+        existingUser.setAddrl(user.getAddrl());
+        existingUser.setEmail(user.getEmail());
+
+//        // 비밀번호는 제공된 경우에만 업데이트
+//        if (user.getPw() != null && !user.getPw().isEmpty()) {
+//            existingUser.setPw(user.getPw()); // 비밀번호 암호화
+//        }
+
+        userService.update(userId, existingUser);
+
+        return "redirect:/mypage";
     }
 
 }

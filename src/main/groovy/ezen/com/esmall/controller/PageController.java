@@ -77,7 +77,7 @@ public class PageController {
     public String register(@RequestBody User user, Model model) {
         User userData = new User(user.getName(), user.getUid(), user.getPw(), user.getTel(), user.getAddrf(),
                 user.getAddrs(),
-                user.getAddrt(), user.getAddrl(), null, 1, 1, user.getEmail(), user.getGender(), user.getBirthday());
+                user.getAddrt(), user.getAddrl(), 1, 1, user.getEmail(), user.getGender(), user.getBirthday());
         userService.create(userData);
         return "redirect:/";
     }
