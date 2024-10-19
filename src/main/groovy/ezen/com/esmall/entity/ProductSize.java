@@ -33,7 +33,7 @@ public class ProductSize {
         this.stock = stock;
     }
 
-    public void updateStock(Integer stock) {
+    public void update(Integer stock) {
         this.stock = stock;
     }
 }

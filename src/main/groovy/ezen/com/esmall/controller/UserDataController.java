@@ -40,6 +40,8 @@ public class UserDataController {
     private CartService cartService;
     @Autowired
     private CartRepository cartRepository;
+    @Autowired
+    private ProductSizeService productSizeService;
 
     @ModelAttribute
     public void addUserToModel(Model model) {
