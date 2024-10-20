@@ -375,3 +375,27 @@ header {
 .delivery-preparing {
     color: #dc3545;
 }
+
+
+/* cart page css */
+
+    /* 상품 섹션 */
+    .product-card {
+        border: 1px solid #ddd;
+        margin-bottom: 15px;
+    }
+
+    .product-card img {
+        width: 100px;
+        height: auto;
+    }
+    /* 가격 정보 섹션 */
+    .total-price {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 5px;
+    }
+    /* 버튼 */
+    .btn-primary {
+        background-color: #007bff;
+    }
