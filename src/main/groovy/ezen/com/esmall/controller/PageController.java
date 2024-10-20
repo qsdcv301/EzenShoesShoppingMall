@@ -96,6 +96,33 @@ public class PageController {
 
     @GetMapping({"/home", "/"})
     public String home(Model model) {
+        List<Product> products = productService.findAll();
+        String[] imageUrls = new String[products.size()];
+        String[] categories = new String[products.size()];
+        for (int i = 0; i < products.size(); i++) {
+            Product product = products.get(i);
+            String categoryFolder;
+            // 카테고리 ID에 따라 폴더 이름 결정
+            if (product.getCategoryId() == 1) {
+                categoryFolder = "nike";
+            } else if (product.getCategoryId() == 2) {
+                categoryFolder = "adidas";
+            } else if (product.getCategoryId() == 3) {
+                categoryFolder = "vans";
+                // 다른 카테고리 추가 가능
+            } else {
+                categoryFolder = "default"; // 카테고리가 없을 경우 default 폴더 사용
+            }
+            categories[i] = categoryFolder;
+            String imageUrl = String.format("/images/%s/%s_%s.png",
+                    product.getCategoryId() != null ? categoryFolder : "default",  // 카테고리가 없을 경우 default 폴더 사용
+                    product.getName(),
+                    product.getName().substring(product.getName().length() - 2));
+            imageUrls[i] = imageUrl;
+        }
+        model.addAttribute("imageUrls", imageUrls);
+        model.addAttribute("products", products);
+        model.addAttribute("categories", categories);
         return "home";
     }
 
