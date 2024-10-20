@@ -32,7 +32,7 @@ public class OrdersService {
     public Orders update(Long id, Orders orderDetails) {
         Orders orders = findById(id);
         if (orders != null) {
-            orders.update(orderDetails.getTotalPrice(), orderDetails.getAddr());
+            orders.update(orderDetails.getTotalPrice(), orderDetails.getAddrs(), orderDetails.getAddrt());
             return ordersRepository.save(orders);
         }
         return null;
