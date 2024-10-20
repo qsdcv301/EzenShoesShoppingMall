@@ -49,4 +49,8 @@ public class ReviewService {
     public int countAllByProductId(Long productId) {
         return reviewRepository.countAllByProductId(productId);
     }
+
+    public List<Review> findAllByUserId(Long userId) {
+        return reviewRepository.findAllByUserId(userId);
+    }
 }

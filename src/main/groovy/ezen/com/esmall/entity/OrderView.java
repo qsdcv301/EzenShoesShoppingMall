@@ -5,9 +5,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -41,13 +38,9 @@ public class OrderView {
     @Column(name = "delivery_status", nullable = false, length = 50)
     private String deliveryStatus;
 
-    @CreatedDate
-    @Column(name = "delivery_at", nullable = true)
-    private LocalDateTime deliveryAt;
-
     @Builder
     public OrderView(Long orderId, Long userId, Long productId, Integer quantity, Integer productPrice,
-                     Integer totalPrice, String deliveryStatus, LocalDateTime deliveryAt) {
+                     Integer totalPrice, String deliveryStatus) {
         this.orderId = orderId;
         this.userId = userId;
         this.productId = productId;
@@ -55,11 +48,9 @@ public class OrderView {
         this.productPrice = productPrice;
         this.totalPrice = totalPrice;
         this.deliveryStatus = deliveryStatus;
-        this.deliveryAt = deliveryAt;
     }
 
-    public void update(String deliveryStatus, LocalDateTime deliveryAt) {
+    public void update(String deliveryStatus) {
         this.deliveryStatus = deliveryStatus;
-        this.deliveryAt = deliveryAt;
     }
 }

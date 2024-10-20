@@ -1,8 +1,6 @@
 package ezen.com.esmall.controller;
 
-import ezen.com.esmall.entity.Cart;
-import ezen.com.esmall.entity.Product;
-import ezen.com.esmall.entity.User;
+import ezen.com.esmall.entity.*;
 import ezen.com.esmall.repository.CartRepository;
 import ezen.com.esmall.service.*;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -44,6 +44,10 @@ public class UserDataController {
     private CartRepository cartRepository;
     @Autowired
     private ProductSizeService productSizeService;
+    @Autowired
+    private OrderViewService orderViewService;
+    @Autowired
+    private ReviewService reviewService;
 
     @ModelAttribute
     public void addUserToModel(Model model) {
@@ -63,8 +67,28 @@ public class UserDataController {
         if (userId == null) {
             return "redirect:/login";
         }
+        List<OrderView> orders = orderViewService.findByUserId(userId);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy-MM-dd");
         User user = userService.findById(userId);
+        List<Review> reviews = reviewService.findAllByUserId(userId);
+        List<Map<String, Object>> orderList = new ArrayList<>();
+        for (OrderView order : orders) {
+            Map<String, Object> orderData = new HashMap<>();
+            Product product = productService.findById(order.getProductId());
+            Orders orderItem = ordersService.findById(order.getOrderId());
+            for (Review review : reviews) {
+                if (review.getProductId() == product.getId()) {
+                    order.setDeliveryStatus("작성완료");
+                }
+            }
+            orderData.put("order", order);
+            orderData.put("product", product);
+            orderData.put("formattedCreateAt", orderItem.getOrderTime().format(formatter));
+            orderList.add(orderData);
+        }
         model.addAttribute("user", user);
+        model.addAttribute("userId", user.getName());
+        model.addAttribute("orderList", orderList);
         return "mypage";
     }
 
@@ -159,6 +183,9 @@ public class UserDataController {
     @PostMapping("/updateUser")
     public String updateUser(@ModelAttribute User user, Model model) {
         Long userId = getCurrentUserId();
+        if (userId == null) {
+            return "redirect:/login";
+        }
         User existingUser = userService.findById(userId);
         existingUser.setTel(user.getTel());
         existingUser.setAddrf(user.getAddrf());
@@ -174,6 +201,29 @@ public class UserDataController {
 
         userService.update(userId, existingUser);
 
+        return "redirect:/mypage";
+    }
+
+    @PostMapping("/addReview")
+    public String addReview(@RequestParam(value = "name") String productName,
+                            @RequestParam(value = "title") String title,
+                            @RequestParam(value = "comment") String comment,
+                            @RequestParam(value = "starRate") Integer starRate,
+                            Model model) {
+        Long userId = getCurrentUserId();
+        if (userId == null) {
+            return "redirect:/login";
+        }
+        Product product = productService.findProductByName(productName);
+        Review newReview = Review.builder()
+                .userId(userId)
+                .productId(product.getId())
+                .comment(comment)
+                .title(title)
+                .starRate(starRate)
+                .build();
+
+        reviewService.create(newReview);
         return "redirect:/mypage";
     }
 

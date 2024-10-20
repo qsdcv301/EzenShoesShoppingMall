@@ -124,34 +124,24 @@
                     <div class="purchase-list" id="purchaseList">
                         <ul class="list-group list-group-flush">
                             <!-- 구매 목록 항목 -->
-                            <li class="list-group-item" th:each="order : ${orders}">
-                                <strong>주문번호:</strong> 12345<br>
-                                <strong>상품명:</strong> 런닝화 A<br>
-                                <strong>구매일:</strong> 2024-09-20<br>
+                            <li class="list-group-item" th:each="order, index : ${orderList}">
+                                <strong>주문번호:</strong>
+                                <span th:text="${order['order'].orderId}">12345</span><br>
+                                <strong>상품명:</strong>
+                                <span th:text="${order['product'].name}">런닝화A</span><br>
+                                <strong>구매일:</strong>
+                                <span th:text="${order['formattedCreateAt']}">날짜</span><br>
                                 <strong>배송 현황:</strong> <span
-                                    class="delivery-status delivery-completed">배송완료</span><br>
-                                <button class="btn btn-dark btn-sm mt-2 open-review" data-delivery-status="배송완료"
-                                        data-order="12345" data-product="런닝화 A">후기 작성하기
-                                </button>
-                            </li>
-                            <li class="list-group-item">
-                                <strong>주문번호:</strong> 12346<br>
-                                <strong>상품명:</strong> 스니커즈 B<br>
-                                <strong>구매일:</strong> 2024-09-15<br>
-                                <strong>배송 현황:</strong>
-                                <span class="delivery-status delivery-in-progress">배송 중</span><br>
-                                <button class="btn btn-secondary btn-sm mt-2 open-review" data-delivery-status="배송 중"
-                                        data-order="12346" data-product="스니커즈 B" disabled>배송 중
-                                </button>
-                            </li>
-                            <li class="list-group-item">
-                                <strong>주문번호:</strong> 12347<br>
-                                <strong>상품명:</strong> 축구화 C<br>
-                                <strong>구매일:</strong> 2024-09-15<br>
-                                <strong>배송 현황:</strong>
-                                <span class="delivery-status delivery-preparing">상품 준비 중</span><br>
-                                <button class="btn btn-secondary btn-sm mt-2 open-review" data-delivery-status="상품 준비 중"
-                                        data-order="12347" data-product="축구화 C" disabled>상품 준비 중
+                                    class="delivery-status delivery-completed"
+                                    data-th-delivery-status="${order['order'].deliveryStatus}"
+                                    th:class="${order['order'].deliveryStatus == '배송완료' ? 'delivery-completed' :
+                  order['order'].deliveryStatus == '배송중' ? 'delivery-in-progress' :
+                  order['order'].deliveryStatus == '배송대기' ? 'delivery-preparing' : 'review-write'}"
+                                    th:text="${order['order'].deliveryStatus}">배송완료</span><br>
+                                <button class="btn btn-sm mt-2 open-review btn-primary"
+                                        data-th-delivery-status="${order['order'].deliveryStatus}"
+                                        data-th-order="${order['order'].orderId}"
+                                        data-th-product="${order['product'].name}">후기 작성하기
                                 </button>
                             </li>
                         </ul>
@@ -167,32 +157,32 @@
     <h5>후기 작성
         <button class="close" id="closeReview" type="button">&times;</button>
     </h5>
-    <form id="reviewForm">
+    <form action="/addReview" id="reviewForm" method="post" name="addReview">
         <div class="form-group">
             <label for="productName">상품명</label>
-            <input class="form-control" id="productName" readonly type="text">
+            <input class="form-control" id="productName" name="name" readonly type="text">
         </div>
         <div class="form-group">
-            <label for="freviewText">한줄 후기</label>
-            <input class="form-control" id="freviewText" required rows="1"></input>
+            <label for="title">한줄 후기</label>
+            <input class="form-control" id="title" name="title" required rows="1"></input>
         </div>
         <div class="form-group">
-            <label for="reviewText">상세 후기</label>
-            <textarea class="form-control" id="reviewText" required rows="3"></textarea>
+            <label for="comment">상세 후기</label>
+            <textarea class="form-control" id="comment" name="comment" required rows="3"></textarea>
         </div>
         <!-- starRating -->
         <div class="form-group">
             <label for="rating">평점</label>
             <div id="starRating">
-                <i class="far fa-star" data-rating="1"></i>
-                <i class="far fa-star" data-rating="2"></i>
-                <i class="far fa-star" data-rating="3"></i>
-                <i class="far fa-star" data-rating="4"></i>
-                <i class="far fa-star" data-rating="5"></i>
+                <i class="far fa-star" data-th-rating="1"></i>
+                <i class="far fa-star" data-th-rating="2"></i>
+                <i class="far fa-star" data-th-rating="3"></i>
+                <i class="far fa-star" data-th-rating="4"></i>
+                <i class="far fa-star" data-th-rating="5"></i>
             </div>
-            <input id="rating" name="rating" required type="hidden">
+            <input id="rating" name="starRate" required type="hidden">
         </div>
-        <button class="btn btn-dark" id="submitReview" type="submit">제출</button>
+        <button class="btn btn-dark" id="submitReview" type="submit">후기 작성</button>
     </form>
 </div>
 <script>
@@ -215,7 +205,7 @@
 
         // 후기 작성 버튼
         document.querySelectorAll('.open-review').forEach(button => {
-            const deliveryStatus = button.getAttribute('data-delivery-status');
+            const deliveryStatus = button.getAttribute('delivery-status');
             if (deliveryStatus !== '배송완료') {
                 button.disabled = true;
                 button.classList.remove('btn-primary');
@@ -223,7 +213,7 @@
                 button.textContent = deliveryStatus;
             } else {
                 button.addEventListener('click', function () {
-                    const product = this.getAttribute('data-product');
+                    const product = this.getAttribute('product');
                     document.getElementById('productName').value = product;
                     reviewSidebar.classList.add('show');
                 });
@@ -246,7 +236,7 @@
 
         starRating.addEventListener('click', function (e) {
             if (e.target.classList.contains('fa-star')) {
-                const rating = e.target.getAttribute('data-rating');
+                const rating = e.target.getAttribute('rating');
                 updateStars(rating);
             }
         });
@@ -265,15 +255,20 @@
         }
 
         // 후기 제출
-        document.getElementById('submitReview').addEventListener('click', function () {
+        document.getElementById('reviewForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // 폼의 기본 제출 동작을 방지
+
             const product = document.getElementById('productName').value;
-            const review = document.getElementById('reviewText').value;
+            const title = document.getElementById('title').value;
+            const comment = document.getElementById('comment').value;
             const rating = ratingInput.value;
-            if (review && rating) {
-                alert('후기가 제출되었습니다.\n상품: ' + product + '\n내용: ' + review + '\n별점: ' + rating);
-                closeReviewSidebar();
+
+            if (title && rating) {
+                alert('후기가 제출되었습니다.\n상품: ' + product + '\n제목: ' + title + '\n내용: ' + comment + '\n별점: ' + rating);
+                // 여기서 실제 폼 제출을 수행할 수 있습니다.
+                this.submit(); // 폼을 제출
             } else {
-                alert('후기와 별점을 작성해주세요.');
+                alert('한줄후기와 별점을 작성해주세요.');
             }
         });
 

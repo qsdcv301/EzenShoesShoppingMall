@@ -1,7 +1,11 @@
 package ezen.com.esmall.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -30,17 +34,17 @@ public class Review {
     @Column(name = "star_rate", nullable = false)
     private Integer starRate;
 
-    @Column(name = "create_at")
+    @Column(name = "create_at", updatable = false)
     private LocalDateTime createAt;
 
     @Builder
-    public Review(Long userId, Long productId, String comment, String title, Integer starRate, LocalDateTime createAt) {
+    public Review(Long userId, Long productId, String comment, String title, Integer starRate) {
         this.userId = userId;
         this.productId = productId;
         this.comment = comment;
         this.title = title;
         this.starRate = starRate;
-        this.createAt = createAt;
+        this.createAt = LocalDateTime.now();
     }
 
     public void update(String comment, String title, Integer starRate) {

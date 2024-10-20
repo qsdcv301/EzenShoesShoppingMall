@@ -33,7 +33,7 @@ public class WebSecurityConfig {
                         .loginPage("/login")
                         .usernameParameter("uid")
                         .passwordParameter("pw")
-                        .defaultSuccessUrl("/")
+                        .defaultSuccessUrl("/", true)
                         .failureUrl("/login?error=true")
                 )
                 .logout(logout -> logout

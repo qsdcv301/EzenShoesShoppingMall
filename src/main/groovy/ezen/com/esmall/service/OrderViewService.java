@@ -32,7 +32,7 @@ public class OrderViewService {
     public OrderView update(Long id, OrderView orderViewDetails) {
         OrderView orderView = findById(id);
         if (orderView != null) {
-            orderView.update(orderViewDetails.getDeliveryStatus(), orderViewDetails.getDeliveryAt());
+            orderView.update(orderViewDetails.getDeliveryStatus());
             return orderViewRepository.save(orderView);
         }
         return null;
@@ -40,5 +40,9 @@ public class OrderViewService {
 
     public void delete(Long id) {
         orderViewRepository.deleteById(id);
+    }
+
+    public List<OrderView> findByUserId(Long userId) {
+        return orderViewRepository.findByUserId(userId);
     }
 }
