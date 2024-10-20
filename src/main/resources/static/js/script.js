@@ -406,131 +406,36 @@ $(document).ready(function () {
     /**********************    상품 장바구니 페이지 스크립트    ************************/
     /*********************************************************************************/
 
-// 가격 정보를 저장할 변수
-    var deliveryFee = 3000; // 기본 배송비 3000원
-    var freeDeliveryThreshold = 50000; // 5만원 이상 무료 배송
-
-// 선택한 상품 가격 계산 함수
-    function calculatePrices() {
-        var totalPrice = 0;
-        var itemCount = 0;
-
-        // 체크된 상품들의 가격을 합산
-        $(".product-checkbox:checked").each(function () {
-            var itemPrice = $(this)
-                .closest(".product-card")
-                .find(".card-text span")
-                .text()
-                .replace(/[^0-9]/g, ""); // 숫자 외의 문자 제거
-            itemPrice = parseFloat(itemPrice); // 숫자 변환
-
-            if (!isNaN(itemPrice)) {
-                totalPrice += itemPrice;
-                itemCount++;
-            }
-        });
-
-        // 합산된 가격과 항목 수를 표시
-        $("#item-count").text(itemCount);
-        $("#total-amount").text(totalPrice.toLocaleString() + " 원");
-
-        // 배송비 처리
-        var shippingCost = totalPrice >= freeDeliveryThreshold ? 0 : deliveryFee;
-        $("#shipping-cost").text(shippingCost.toLocaleString() + " 원");
-
-        // 최종 합계 계산
-        var finalTotal = totalPrice + shippingCost;
-        $("#final-amount").text(finalTotal.toLocaleString() + " 원");
-    }
-
-// 전체 선택/해제 기능
-    $("#select-all").on("click", function () {
-        var allChecked = $(".product-checkbox:checked").length === $(".product-checkbox").length;
-        $(".product-checkbox").prop("checked", !allChecked);
-        calculatePrices(); // 가격 재계산
-    });
-
-// 선택된 항목 삭제
-    $("#delete-selected").on("click", function () {
-        var selectedProducts = [];
-
-        $(".product-checkbox:checked").each(function () {
-            var productId = $(this).closest(".product-card").find("input[name='product-id']").val();
-            selectedProducts.push(productId); // 선택된 상품의 ID 저장
-            $(this).closest(".product-card").remove(); // 선택된 상품 삭제
-        });
-
-        if (selectedProducts.length === 0) {
-            alert("삭제할 상품을 선택해 주세요.");
-            return;
-        }
-
-        // AJAX 요청으로 선택된 상품 삭제
-        $.ajax({
-            type: "POST",
-            url: "/deleteCart",  // 서버에서 삭제 요청을 처리할 URL
-            data: JSON.stringify({productIds: selectedProducts}),
-            contentType: "application/json",
-            success: function (response) {
-                if (response.success) {
-                    alert("선택된 상품이 삭제되었습니다.");
-                    calculatePrices(); // 가격 재계산
-                } else {
-                    alert("상품 삭제에 실패했습니다.");
-                }
-            },
-            error: function () {
-                alert("서버에 오류가 발생했습니다.");
-            }
-        });
-    });
-
-// 체크박스 변경 시 가격 재계산
-    $(".product-checkbox").on("change", function () {
-        calculatePrices();
-    });
-
-// 초기 가격 계산 (페이지 로드 시)
-    $(document).ready(function () {
-        calculatePrices();
-    });
 
     /*********************************************************************************/
     /**********************  상품 장바구니 페이지 스크립트 끝   ************************/
     /*********************************************************************************/
 
 //     tou
-    const allCheck = document.getElementById('allCheck');
-    const termsCheck = document.getElementById('termsCheck');
-    const privacyCheck = document.getElementById('privacyCheck');
-
-    allCheck.addEventListener('change', function () {
-        termsCheck.checked = this.checked;
-        privacyCheck.checked = this.checked;
+    $('#allCheck').on('change', function () {
+        $('#termsCheck').prop('checked', this.checked);
+        $('#privacyCheck').prop('checked', this.checked);
     });
 
-    termsCheck.addEventListener('change', updateAllCheck);
-    privacyCheck.addEventListener('change', updateAllCheck);
+    $('#termsCheck, #privacyCheck').on('change', function () {
+        const allChecked = $('#termsCheck').is(':checked') && $('#privacyCheck').is(':checked');
+        $('#allCheck').prop('checked', allChecked);
+    });
 
-    function updateAllCheck() {
-        allCheck.checked = termsCheck.checked && privacyCheck.checked;
-    }
-
-    document.getElementById('termsForm').addEventListener('submit', function (e) {
+    $('#termsForm').on('submit', function (e) {
         e.preventDefault();
-        if (termsCheck.checked && privacyCheck.checked) {
+        if ($('#termsCheck').is(':checked') && $('#privacyCheck').is(':checked')) {
             alert('약관에 동의하셨습니다. 회원가입 페이지로 이동합니다.');
             window.location.href = '/registerOk';
-
         } else {
             alert('모든 약관에 동의해주세요.');
         }
     });
 
+
     /*********************************************************************************/
     /**********************  마이 페이지 스크립트   ************************/
     /*********************************************************************************/
-
 
     /********************************************************************************/
     /**********************  마이 페이지 스크립트 끝   ************************/

@@ -11,7 +11,6 @@
     <script src="/js/jquery-1.12.4.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/popper.min.js"></script>
-    <script src="/js/script.js"></script>
    
 </head>
 <body>
@@ -105,64 +104,187 @@
     </div>
 
     <script>
-        $(document).ready(function () {
-            const userBalance = 200000;
+       $(document).ready(function () {
+    const deliveryFee = 3000; // 기본 배송비
+    const freeDeliveryThreshold = 50000; // 5만원 이상 무료 배송
+    const userBalance = 200000; // 사용자 잔액
 
-            function updateTotalPrice() {
-                let total = 0;
-                let itemCount = 0;
-                $('.product-checkbox:checked').each(function () {
-                    const productCard = $(this).closest('.product-card');
-                    const price = parseInt(productCard.data('price'));
-                    total += price;
-                    itemCount++;
-                });
+    // 가격 계산 함수
+    function calculatePrices() {
+        let totalPrice = 0;
+        let itemCount = 0;
 
-                $('#item-count').text(itemCount);
-                $('#total-amount').text(total + ' EZ코인');
+        // 체크된 상품들의 가격을 합산
+        $(".product-checkbox:checked").each(function () {
+            const productCard = $(this).closest(".product-card");
+            const priceText = productCard.find(".product-price").text().replace(/[^0-9]/g, "");
+            const itemPrice = parseFloat(priceText) || 0;
 
-                const shipping = total >= 50000 ? 0 : 3000;
-                $('#shipping-cost').text(shipping + ' EZ코인');
-                $('#final-amount').text((total + shipping) + ' EZ코인');
+            console.log(`Item Price: ${itemPrice}`); // 개별 상품 가격 로그
+
+            if (!isNaN(itemPrice)) {
+                totalPrice += itemPrice;
+                itemCount++;
             }
-
-            $('#product-list').on('click', '.edit-btn', function () {
-                const productCard = $(this).closest('.product-card');
-                productCard.find('.edit-form').show();
-                $(this).hide();
-            });
-
-            $('#product-list').on('click', '.save-btn', function () {
-                const productCard = $(this).closest('.product-card');
-                const newSize = productCard.find('.size-select').val();
-                const newQuantity = productCard.find('.quantity-input').val();
-
-                productCard.find('.product-info').text(`사이즈: ${newSize} / 수량: ${newQuantity}개`);
-                updateTotalPrice();
-
-                productCard.find('.edit-form').hide();
-                productCard.find('.edit-btn').show();
-            });
-
-            $('#select-all').click(function () {
-                $('.product-checkbox').prop('checked', true);
-                updateTotalPrice();
-            });
-
-            $('#delete-selected').click(function () {
-                $('.product-checkbox:checked').closest('.product-card').remove();
-                updateTotalPrice();
-            });
-
-            $('.btn-primary.btn-block').click(function () {
-                let totalAmount = parseInt($('#final-amount').text().replace(/[^0-9]/g, ''));
-                if (totalAmount > userBalance) {
-                    $('#insufficient-funds').show();
-                } else {
-                    alert('결제가 완료되었습니다.');
-                }
-            });
         });
+
+        console.log(`Total Price: ${totalPrice}, Item Count: ${itemCount}`); // 총 가격과 항목 수 로그
+
+        // 합산된 가격과 항목 수를 표시
+        $("#item-count").text(itemCount);
+        $("#total-amount").text(totalPrice.toLocaleString() + " 원");
+
+        const shippingCost = totalPrice >= freeDeliveryThreshold ? 0 : deliveryFee;
+        $("#shipping-cost").text(shippingCost.toLocaleString() + " 원");
+
+        const finalTotal = totalPrice + shippingCost;
+        $("#final-amount").text(finalTotal.toLocaleString() + " 원");
+
+        $("#payment-summary").text(`총 결제 금액: ${finalTotal.toLocaleString()} 원`);
+
+        return finalTotal; // 최종 금액 반환
+    }
+
+    // 체크박스 이벤트 위임으로 처리
+    $('#product-list').on('change', '.product-checkbox', function () {
+        calculatePrices();
+    });
+
+    // 결제 버튼 클릭 시 모달 창 열기
+    $('.btn-primary.btn-block').on('click', function () {
+        const totalAmount = calculatePrices(); // 최신 계산된 금액 가져오기
+
+        console.log(`User Balance: ${userBalance}, Total Amount: ${totalAmount}`); // 디버깅용 로그
+
+        if (totalAmount === 0) {
+            alert("결제할 상품을 선택해 주세요.");
+            return;
+        }
+
+        if (totalAmount > userBalance) {
+            $('#insufficient-funds').show(); // 잔액 부족 메시지 표시
+        } else {
+            $('#insufficient-funds').hide(); // 잔액 부족 메시지 숨기기
+            $('#paymentModal').modal('show'); // 결제 모달 창 열기
+        }
+    });
+
+    // 전체 선택 / 해제 기능
+    $('#select-all').on('click', function () {
+        const allChecked = $('.product-checkbox').length === $('.product-checkbox:checked').length;
+        $('.product-checkbox').prop('checked', !allChecked);
+        calculatePrices(); // 가격 재계산
+    });
+
+    // 초기 가격 계산
+    calculatePrices();
+
+    $('.edit-btn').click(function () {
+        // 옵션 변경 폼 표시
+        const productCard = $(this).closest('.product-card');
+        productCard.find('.edit-form').show();
+        $(this).hide();
+    });
+
+    $('.save-btn').click(function () {
+        // 변경된 옵션 저장 및 가격 업데이트
+        const productCard = $(this).closest('.product-card');
+        const newSize = productCard.find('.size-select').val();
+        const newQuantity = productCard.find('.quantity-input').val();
+
+        productCard.find('.product-info').text(`사이즈 : ${newSize} / 수량 : ${newQuantity}개`);
+
+        updateProductPrice(productCard);
+        updateTotalPrice();
+
+        productCard.find('.edit-form').hide();
+        productCard.find('.edit-btn').show();
+    });
+
+    $('.cancel-btn').click(function () {
+        // 옵션 변경 취소
+        const productCard = $(this).closest('.product-card');
+        productCard.find('.edit-form').hide();
+        productCard.find('.edit-btn').show();
+    });
+
+    // 구매하기 버튼 클릭 시 결제 모달 표시
+    $('.btn-primary.btn-block').click(function () {
+        let selectedProducts = '';
+        let totalAmount = 0;
+
+        $('.product-checkbox:checked').each(function () {
+            const productCard = $(this).closest('.product-card');
+            const productName = productCard.find('.card-title').text();
+            const productInfo = productCard.find('.product-info').text();
+            const productPrice = productCard.find('.product-price').text();
+            const productImage = productCard.find('img').attr('src');
+
+            selectedProducts += `
+        <div class="col-12 mb-3">
+            <div class="card h-100">
+                <div class="row no-gutters">
+                    <div class="col-4">
+                        <img src="${productImage}" class="card-img" alt="${productName}">
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body p-2">
+                            <h6 class="card-title mb-1">${productName}</h6>
+                            <p class="card-text mb-1"><small>${productInfo}</small></p>
+                            <p class="card-text"><small class="text-muted">${productPrice}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+            totalAmount += parseInt(productPrice.replace(/[^0-9]/g, ''));
+        });
+
+        const shippingCost = totalAmount >= 50000 ? 0 : 3000;
+        const finalAmount = totalAmount + shippingCost;
+
+        const paymentSummary = `
+    <p>상품 총액: <strong>${totalAmount.toLocaleString()} EZ코인</strong></p>
+    <p>배송비: <strong>${shippingCost.toLocaleString()} EZ코인</strong></p>
+    <hr>
+    <p class="font-weight-bold">최종 결제 금액: <span class="text-primary">${finalAmount.toLocaleString()} EZ코인</span></p>
+    <p>보유 코인: <strong>${userBalance.toLocaleString()} EZ코인</strong></p>
+`;
+
+        $('#selected-products').html(selectedProducts);
+        $('#payment-summary').html(paymentSummary);
+
+        // 잔액 부족 여부 확인 및 표시
+        if (finalAmount > userBalance) {
+            $('#insufficient-funds').show();
+            $('#confirm-payment').prop('disabled', true);
+        } else {
+            $('#insufficient-funds').hide();
+            $('#confirm-payment').prop('disabled', false);
+        }
+
+        $('#paymentModal').modal('show');
+    });
+
+    // 결제 확인 버튼 클릭 시 동작
+    $('#confirm-payment').click(function () {
+        alert('결제가 완료되었습니다.');
+        $('#paymentModal').modal('hide');
+    });
+    // 충전 버튼 클릭 시 동작
+    $('#recharge-button').click(function () {
+        alert('마이페이지로 이동합니다.');
+        // 여기에 충전 페이지로 이동하는 로직을 추가할 수 있습니다.
+    });
+});
+
+
+
+
+
+
     </script>
 </body>
 </html>
