@@ -21,9 +21,10 @@
 <div class="mainimg slide container-fluid">
     <div class="mainimg-continer row overflow-hidden">
         <!-- 첫 번째 이미지 섹션 -->
-        <div class="mimg-1 col-12" style="position: relative;">
-            <img alt="mainpage-slide-01" class="min-vw-100" src="/images/mainpage-slide-01.png"
-                 style="width: 100%;">
+        <div class="mimg-1 col-12 p-0 position-relative">
+            <video autoplay class="w-100 min-vw-100" loop muted>
+                <source src="/images/nike.mp4" type="video/mp4">
+            </video>
             <div style="position: absolute; bottom: 80px; left: 150px; text-align: left; color: #fff;">
                 <h2 style="font-size: 45px; font-weight: bold; margin-bottom: 15px;">THE GAME</h2>
                 <p style="font-size: 23px; font-weight: 400; margin-bottom: 30px;">오늘의 스트릿 스타일을 리드하는 <br> 70년대 러닝의 아이콘
@@ -33,9 +34,10 @@
             </div>
         </div>
         <!-- 두 번째 이미지 섹션 -->
-        <div class="mimg-2 col-12" style="position: relative;">
-            <img alt="mainpage-slide-02" class="min-vw-100" src="/images/mainpage-slide-02.png"
-                 style="width: 100%;">
+        <div class="mimg-2 col-12 p-0 position-relative">
+            <video autoplay class="w-100 min-vw-100" loop muted>
+                <source src="/images/adidas.mp4" type="video/mp4">
+            </video>
             <div style="position: absolute; bottom: 80px; left: 150px; text-align: left; color: #fff;">
                 <h2 style="font-size: 45px; font-weight: bold; margin-bottom: 30px;">THE GAME NEVER STOPS</h2>
                 <a class="btn btn-outline-light" href="/products" style="font-size: 22px;">구매하기 <i
@@ -51,24 +53,31 @@
             <div class="slider position-relative">
                 <button class="slider-btn left-btn position-absolute"><i class="bi bi-chevron-left"></i></button>
                 <div class="slider-items card-deck d-flex">
-                    <div class="card">
-                        <img alt="sample" class="card-img-top" src="/images/mainpage-slide-01.png">
-                    </div>
-                    <div class="card">
-                        <img alt="sample" class="card-img-top" src="/images/mainpage-slide-02.png">
-                    </div>
-                    <div class="card">
-                        <img alt="sample" class="card-img-top" src="/images/mainpage-slide-03.png">
-                    </div>
-                    <div class="card">
-                        <img alt="sample" class="card-img-top" src="/images/mainpage-slide-04.png">
-                    </div>
-                    <div class="card">
-                        <img alt="sample" class="card-img-top" src="/images/mainpage-slide-05.png">
-                    </div>
-                    <div class="card">
-                        <img alt="sample" class="card-img-top" src="/images/mainpage-slide-06.png">
-                    </div>
+                    <a class="card" href="productsDetail?productCode=8&category=adidas">
+                        <video autoplay loop muted>
+                            <source src="/images/adidas/samba01_video01.webm" type="video/webm">
+                        </video>
+                    </a>
+                    <a class="card" href="productsDetail?productCode=4&category=adidas">
+                        <video autoplay loop muted>
+                            <source src="/images/adidas/everyset01_video01.webm" type="video/webm">
+                        </video>
+                    </a>
+                    <a class="card" href="productsDetail?productCode=3&category=adidas">
+                        <video autoplay loop muted>
+                            <source src="/images/adidas/dropset01_video01.webm" type="video/webm">
+                        </video>
+                    </a>
+                    <a class="card" href="productsDetail?productCode=2&category=adidas">
+                        <video autoplay loop muted>
+                            <source src="/images/adidas/amplimove01_video01.webm" type="video/webm">
+                        </video>
+                    </a>
+                    <a class="card" href="productsDetail?productCode=1&category=adidas">
+                        <video autoplay loop muted>
+                            <source src="/images/adidas/adistar01_video01.webm" type="video/webm">
+                        </video>
+                    </a>
                 </div>
                 <button class="slider-btn right-btn position-absolute"><i class="bi bi-chevron-right"></i></button>
             </div>
