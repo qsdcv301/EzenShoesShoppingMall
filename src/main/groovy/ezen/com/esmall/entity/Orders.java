@@ -22,25 +22,30 @@ public class Orders {
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
-    @Column(name = "total_price", nullable = false)  // 필드 이름을 MySQL과 일치시킴
+    @Column(name = "total_price", nullable = false)
     private Integer totalPrice;
 
-    @Column(name = "addrs", nullable = false)  // 필드 이름을 MySQL과 일치시킴
-    private String addr;
+    @Column(name = "addrs", nullable = false)
+    private String addrs;
 
-    @Column(name = "order_time")  // 필드 이름을 MySQL과 일치시킴
+    @Column(name = "addrt", nullable = false)
+    private String addrt;
+
+    @Column(name = "order_time")
     private LocalDateTime orderTime;
 
     @Builder
-    public Orders(Long userId, Integer totalPrice, String addr, LocalDateTime orderTime) {
+    public Orders(Long userId, Integer totalPrice, String addrs, String addrt) {
         this.userId = userId;
         this.totalPrice = totalPrice;
-        this.addr = addr;
-        this.orderTime = orderTime;
+        this.addrs = addrs;
+        this.addrt = addrt;
+        this.orderTime = LocalDateTime.now();
     }
 
-    public void update(Integer totalPrice, String addr) {
+    public void update(Integer totalPrice, String addr, String addrt) {
         this.totalPrice = totalPrice;
-        this.addr = addr;
+        this.addrs = addr;
+        this.addrt = addrt;
     }
 }
