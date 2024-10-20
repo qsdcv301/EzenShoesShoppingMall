@@ -227,4 +227,40 @@ public class UserDataController {
         return "redirect:/mypage";
     }
 
+    @PostMapping("/addOrder")
+    public String addOrder(@RequestParam(value = "totalPrice") String totalPrice,
+                           @RequestParam(value = "productsId") String[] productsId,
+                           @RequestParam(value = "quantities") Integer[] quantities,
+                           Model model) {
+        Long userId = getCurrentUserId();
+        if (userId == null) {
+            return "redirect:/login";
+        }
+
+        User user = userService.findById(userId);
+
+        Orders newOrder =
+                Orders.builder().userId(userId).totalPrice(Integer.parseInt(totalPrice)).addrs(user.getAddrs()).addrt(user.getAddrt()).build();
+        ordersService.create(newOrder);
+
+        for (int i = 0; i < productsId.length; i++) {
+            String productId = productsId[i];
+            Integer quantity = quantities[i];
+
+            Product product = productService.findById(Long.parseLong(productId));
+            OrderView newOrderView = OrderView.builder()
+                    .orderId(newOrder.getId())
+                    .userId(userId)
+                    .productId(Long.parseLong(productId))
+                    .quantity(quantity)
+                    .productPrice(product.getPrice())
+                    .totalPrice(product.getPrice() * quantity)
+                    .build();
+            orderViewService.create(newOrderView);
+
+        }
+
+        return "redirect:/cart";
+    }
+
 }
