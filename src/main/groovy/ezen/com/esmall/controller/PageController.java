@@ -33,7 +33,7 @@ public class PageController {
     @Autowired
     private ProductService productService;
     @Autowired
-    private OrderService orderService;
+    private OrdersService ordersService;
     @Autowired
     private CategoryService categoryService;
     @Autowired
