@@ -124,7 +124,7 @@
                     <div class="purchase-list" id="purchaseList">
                         <ul class="list-group list-group-flush">
                             <!-- 구매 목록 항목 -->
-                            <li class="list-group-item">
+                            <li class="list-group-item" th:each="order : ${orders}">
                                 <strong>주문번호:</strong> 12345<br>
                                 <strong>상품명:</strong> 런닝화 A<br>
                                 <strong>구매일:</strong> 2024-09-20<br>

@@ -129,7 +129,6 @@ public class UserDataController {
         return null; // 로그인하지 않은 경우
     }
 
-
     @PostMapping("/addCart")
     @ResponseBody
     public ResponseEntity<?> addCart(@RequestBody Map<String, Object> request, Model model) {
