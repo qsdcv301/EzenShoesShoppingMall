@@ -322,12 +322,24 @@ $(document).ready(function () {
     // 이메일 도메인 선택 또는 직접 입력
     $('#emailDomainSelect').change(function () {
         var domain = $(this).val();
-        if (domain === 'direct') {
-            $('#emailDomainDirect').show().val('').focus();
+        if (this.value === 'direct') {
+            emailDomainDirect.style.display = 'block';
+            emailDomainDirect.value = '';
+            emailDomainDirect.focus();
+            this.style.display = 'none';
         } else {
-            $('#emailDomainDirect').hide().val(domain);
+            emailDomainDirect.style.display = 'none';
+            emailDomainDirect.value = this.value;
+            this.style.display = 'block';
         }
         combineEmail();
+    });
+
+    $('#emailDomainDirect').on('blur', function() {
+        if ($(this).val() === '') {
+            $(this).hide();
+            $('#emailDomainSelect').show().val('');
+        }
     });
 
     // 이메일 조합
