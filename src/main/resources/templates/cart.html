@@ -90,9 +90,26 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div id="payment-summary"></div>
-                    <div id="insufficient-funds" class="text-danger mt-3" style="display: none;">
-                        보유 코인이 부족합니다. <button id="recharge-button" class="btn btn-warning btn-sm ml-2">충전하기</button>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <!-- 선택한 상품 표시 -->
+                                <div class="col-md-7">
+                                    <h5 class="card-title mb-3">선택한 상품</h5>
+                                    <div id="selected-products" class="row"></div>
+                                </div>
+
+                                <!-- 결제 정보 -->
+                                <div class="col-md-5">
+                                    <h5 class="card-title mb-3">결제 정보</h5>
+                                    <div id="payment-summary"></div>
+                                    <div id="insufficient-funds" class="text-danger mt-3" style="display: none;">
+                                        보유 코인이 부족합니다.
+                                        <button id="recharge-button" class="btn btn-warning btn-sm ml-2">충전하기</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -209,66 +226,72 @@
     });
 
     // 구매하기 버튼 클릭 시 결제 모달 표시
-    $('.btn-primary.btn-block').click(function () {
-        let selectedProducts = '';
-        let totalAmount = 0;
+           $('.btn-primary.btn-block').click(function () {
+               let selectedProducts = '';
+               let totalAmount = 0;
 
-        $('.product-checkbox:checked').each(function () {
-            const productCard = $(this).closest('.product-card');
-            const productName = productCard.find('.card-title').text();
-            const productInfo = productCard.find('.product-info').text();
-            const productPrice = productCard.find('.product-price').text();
-            const productImage = productCard.find('img').attr('src');
+               // 선택된 상품들의 정보를 모달에 표시
+               $('.product-checkbox:checked').each(function () {
+                   const productCard = $(this).closest('.product-card');
+                   const productName = productCard.find('.card-title').text();
+                   const productInfo = productCard.find('.product-info').text();
+                   const productPrice = productCard.find('.product-price').text();
+                   const productImage = productCard.find('img').attr('src');
 
-            selectedProducts += `
-        <div class="col-12 mb-3">
-            <div class="card h-100">
-                <div class="row no-gutters">
-                    <div class="col-4">
-                        <img src="${productImage}" class="card-img" alt="${productName}">
-                    </div>
-                    <div class="col-8">
-                        <div class="card-body p-2">
-                            <h6 class="card-title mb-1">${productName}</h6>
-                            <p class="card-text mb-1"><small>${productInfo}</small></p>
-                            <p class="card-text"><small class="text-muted">${productPrice}</small></p>
+                   // 상품 정보를 HTML로 조합
+                   selectedProducts += `
+            <div class="col-12 mb-3">
+                <div class="card h-100">
+                    <div class="row no-gutters">
+                        <div class="col-4">
+                            <img src="${productImage}" class="card-img" alt="${productName}">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body p-2">
+                                <h6 class="card-title mb-1">${productName}</h6>
+                                <p class="card-text mb-1"><small>${productInfo}</small></p>
+                                <p class="card-text"><small class="text-muted">${productPrice}</small></p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        `;
+
+                   totalAmount += parseInt(productPrice.replace(/[^0-9]/g, ''));
+               });
+
+               const shippingCost = totalAmount >= 50000 ? 0 : 3000;
+               const finalAmount = totalAmount + shippingCost;
+
+               // 결제 요약 정보 구성
+               const paymentSummary = `
+        <p>상품 총액: <strong>${totalAmount.toLocaleString()} EZ코인</strong></p>
+        <p>배송비: <strong>${shippingCost.toLocaleString()} EZ코인</strong></p>
+        <hr>
+        <p class="font-weight-bold">최종 결제 금액: <span class="text-primary">${finalAmount.toLocaleString()} EZ코인</span></p>
+        <p>보유 코인: <strong>${userBalance.toLocaleString()} EZ코인</strong></p>
     `;
 
-            totalAmount += parseInt(productPrice.replace(/[^0-9]/g, ''));
-        });
+               // 모달에 선택된 상품과 결제 요약 표시
+               $('#selected-products').html(selectedProducts);
+               $('#payment-summary').html(paymentSummary);
 
-        const shippingCost = totalAmount >= 50000 ? 0 : 3000;
-        const finalAmount = totalAmount + shippingCost;
+               // 잔액 부족 여부 확인
+               if (finalAmount > userBalance) {
+                   $('#insufficient-funds').show();
+                   $('#confirm-payment').prop('disabled', true);
+               } else {
+                   $('#insufficient-funds').hide();
+                   $('#confirm-payment').prop('disabled', false);
+               }
 
-        const paymentSummary = `
-    <p>상품 총액: <strong>${totalAmount.toLocaleString()} EZ코인</strong></p>
-    <p>배송비: <strong>${shippingCost.toLocaleString()} EZ코인</strong></p>
-    <hr>
-    <p class="font-weight-bold">최종 결제 금액: <span class="text-primary">${finalAmount.toLocaleString()} EZ코인</span></p>
-    <p>보유 코인: <strong>${userBalance.toLocaleString()} EZ코인</strong></p>
-`;
+               // 모달 표시
+               $('#paymentModal').modal('show');
+           });
 
-        $('#selected-products').html(selectedProducts);
-        $('#payment-summary').html(paymentSummary);
 
-        // 잔액 부족 여부 확인 및 표시
-        if (finalAmount > userBalance) {
-            $('#insufficient-funds').show();
-            $('#confirm-payment').prop('disabled', true);
-        } else {
-            $('#insufficient-funds').hide();
-            $('#confirm-payment').prop('disabled', false);
-        }
-
-        $('#paymentModal').modal('show');
-    });
-
-    // 결제 확인 버튼 클릭 시 동작
+           // 결제 확인 버튼 클릭 시 동작
     $('#confirm-payment').click(function () {
         alert('결제가 완료되었습니다.');
         $('#paymentModal').modal('hide');
