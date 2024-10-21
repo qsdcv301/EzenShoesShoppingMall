@@ -113,6 +113,8 @@ public class UserDataController {
                 System.out.println(imageUrls);
             }
         }
+        User user = userService.findById(userId);
+        model.addAttribute("user", user);
         model.addAttribute("cartList", cartList);
         model.addAttribute("productList", productList);
         model.addAttribute("imageUrls", imageUrls);
@@ -246,37 +248,47 @@ public class UserDataController {
     }
 
     @PostMapping("/addOrder")
-    public String addOrder(@RequestParam(value = "totalPrice") String totalPrice,
-                           @RequestParam(value = "productsId") String[] productsId,
-                           @RequestParam(value = "quantities") Integer[] quantities,
+    public String addOrder(@RequestParam(value = "productNames") String productNames,
+                           @RequestParam(value = "sizes") String sizes,
+                           @RequestParam(value = "quantities") String quantities,
+                           @RequestParam(value = "totalPrice") Integer totalPrice,
                            Model model) {
         Long userId = getCurrentUserId();
         if (userId == null) {
             return "redirect:/login";
         }
+        String[] namesArray = productNames.split(",");
+        String[] sizesArray = sizes.split(",");
+        String[] quantitiesArray = quantities.split(",");
 
         User user = userService.findById(userId);
 
         Orders newOrder =
-                Orders.builder().userId(userId).totalPrice(Integer.parseInt(totalPrice)).addrs(user.getAddrs()).addrt(user.getAddrt()).build();
+                Orders.builder().userId(userId).totalPrice(totalPrice).addrs(user.getAddrs()).addrt(user.getAddrt()).build();
         ordersService.create(newOrder);
+        List<Long> productList = new ArrayList<>();
+        for (int i = 0; i < namesArray.length; i++) {
+            Integer quantity = Integer.parseInt(quantitiesArray[i]);
+            Product product = productService.findProductByName(namesArray[i]);
 
-        for (int i = 0; i < productsId.length; i++) {
-            String productId = productsId[i];
-            Integer quantity = quantities[i];
-
-            Product product = productService.findById(Long.parseLong(productId));
             OrderView newOrderView = OrderView.builder()
                     .orderId(newOrder.getId())
                     .userId(userId)
-                    .productId(Long.parseLong(productId))
+                    .productId(product.getId())
                     .quantity(quantity)
                     .productPrice(product.getPrice())
                     .totalPrice(product.getPrice() * quantity)
                     .build();
             orderViewService.create(newOrderView);
-
+        productList.add(product.getId());
         }
+
+        List<Cart> carts = cartService.findByUserIdAndProductIds(userId,productList);
+        for(Cart cart : carts){
+            cartService.delete(cart.getId());
+        }
+        user.setEzcoin(user.getEzcoin() - totalPrice);
+        userService.update(userId, user);
 
         return "redirect:/cart";
     }

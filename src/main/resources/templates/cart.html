@@ -122,14 +122,18 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
+            <form class="modal-footer" action="/addOrder" method="post" id="addOrderForm">
+                <input type="hidden" name="productNames" id="productNames">
+                <input type="hidden" name="sizes" id="sizes">
+                <input type="hidden" name="quantities" id="quantities">
+                <input type="hidden" name="totalPrice" id="totalPrice">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                <button type="button" class="btn btn-primary" id="confirm-payment">결제 하기</button>
-            </div>
+                <button type="submit" class="btn btn-primary" id="confirm-payment">결제 하기</button>
+            </form>
         </div>
     </div>
 </div>
-
+<input id="userCoin" type="hidden" th:value="${user.ezcoin}">
 <script>
     $(document).ready(function () {
 
@@ -146,7 +150,7 @@
 
         const deliveryFee = 3000; // 기본 배송비
         const freeDeliveryThreshold = 50000; // 5만원 이상 무료 배송
-        const userBalance = 200000; // 사용자 잔액
+        const userBalance = $("#userCoin").val(); // 사용자 잔액
 
         // 가격 계산 함수
         function calculatePrices() {
@@ -233,10 +237,13 @@
             productCard.find('.edit-btn').show();
         });
 
-        // 구매하기 버튼 클릭 시 결제 모달 표시
-        $('.btn-primary.btn-block').click(function () {
+        // 결제 버튼 클릭 시 모달 창 열기
+        $('.btn-primary.btn-block').on('click', function () {
             let selectedProducts = '';
             let totalAmount = 0;
+            const productNames = [];
+            const sizes = [];
+            const quantities = [];
 
             // 선택된 상품들의 정보를 모달에 표시
             $('.product-checkbox:checked').each(function () {
@@ -245,26 +252,33 @@
                 const productInfo = productCard.find('.product-info').text();
                 const productPrice = productCard.find('.product-price').text();
                 const productImage = productCard.find('img').attr('src');
+                const quantity = productCard.find('.quantity-input').val(); // 수량 값 가져오기
+                const size = productCard.find('.size-select').val(); // 사이즈 값 가져오기
 
                 // 상품 정보를 HTML로 조합
                 selectedProducts += `
-            <div class="col-12 mb-3">
-                <div class="card h-100">
-                    <div class="row no-gutters">
-                        <div class="col-4">
-                            <img src="${productImage}" class="card-img" alt="${productName}">
-                        </div>
-                        <div class="col-8">
-                            <div class="card-body p-2">
-                                <h6 class="card-title mb-1">${productName}</h6>
-                                <p class="card-text mb-1"><small>${productInfo}</small></p>
-                                <p class="card-text"><small class="text-muted">${productPrice}</small></p>
-                            </div>
+        <div class="col-12 mb-3">
+            <div class="card h-100">
+                <div class="row no-gutters">
+                    <div class="col-4">
+                        <img src="${productImage}" class="card-img" alt="${productName}">
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body p-2">
+                            <h6 class="card-title mb-1">${productName}</h6>
+                            <p class="card-text mb-1"><small>${productInfo}</small></p>
+                            <p class="card-text"><small class="text-muted">${productPrice}</small></p>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         `;
+
+                // 선택된 상품의 이름, 사이즈, 수량 추가
+                productNames.push(productName);
+                sizes.push(size);
+                quantities.push(quantity);
 
                 totalAmount += parseInt(productPrice.replace(/[^0-9]/g, ''));
             });
@@ -272,18 +286,21 @@
             const shippingCost = totalAmount >= 50000 ? 0 : 3000;
             const finalAmount = totalAmount + shippingCost;
 
-            // 결제 요약 정보 구성
-            const paymentSummary = `
+            // 데이터 입력
+            $('#productNames').val(productNames.join(',')); // 배열을 문자열로 변환하여 입력
+            $('#sizes').val(sizes.join(','));
+            $('#quantities').val(quantities.join(','));
+            $('#totalPrice').val(finalAmount);
+
+            // 모달에 선택된 상품과 결제 요약 표시
+            $('#selected-products').html(selectedProducts);
+            $('#payment-summary').html(`
         <p>상품 총액: <strong>${totalAmount.toLocaleString()} EZ코인</strong></p>
         <p>배송비: <strong>${shippingCost.toLocaleString()} EZ코인</strong></p>
         <hr>
         <p class="font-weight-bold">최종 결제 금액: <span class="text-primary">${finalAmount.toLocaleString()} EZ코인</span></p>
         <p>보유 코인: <strong>${userBalance.toLocaleString()} EZ코인</strong></p>
-    `;
-
-            // 모달에 선택된 상품과 결제 요약 표시
-            $('#selected-products').html(selectedProducts);
-            $('#payment-summary').html(paymentSummary);
+    `);
 
             // 잔액 부족 여부 확인
             if (finalAmount > userBalance) {
@@ -298,11 +315,13 @@
             $('#paymentModal').modal('show');
         });
 
-
         // 결제 확인 버튼 클릭 시 동작
-        $('#confirm-payment').click(function () {
+        $('#confirm-payment').click(function (e) {
+            e.preventDefault();
+            const form = $(this).closest('form'); // 현재 버튼이 속한 폼 찾기
             alert('결제가 완료되었습니다.');
             $('#paymentModal').modal('hide');
+            form.submit();
         });
         // 충전 버튼 클릭 시 동작
         $('#recharge-button').click(function () {

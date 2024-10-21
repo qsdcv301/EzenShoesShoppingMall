@@ -35,7 +35,7 @@ public class OrderView {
     @Column(name = "total_price", nullable = false)
     private Integer totalPrice;
 
-    @Column(name = "delivery_status", nullable = false, length = 50)
+    @Column(name = "delivery_status", length = 50)
     private String deliveryStatus;
 
     @Builder
