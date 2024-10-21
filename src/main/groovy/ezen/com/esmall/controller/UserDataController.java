@@ -55,7 +55,8 @@ public class UserDataController {
         if (authentication != null && authentication.isAuthenticated()) {
             String userName = authentication.getName(); // 로그인한 사용자 이름
             Long userId = userDetailService.loadUserByUsername(userName).getId();
-            model.addAttribute("username", userName);
+            User user = userService.findById(userId);
+            model.addAttribute("username", user.getName());
             model.addAttribute("userid", userId);
         }
         // 인증되지 않은 경우에는 아무런 일이 없으므로 추가적인 작업이 필요 없음

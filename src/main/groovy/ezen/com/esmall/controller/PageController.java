@@ -53,7 +53,8 @@ public class PageController {
             String userName = authentication.getName();
             try {
                 Long userId = userDetailService.loadUserByUsername(userName).getId();
-                model.addAttribute("username", userName);
+                User user = userService.findById(userId);
+                model.addAttribute("username", user.getName());
                 model.addAttribute("userid", userId);
             } catch (UsernameNotFoundException e) {
                 model.addAttribute("username", "Guest"); // 예외 발생 시 기본값 설정
