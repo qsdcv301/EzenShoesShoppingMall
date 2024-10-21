@@ -26,6 +26,7 @@ public class WebSecurityConfig {
                                 "/help", "/registerOk",
                                 "/products**",
                                 "/productsDetail**",
+                                "/duplicateId",
                                 "/register", "/user").permitAll()
                         .anyRequest().authenticated()
                 )

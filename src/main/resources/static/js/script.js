@@ -279,9 +279,24 @@ $(document).ready(function () {
     /**********************    회원가입 페이지 스크립트    ************************/
     /*********************************************************************************/
 
-    // 아이디 중복 확인
-    $('#checkUsername').click(function () {
-        alert("아이디 중복 확인 기능은 서버 연동이 필요합니다.");
+    $("#checkUsername").click(function() {
+        var uid = $("#uid").val(); // 입력된 아이디 가져오기
+
+        $.ajax({
+            type: "POST",
+            url: "/duplicateId", // 중복 검사 요청을 받을 URL
+            data: { uid: uid }, // uid 값을 서버에 보냄
+            success: function(data) {
+                if (data.isDuplicate) {
+                    $("#usernameFeedback").text("이미 사용 중인 아이디입니다.").css("color", "red");
+                } else {
+                    $("#usernameFeedback").text("사용 가능한 아이디입니다.").css("color", "green");
+                }
+            },
+            error: function() {
+                $("#usernameFeedback").text("서버 오류가 발생했습니다.").css("color", "red");
+            }
+        });
     });
 
     // 주소 검색
@@ -335,7 +350,7 @@ $(document).ready(function () {
         combineEmail();
     });
 
-    $('#emailDomainDirect').on('blur', function() {
+    $('#emailDomainDirect').on('blur', function () {
         if ($(this).val() === '') {
             $(this).hide();
             $('#emailDomainSelect').show().val('');
@@ -378,10 +393,10 @@ $(document).ready(function () {
         return true;
     }
 
-    // 폼 제출
     $('#signupForm').submit(function (e) {
-        e.preventDefault();
-        combineEmail();
+        e.preventDefault(); // 기본 폼 제출 방지
+        combineEmail(); // 이메일 조합 함수 호출
+
         var formData = {
             name: $('#name').val(),
             uid: $('#uid').val(),
@@ -395,6 +410,8 @@ $(document).ready(function () {
             gender: $('input[name="gender"]:checked').val(),
             birthday: $('#birthdate').val()
         };
+
+        // 생년월일 유효성 검사 후 AJAX 요청
         if (validateBirthdate()) {
             $.ajax({
                 url: '/register',
@@ -402,12 +419,15 @@ $(document).ready(function () {
                 contentType: 'application/json',
                 data: JSON.stringify(formData),
                 success: function (response) {
-                    window.location.href = '/';
+                    window.location.href = '/'; // 성공적으로 가입한 경우 리다이렉트
                 },
                 error: function (error) {
-                    console.error(error);
+                    console.error("Error:", error);
+                    alert("가입 중 오류가 발생했습니다. 다시 시도해주세요."); // 오류 메시지
                 }
             });
+        } else {
+            alert("유효하지 않은 생년월일입니다."); // 유효성 검사 실패 메시지
         }
     });
     /*********************************************************************************/

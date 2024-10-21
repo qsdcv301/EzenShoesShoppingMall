@@ -1,12 +1,14 @@
 package ezen.com.esmall.controller;
 
 import ezen.com.esmall.entity.*;
+import ezen.com.esmall.repository.UserRepository;
 import ezen.com.esmall.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -44,6 +46,8 @@ public class PageController {
     private CartService cartService;
     @Autowired
     private ReviewService reviewService;
+    @Autowired
+    private UserRepository userRepository;
 
     @ModelAttribute
     public void addUserToModel(Model model) {
@@ -84,10 +88,17 @@ public class PageController {
         return "redirect:/";
     }
 
+
     @PostMapping("/duplicateId")
-    public String duplicateId(@RequestParam("uid") String uid, Model model) {
-        return "duplicateId";
+    public ResponseEntity<Map<String, Boolean>> checkDuplicateId(@RequestParam("uid") String uid) {
+        System.out.println(uid);
+        boolean isDuplicate = userRepository.findByUid(uid).isPresent();
+        System.out.println(isDuplicate);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("isDuplicate", isDuplicate); // 실제 중복 여부에 따라 설정
+        return ResponseEntity.ok(response);
     }
+
 
     @GetMapping("/login")
     public String loginPage(Model model) {
