@@ -37,7 +37,8 @@ public class Cart {
         this.quantity = quantity;
     }
 
-    public void update(Long productId, Integer quantity) {
+    public void update(Long userId,Long productId, Integer size, Integer quantity) {
+        this.userId = userId;
         this.productId = productId;
         this.size = size;
         this.quantity = quantity;

@@ -161,14 +161,13 @@ public class UserDataController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(Map.of("redirect", "/login"));
         }
-        Long currentUserId = getCurrentUserId(); // 현재 사용자 ID 가져오기
         Long productId = Long.parseLong((String) request.get("product_id"));
         Integer size = Integer.parseInt((String) request.get("size"));
         Integer quantity = Integer.parseInt((String) request.get("quantity"));
 
         // 장바구니에 추가하는 로직 작성
         Cart newCartItem = Cart.builder()
-                .userId(currentUserId)
+                .userId(userId)
                 .productId(productId)
                 .size(size)
                 .quantity(quantity)
@@ -178,6 +177,25 @@ public class UserDataController {
         cartService.create(newCartItem);
 
         return ResponseEntity.ok(Map.of("success", true, "message", "상품이 장바구니에 추가되었습니다."));
+    }
+
+    @PostMapping("/updateCart")
+    public String updateCart(@RequestParam(value = "productId") String ProductId,
+                             @RequestParam(value = "size") String size,
+                             @RequestParam(value = "quantity") String quantity,
+                             Model model) {
+        Long userId = getCurrentUserId();
+        if (userId == null) {
+            return "redirect:/login";
+        }
+        Cart cart = cartService.findByUserIdAndProductId(userId, Long.parseLong(ProductId));
+
+        cart.setSize(Integer.parseInt(size));
+        cart.setQuantity(Integer.parseInt(quantity));
+
+        cartService.update(cart.getId(), cart);
+
+        return "redirect:/cart";
     }
 
     @PostMapping("/updateUser")

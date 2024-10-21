@@ -32,7 +32,7 @@ public class CartService {
     public Cart update(Long id, Cart cartDetails) {
         Cart cart = findById(id);
         if (cart != null) {
-            cart.update(cartDetails.getProductId(), cartDetails.getQuantity());
+            cart.update(cartDetails.getUserId(), cartDetails.getProductId(),cartDetails.getSize(), cartDetails.getQuantity());
             return cartRepository.save(cart);
         }
         return null;
@@ -48,6 +48,10 @@ public class CartService {
 
     public List<Cart> findByUserIdAndProductIds(Long userId, List<Long> productIds) {
         return cartRepository.findByUserIdAndProductIdIn(userId, productIds);
+    }
+
+    public Cart findByUserIdAndProductId(Long userId, Long productId) {
+        return cartRepository.findByUserIdAndProductId(userId, productId);
     }
     
 }
