@@ -55,6 +55,7 @@ public class PageController {
                 Long userId = userDetailService.loadUserByUsername(userName).getId();
                 User user = userService.findById(userId);
                 model.addAttribute("username", user.getName());
+                model.addAttribute("usercoin", user.getEzcoin());
                 model.addAttribute("userid", userId);
             } catch (UsernameNotFoundException e) {
                 model.addAttribute("username", "Guest"); // 예외 발생 시 기본값 설정
@@ -81,6 +82,11 @@ public class PageController {
                 user.getAddrt(), user.getAddrl(), 1, 1, user.getEmail(), user.getGender(), user.getBirthday());
         userService.create(userData);
         return "redirect:/";
+    }
+
+    @PostMapping("/duplicateId")
+    public String duplicateId(@RequestParam("uid") String uid, Model model) {
+        return "duplicateId";
     }
 
     @GetMapping("/login")

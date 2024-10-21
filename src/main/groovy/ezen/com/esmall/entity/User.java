@@ -89,6 +89,7 @@ public class User implements UserDetails {
         this.email = email;
         this.gender = gender;
         this.birthday = birthday;
+        this.createAt = LocalDateTime.now();
     }
 
     public User(String uid, String password, Collection<? extends GrantedAuthority> authorities) {

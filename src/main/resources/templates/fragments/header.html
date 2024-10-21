@@ -59,6 +59,7 @@
                 <!--                </form>-->
                 <!-- 사용자 메뉴 -->
                 <div class="d-flex user-menu position-absolute pr-3" sec:authorize="isAuthenticated()">
+                    <span class="mr-2 navi-link icon px-0" th:text="${usercoin}"></span><i class="bi bi-coin navi-link icon pl-0 mr-2"></i>
                     <a class="navi-link icon mr-2" href="/mypage">
                         <i class="bi bi-person"></i>
                     </a>
