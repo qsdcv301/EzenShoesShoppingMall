@@ -44,7 +44,8 @@
                                th:text="'사이즈 : '+${cartList.get(index.index).size}+' / 수량 : '+${cartList.get(index.index).quantity}+' 개'">
                                 사이즈: 250 / 수량: 1개</p>
                             <p class="card-text">가격: <span class="product-price"
-                                                           th:text="${product.price} + ' EZ 코인'">89,000 EZ코인</span></p>
+                                                           th:text="${product.price * cartList.get(index.index).quantity} + ' EZ 코인'">89,000 EZ코인</span>
+                            </p>
                             <button class="btn btn-sm btn-dark edit-btn">옵션 변경</button>
                             <form action="/updateCart" method="post" name="updateCart" id="updateCart" class="edit-form"
                                   style="display: none;">
