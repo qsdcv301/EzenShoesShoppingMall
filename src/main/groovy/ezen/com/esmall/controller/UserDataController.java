@@ -16,10 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -79,7 +76,7 @@ public class UserDataController {
             Product product = productService.findById(order.getProductId());
             Orders orderItem = ordersService.findById(order.getOrderId());
             for (Review review : reviews) {
-                if (review.getProductId() == product.getId()) {
+                if (Objects.equals(review.getProductId(), product.getId()) && order.getDeliveryStatus().equals("배송완료")) {
                     order.setDeliveryStatus("작성완료");
                 }
             }
@@ -280,13 +277,14 @@ public class UserDataController {
                     .quantity(quantity)
                     .productPrice(product.getPrice())
                     .totalPrice(product.getPrice() * quantity)
+                    .deliveryStatus("배송대기")
                     .build();
             orderViewService.create(newOrderView);
-        productList.add(product.getId());
+            productList.add(product.getId());
         }
 
-        List<Cart> carts = cartService.findByUserIdAndProductIds(userId,productList);
-        for(Cart cart : carts){
+        List<Cart> carts = cartService.findByUserIdAndProductIds(userId, productList);
+        for (Cart cart : carts) {
             cartService.delete(cart.getId());
         }
         user.setEzcoin(user.getEzcoin() - totalPrice);
@@ -295,4 +293,26 @@ public class UserDataController {
         return "redirect:/cart";
     }
 
+    @PostMapping("/chargeCoin")
+    public ResponseEntity<Map<String, Boolean>> chargeCoin(@RequestParam("coin") String coin) {
+        Long userId = getCurrentUserId();
+        User user = userService.findById(userId);
+
+        try {
+            // 코인 값 업데이트
+            user.setEzcoin(user.getEzcoin() + Integer.parseInt(coin));
+            userService.update(userId, user);
+
+            // 업데이트 성공 여부를 true로 설정
+            Map<String, Boolean> response = new HashMap<>();
+            response.put("updateCoin", true);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            // 에러 발생 시 false로 설정
+            Map<String, Boolean> response = new HashMap<>();
+            response.put("updateCoin", false);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+
+    }
 }
