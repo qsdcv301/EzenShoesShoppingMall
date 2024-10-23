@@ -141,33 +141,37 @@
                     <div class="purchase-list" id="purchaseList">
                         <ul class="list-group list-group-flush">
                             <div class="filter-buttons text-center mb-3">
-                                <button class="btn btn-outline-secondary filter-btn" data-status="all">전체보기</button>
-                                <button class="btn delivery-preparing filter-btn" data-status="배송대기">배송대기</button>
-                                <button class="btn delivery-in-progress filter-btn" data-status="배송중">배송중</button>
-                                <button class="btn delivery-completed filter-btn" data-status="배송완료">배송완료</button>
-                                <button class="btn review-write filter-btn" data-status="작성완료">작성완료</button>
+                                <button class="btn btn-outline-secondary filter-btn" data-th-delivery-status="all" data-status="all">전체보기</button>
+                                <button class="btn delivery-preparing filter-btn" data-th-delivery-status="배송대기" data-status="배송대기">배송대기</button>
+                                <button class="btn delivery-in-progress filter-btn" data-th-delivery-status="배송중" data-status="배송중">배송중</button>
+                                <button class="btn delivery-completed filter-btn" data-th-delivery-status="배송완료" data-status="배송완료">배송완료</button>
+                                <button class="btn review-write filter-btn" data-th-delivery-status="작성완료" data-status="작성완료">작성완료</button>
                             </div>
                             <!-- 구매 목록 항목 -->
                             <li class="list-group-item" th:each="order, index : ${orderList}">
-                                <strong>주문번호:</strong>
-                                <span th:text="${order['order'].orderId}">12345</span><br>
-                                <strong>상품명:</strong>
-                                <span th:text="${order['product'].name}">런닝화A</span><br>
-                                <strong>구매일:</strong>
-                                <span th:text="${order['formattedCreateAt']}">날짜</span><br>
-                                <strong>배송 현황:</strong> <span
-                                    class="delivery-status delivery-completed"
-                                    data-th-delivery-status="${order['order'].deliveryStatus}"
-                                    th:class="${order['order'].deliveryStatus == '배송완료' ? 'delivery-completed' :
-                  order['order'].deliveryStatus == '배송중' ? 'delivery-in-progress' :
-                  order['order'].deliveryStatus == '배송대기' ? 'delivery-preparing' : 'review-write'}"
-                                    th:text="${order['order'].deliveryStatus}">배송완료</span><br>
+                                <strong>주문번호:</strong> <span th:text="${order['order'].orderId}">12345</span><br>
+                                <strong>상품명:</strong> <span th:text="${order['product'].name}">런닝화A</span><br>
+                                <strong>구매일:</strong> <span th:text="${order['formattedCreateAt']}">날짜</span><br>
+                                <strong>배송 현황:</strong>
+                                <span class="delivery-status"
+                                      data-th-delivery-status="${order['order'].deliveryStatus}"
+                                      th:classappend="${order['order'].deliveryStatus == '배송완료' ? 'delivery-completed' :
+                      order['order'].deliveryStatus == '배송중' ? 'delivery-in-progress' :
+                      order['order'].deliveryStatus == '배송대기' ? 'delivery-preparing' : 'review-write'}"
+                                      th:text="${order['order'].deliveryStatus}">
+      배송완료
+</span><br>
+
                                 <button class="btn btn-sm mt-2 open-review btn-primary"
                                         data-th-delivery-status="${order['order'].deliveryStatus}"
                                         data-th-order="${order['order'].orderId}"
-                                        data-th-product="${order['product'].name}">후기 작성하기
+                                        data-th-product="${order['product'].name}">
+                                    후기 작성하기
                                 </button>
+
                             </li>
+
+
                         </ul>
                     </div>
                 </div>
@@ -227,6 +231,41 @@
                 closeReviewSidebar();
             }
         });
+
+        // 필터 버튼 클릭 이벤트 (이벤트 위임 방식 적용)
+        document.querySelector('.filter-buttons').addEventListener('click', function (event) {
+            const button = event.target.closest('.filter-btn');
+            if (button) {
+                const selectedStatus = button.getAttribute('data-status');
+                console.log(`Selected Status: ${selectedStatus}`); // 선택된 상태 확인
+                filterOrdersByStatus(selectedStatus);
+            }
+        });
+
+        // 상태에 따른 주문 항목 필터링 함수
+        function filterOrdersByStatus(status) {
+            const orders = document.querySelectorAll('.list-group-item');
+
+            orders.forEach(order => {
+                const orderStatusElement = order.querySelector('.delivery-status, [delivery-status]');
+                if (orderStatusElement) {
+                    const orderStatus = orderStatusElement.getAttribute('data-th-delivery-status') ||
+                        orderStatusElement.getAttribute('delivery-status');
+                    console.log(`Order Status: ${orderStatus}`); // 각 주문 상태 확인
+
+                    if (status === 'all' || orderStatus === status) {
+                        order.style.display = 'block';
+                    } else {
+                        order.style.display = 'none';
+                    }
+                } else {
+                    console.warn('delivery-status 요소를 찾을 수 없습니다:', order.outerHTML);
+                }
+            });
+        }
+
+
+
 
         // 후기 작성 버튼
         document.querySelectorAll('.open-review').forEach(button => {
