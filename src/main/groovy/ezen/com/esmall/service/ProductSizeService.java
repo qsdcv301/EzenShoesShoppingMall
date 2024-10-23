@@ -38,8 +38,8 @@ public class ProductSizeService {
         productSizeRepository.deleteById(id);
     }
 
-    public ProductSize findByfindByProductIdAndAndSize(Long productId, Integer size) {
-        return productSizeRepository.findByProductIdAndAndSize(productId, size);
+    public ProductSize findByfindByProductIdAndSize(Long productId, String size) {
+        return productSizeRepository.findByProductIdAndSize(productId, size);
     }
 
 }

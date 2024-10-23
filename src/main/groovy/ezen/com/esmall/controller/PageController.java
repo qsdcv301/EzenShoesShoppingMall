@@ -100,7 +100,6 @@ public class PageController {
         return ResponseEntity.ok(response);
     }
 
-
     @GetMapping("/login")
     public String loginPage(Model model) {
         return "login";
@@ -240,27 +239,6 @@ public class PageController {
         return "findIdPw";
     }
 
-    @PostMapping("/findId")
-    public ResponseEntity<Map<String, Boolean>> findId(@RequestParam("name") String name,
-                                                       @RequestParam("email") String email,
-                                                       @RequestParam("verificationCode") String verificationCode,
-                                                       HttpSession session) {
-        String storedCode = (String) session.getAttribute(VERIFICATION_CODE_SESSION_KEY);
-        Map<String, Boolean> response = new HashMap<>();
-
-        if (storedCode != null && storedCode.equals(verificationCode)) {
-            Optional<User> userOptional = userService.findByNameAndEmail(name, email);
-            if (userOptional.isPresent()) {
-                response.put("success", true);
-            } else {
-                response.put("success", false);
-            }
-        } else {
-            response.put("success", false);
-        }
-        return ResponseEntity.ok(response);
-    }
-
     @PostMapping("/emailAuthentication")
     public ResponseEntity<Map<String, Boolean>> emailAuthentication(@RequestParam("email") String email, HttpSession session) {
         // 무작위 6자리 번호 생성
@@ -280,6 +258,28 @@ public class PageController {
         Random random = new Random();
         int code = random.nextInt(999999); // 0부터 999999까지 무작위 숫자 생성
         return String.format("%06d", code); // 6자리로 포맷
+    }
+
+    @PostMapping("/findId")
+    public ResponseEntity<Map<String, Object>> findId(@RequestParam("name") String name,
+                                                       @RequestParam("email") String email,
+                                                       @RequestParam("verificationCode") String verificationCode,
+                                                       HttpSession session, Model model) {
+        String storedCode = (String) session.getAttribute(VERIFICATION_CODE_SESSION_KEY);
+        Map<String, Object> response = new HashMap<>();
+
+        if (storedCode != null && storedCode.equals(verificationCode)) {
+            Optional<User> userOptional = userService.findByNameAndEmail(name, email);
+            if (userOptional.isPresent()) {
+                response.put("success", true);
+                response.put("findUserName", userOptional.get().getUsername());
+            } else {
+                response.put("success", false);
+            }
+        } else {
+            response.put("success", false);
+        }
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/newPassword")
