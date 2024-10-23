@@ -230,6 +230,7 @@ $(document).ready(function () {
     $('form[name="addCart"]').on('submit', function (event) {
         event.preventDefault(); // 폼 제출을 막음
 
+
         // 폼 데이터를 객체로 변환
         var formData = {
             product_id: $(this).find('input[name="product_id"]').val(),
@@ -237,11 +238,17 @@ $(document).ready(function () {
             quantity: $(this).find('input[name="quantity"]').val()
         };
 
+        if ($(".userName").text().trim() === ""){
+            alert("로그인이 필요합니다.");
+            location.replace("/login");
+            return;
+        }
+
         if (!formData.size) {
             alert('사이즈를 선택 해야합니다.');
             return;
         }
-
+        
         $.ajax({
             url: '/addCart', // 요청을 보낼 URL
             type: 'POST', // 요청 방식
