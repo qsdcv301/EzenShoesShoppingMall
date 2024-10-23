@@ -99,9 +99,23 @@ public class User implements UserDetails {
                        String addrl, Integer level, Integer grade, String email, String gender, Integer birthday) {
         this.name = name;
         this.uid = uid;
-//        if (pw != null && !pw.isEmpty()) {
-//            this.pw = pw;
-//        }
+        this.tel = tel;
+        this.addrf = addrf;
+        this.addrs = addrs;
+        this.addrt = addrt;
+        this.addrl = addrl;
+        this.level = level;
+        this.grade = grade;
+        this.email = email;
+        this.gender = gender;
+        this.birthday = birthday;
+    }
+
+    public void pwUpdate(String name, String uid,String pw, String tel, Integer addrf, String addrs, String addrt,
+                       String addrl, Integer level, Integer grade, String email, String gender, Integer birthday) {
+        this.name = name;
+        this.uid = uid;
+        this.pw = pw;
         this.tel = tel;
         this.addrf = addrf;
         this.addrs = addrs;

@@ -55,6 +55,20 @@ public class UserService {
         return null; // 사용자가 존재하지 않을 경우 null 반환
     }
 
+    public User pwUpdate(Long id, User userDetails) {
+        User user = findById(id);
+        user.pwUpdate(userDetails.getName(), userDetails.getUid(),
+                passwordEncoder.encode(user.getPw()),
+                userDetails.getTel(),
+                userDetails.getAddrf(), userDetails.getAddrs(),
+                userDetails.getAddrt(), userDetails.getAddrl(),
+                userDetails.getLevel(), userDetails.getGrade(),
+                userDetails.getEmail(), // 이메일 업데이트
+                userDetails.getGender(), // 성별 업데이트
+                userDetails.getBirthday()); // 생년월일 업데이트
+        return userRepository.save(user);
+    }
+
     public void delete(Long id) {
         userRepository.deleteById(id);
     }
