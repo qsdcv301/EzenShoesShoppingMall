@@ -196,7 +196,7 @@ public class PageController {
 
     @GetMapping("/productsDetail")
     public String productsDetail(@RequestParam(value = "productCode") Long productCode,
-                                 @RequestParam(value = "category", required = false) String category,
+                                 @RequestParam(value = "category", defaultValue = "default", required = false) String category,
                                  Model model) {
         // 상품 정보 조회
         Product product = productService.findById(productCode);
@@ -236,7 +236,7 @@ public class PageController {
     }
 
     @GetMapping("/findIdPw")
-    public String findIdPw(Model model){
+    public String findIdPw(Model model) {
         return "findIdPw";
     }
 
@@ -249,7 +249,7 @@ public class PageController {
         Map<String, Boolean> response = new HashMap<>();
 
         if (storedCode != null && storedCode.equals(verificationCode)) {
-            Optional<User> userOptional = userService.findByNameAndEmail(name,email);
+            Optional<User> userOptional = userService.findByNameAndEmail(name, email);
             if (userOptional.isPresent()) {
                 response.put("success", true);
             } else {
