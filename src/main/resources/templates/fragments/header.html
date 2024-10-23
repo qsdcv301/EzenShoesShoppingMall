@@ -116,6 +116,20 @@
 
     <!-- 사용자 정의 JavaScript 코드 -->
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const userCoinSpan = document.getElementById("userCoin");
+            let userCoinValue = userCoinSpan.textContent.trim();
+            userCoinValue = parseInt(userCoinValue.replace(/,/g, ''), 10) || 0;
+            userCoinSpan.textContent = userCoinValue.toLocaleString();
+        });
+
+        $('#coinChargeModal').on('show.bs.modal', function () {
+            const modalCoinSpan = document.getElementById("currentCoins");
+            let userCoinValue = $("#userCoin").text().trim();
+            userCoinValue = parseInt(userCoinValue.replace(/,/g, ''), 10) || 0;
+            modalCoinSpan.textContent = userCoinValue.toLocaleString() + " EZ코인";
+        });
+
         $(document).ready(function () {
             let totalAmount = 0;
             let currentCoins = $("#userCoin").text();  // 초기 보유 코인
