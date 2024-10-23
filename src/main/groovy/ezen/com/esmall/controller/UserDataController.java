@@ -269,6 +269,10 @@ public class UserDataController {
         for (int i = 0; i < namesArray.length; i++) {
             Integer quantity = Integer.parseInt(quantitiesArray[i]);
             Product product = productService.findProductByName(namesArray[i]);
+            ProductSize productSize = productSizeService.findByfindByProductIdAndAndSize(product.getId(),Integer.parseInt(sizesArray[i]));
+
+            productSize.setStock(productSize.getStock() - quantity);
+            productSizeService.update(productSize.getId(), productSize);
 
             OrderView newOrderView = OrderView.builder()
                     .orderId(newOrder.getId())
