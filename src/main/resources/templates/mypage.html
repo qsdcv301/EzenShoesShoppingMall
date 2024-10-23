@@ -13,7 +13,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="/images/icon/apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="/images/icon/apple-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/images/icon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="/images/icon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/icon/android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/icon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/images/icon/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/images/icon/favicon-16x16.png">
@@ -140,6 +140,13 @@
                     </h5>
                     <div class="purchase-list" id="purchaseList">
                         <ul class="list-group list-group-flush">
+                            <div class="filter-buttons text-center mb-3">
+                                <button class="btn btn-outline-secondary filter-btn" data-status="all">전체보기</button>
+                                <button class="btn delivery-preparing filter-btn" data-status="배송대기">배송대기</button>
+                                <button class="btn delivery-in-progress filter-btn" data-status="배송중">배송중</button>
+                                <button class="btn delivery-completed filter-btn" data-status="배송완료">배송완료</button>
+                                <button class="btn review-write filter-btn" data-status="작성완료">작성완료</button>
+                            </div>
                             <!-- 구매 목록 항목 -->
                             <li class="list-group-item" th:each="order, index : ${orderList}">
                                 <strong>주문번호:</strong>
@@ -204,6 +211,7 @@
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+
         const toggleBtn = document.getElementById('togglePurchaseList');
         const purchaseList = document.getElementById('purchaseList');
         const reviewSidebar = document.getElementById('reviewSidebar');
@@ -327,7 +335,8 @@
                 $('#emailDomainDirect').hide();
             }
         });
-    });
+    })
+    ;
 </script>
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
