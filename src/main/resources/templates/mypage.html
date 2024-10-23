@@ -141,11 +141,21 @@
                     <div class="purchase-list" id="purchaseList">
                         <ul class="list-group list-group-flush">
                             <div class="filter-buttons text-center mb-3">
-                                <button class="btn btn-outline-secondary filter-btn" data-th-delivery-status="all" data-status="all">전체보기</button>
-                                <button class="btn delivery-preparing filter-btn" data-th-delivery-status="배송대기" data-status="배송대기">배송대기</button>
-                                <button class="btn delivery-in-progress filter-btn" data-th-delivery-status="배송중" data-status="배송중">배송중</button>
-                                <button class="btn delivery-completed filter-btn" data-th-delivery-status="배송완료" data-status="배송완료">배송완료</button>
-                                <button class="btn review-write filter-btn" data-th-delivery-status="작성완료" data-status="작성완료">작성완료</button>
+                                <button class="btn btn-outline-secondary filter-btn" data-th-delivery-status="all"
+                                        data-status="all">전체보기
+                                </button>
+                                <button class="btn delivery-preparing filter-btn" data-th-delivery-status="배송대기"
+                                        data-status="배송대기">배송대기
+                                </button>
+                                <button class="btn delivery-in-progress filter-btn" data-th-delivery-status="배송중"
+                                        data-status="배송중">배송중
+                                </button>
+                                <button class="btn delivery-completed filter-btn" data-th-delivery-status="배송완료"
+                                        data-status="배송완료">배송완료
+                                </button>
+                                <button class="btn review-write filter-btn" data-th-delivery-status="작성완료"
+                                        data-status="작성완료">작성완료
+                                </button>
                             </div>
                             <!-- 구매 목록 항목 -->
                             <li class="list-group-item" th:each="order, index : ${orderList}">
@@ -170,8 +180,6 @@
                                 </button>
 
                             </li>
-
-
                         </ul>
                     </div>
                 </div>
@@ -263,8 +271,6 @@
                 }
             });
         }
-
-
 
 
         // 후기 작성 버튼

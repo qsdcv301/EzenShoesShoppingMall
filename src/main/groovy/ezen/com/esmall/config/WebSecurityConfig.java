@@ -27,6 +27,11 @@ public class WebSecurityConfig {
                                 "/products**",
                                 "/productsDetail**",
                                 "/duplicateId",
+                                "/findIdPw",
+                                "/emailAuthentication",
+                                "/findId",
+                                "/newPassword",
+                                "/updateUserPw",
                                 "/register", "/user").permitAll()
                         .anyRequest().authenticated()
                 )

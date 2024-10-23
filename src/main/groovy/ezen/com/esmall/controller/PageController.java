@@ -235,6 +235,32 @@ public class PageController {
         return "productsDetail";
     }
 
+    @GetMapping("/findIdPw")
+    public String findIdPw(Model model){
+        return "findIdPw";
+    }
+
+    @PostMapping("/findId")
+    public ResponseEntity<Map<String, Boolean>> findId(@RequestParam("name") String name,
+                                                       @RequestParam("email") String email,
+                                                       @RequestParam("verificationCode") String verificationCode,
+                                                       HttpSession session) {
+        String storedCode = (String) session.getAttribute(VERIFICATION_CODE_SESSION_KEY);
+        Map<String, Boolean> response = new HashMap<>();
+
+        if (storedCode != null && storedCode.equals(verificationCode)) {
+            Optional<User> userOptional = userService.findByNameAndEmail(name,email);
+            if (userOptional.isPresent()) {
+                response.put("success", true);
+            } else {
+                response.put("success", false);
+            }
+        } else {
+            response.put("success", false);
+        }
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping("/emailAuthentication")
     public ResponseEntity<Map<String, Boolean>> emailAuthentication(@RequestParam("email") String email, HttpSession session) {
         // 무작위 6자리 번호 생성
