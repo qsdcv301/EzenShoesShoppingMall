@@ -19,10 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Controller
@@ -48,6 +45,8 @@ public class PageController {
     private ReviewService reviewService;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    public EmailService emailService;
 
     @ModelAttribute
     public void addUserToModel(Model model) {
@@ -234,6 +233,54 @@ public class PageController {
         return "productsDetail";
     }
 
+    @PostMapping("/emailAuthentication")
+    public ResponseEntity<Map<String, Boolean>> emailAuthentication(@RequestParam("email") String email) {
+        // 무작위 6자리 번호 생성
+        String verificationCode = generateVerificationCode();
+
+        // 이메일 발송
+        emailService.sendEmail(email, "EzMall 이메일 인증", "귀하의 인증 번호는: " + verificationCode);
+
+        Map<String, Boolean> response = new HashMap<>();
+        boolean isEmail = true;
+        response.put("isEmail", isEmail);
+        return ResponseEntity.ok(response);
+    }
+
+    // 무작위 6자리 인증 번호 생성
+    private String generateVerificationCode() {
+        Random random = new Random();
+        int code = random.nextInt(999999); // 0부터 999999까지 무작위 숫자 생성
+        return String.format("%06d", code); // 6자리로 포맷
+    }
+
+    @PostMapping("/newPassword")
+    public ResponseEntity<Map<String, Boolean>> newPassword(@RequestParam("uid") String uid,
+                                                            @RequestParam("email") String email,
+                                                            @RequestParam("verificationCode") String verificationCode,
+                                                            Model model) {
+        String storedCode = verificationCodes.get(email);
+        Map<String, Boolean> response = new HashMap<>();
+
+        if (storedCode != null && storedCode.equals(verificationCode)) {
+            // 이메일이 DB에 존재하는지 확인
+            Optional<User> userOptional = userService.findByUidAndEmail(uid, email);
+            if (userOptional.isPresent()) {
+                response.put("success", true);
+            } else {
+                response.put("success", false); // 이메일이 DB에 없음
+            }
+        } else {
+            response.put("success", false); // 인증 코드 불일치
+        }
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/updateUserPw")
+    public String updateUserPw(@RequestParam("newPw") String newPw, Model model) {
+
+        return "redirect:/login";
+    }
 
 }
 
