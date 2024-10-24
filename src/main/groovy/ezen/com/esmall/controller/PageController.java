@@ -304,12 +304,19 @@ public class PageController {
     }
 
     @PostMapping("/updateUserPw")
-    public String updateUserPw(@RequestParam("uid") String uid,
+    public ResponseEntity<Map<String, Boolean>> updateUserPw(@RequestParam("uid") String uid,
                                @RequestParam("newPw") String newPw, Model model) {
-        User user = userDetailService.loadUserByUsername(uid);
-        user.setPw(newPw);
-        userService.pwUpdate(user.getId(), user);
-        return "redirect:/login";
+        Map<String, Boolean> response = new HashMap<>();
+
+        Optional<User> userOptional = userService.findByUid(uid);
+        if (userOptional.isPresent()) {
+            userOptional.get().setPw(newPw);
+            userService.pwUpdate( userOptional.get().getId(),  userOptional.get());
+            response.put("success", true);
+        } else {
+            response.put("success", false);
+        }
+        return ResponseEntity.ok(response);
     }
 
 }

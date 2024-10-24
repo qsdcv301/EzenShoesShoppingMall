@@ -80,4 +80,8 @@ public class UserService {
     public Optional<User> findByNameAndEmail(String name, String email) {
         return userRepository.findByNameAndEmail(name, email);
     }
+
+    public Optional<User> findByUid(String uid) {
+        return userRepository.findByUid(uid);
+    }
 }
