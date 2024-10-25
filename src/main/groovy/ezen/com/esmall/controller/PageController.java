@@ -49,6 +49,8 @@ public class PageController {
     private UserRepository userRepository;
     @Autowired
     public EmailService emailService;
+    @Autowired
+    private ProductSizeService productSizeService;
 
     @ModelAttribute
     public void addUserToModel(Model model) {
@@ -221,8 +223,12 @@ public class PageController {
         }
 
         // 구입 가능한 사이즈 가져오기
-        List<ProductSize> sizes = product.getSizes();
-
+        Map<String, Boolean> sizes = new LinkedHashMap<>();
+        List<ProductSize> sizeList = productSizeService.findALLByProductId(product.getId());
+        for (ProductSize size : sizeList) {
+            sizes.put(size.getSize(), size.getStock() > 0);
+        }
+        System.out.println(sizes);
         // 모델에 데이터 추가
         model.addAttribute("imageUrls", imageUrls);
         model.addAttribute("category", category);
@@ -262,9 +268,9 @@ public class PageController {
 
     @PostMapping("/findId")
     public ResponseEntity<Map<String, Object>> findId(@RequestParam("name") String name,
-                                                       @RequestParam("email") String email,
-                                                       @RequestParam("verificationCode") String verificationCode,
-                                                       HttpSession session, Model model) {
+                                                      @RequestParam("email") String email,
+                                                      @RequestParam("verificationCode") String verificationCode,
+                                                      HttpSession session, Model model) {
         String storedCode = (String) session.getAttribute(VERIFICATION_CODE_SESSION_KEY);
         Map<String, Object> response = new HashMap<>();
 
@@ -305,13 +311,13 @@ public class PageController {
 
     @PostMapping("/updateUserPw")
     public ResponseEntity<Map<String, Boolean>> updateUserPw(@RequestParam("uid") String uid,
-                               @RequestParam("newPw") String newPw, Model model) {
+                                                             @RequestParam("newPw") String newPw, Model model) {
         Map<String, Boolean> response = new HashMap<>();
 
         Optional<User> userOptional = userService.findByUid(uid);
         if (userOptional.isPresent()) {
             userOptional.get().setPw(newPw);
-            userService.pwUpdate( userOptional.get().getId(),  userOptional.get());
+            userService.pwUpdate(userOptional.get().getId(), userOptional.get());
             response.put("success", true);
         } else {
             response.put("success", false);

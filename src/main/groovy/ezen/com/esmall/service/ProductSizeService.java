@@ -42,4 +42,8 @@ public class ProductSizeService {
         return productSizeRepository.findByProductIdAndSize(productId, size);
     }
 
+    public List<ProductSize> findALLByProductId(Long productId) {
+        return productSizeRepository.findALLByProductId(productId);
+    }
+
 }
