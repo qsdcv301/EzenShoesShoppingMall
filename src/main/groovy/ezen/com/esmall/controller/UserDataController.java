@@ -269,7 +269,7 @@ public class UserDataController {
         for (int i = 0; i < namesArray.length; i++) {
             Integer quantity = Integer.parseInt(quantitiesArray[i]);
             Product product = productService.findProductByName(namesArray[i]);
-            ProductSize productSize = productSizeService.findByfindByProductIdAndSize(product.getId(),(sizesArray[i]));
+            ProductSize productSize = productSizeService.findByfindByProductIdAndSize(product.getId(), (sizesArray[i]));
 
             productSize.setStock(productSize.getStock() - quantity);
             productSizeService.update(productSize.getId(), productSize);
@@ -317,6 +317,13 @@ public class UserDataController {
             response.put("updateCoin", false);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
-
     }
+
+    @PostMapping("/deleteUser")
+    public String deleteUser() {
+        Long userId = getCurrentUserId();
+        userService.delete(userId);
+        return "redirect:/";
+    }
+
 }
