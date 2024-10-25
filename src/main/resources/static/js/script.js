@@ -298,11 +298,13 @@ $(document).ready(function () {
                         .text("이미 사용 중인 아이디입니다.")
                         .css("color", "red");
                     $("#idDuplicationOk").val(0);
+                    checkRegisterOk();
                 } else {
                     $("#usernameFeedback")
                         .text("사용 가능한 아이디입니다.")
                         .css("color", "green");
                     $("#idDuplicationOk").val(1);
+                    checkRegisterOk();
                 }
             },
             error: function () {
@@ -322,14 +324,21 @@ $(document).ready(function () {
                 .text("아이디는 영문자와 숫자만 사용할 수 있습니다.")
                 .css("color", "red");
             $("#idRegexOk").val(0);
-            if (($("#idRegexOk").val() === 1) && ($("#idDuplicationOk").val() === 1)) {
-                $("#idRegexOk").val(1);
-            }
+            checkRegisterOk();
         } else {
             $("#usernameFeedback").text("");
             $("#idRegexOk").val(1);
+            checkRegisterOk();
         }
     });
+
+    function checkRegisterOk() {
+        if (($("#idRegexOk").val() === "1") && ($("#idDuplicationOk").val() === "1")) {
+            $("#registerOk").val(1);
+        } else {
+            $("#registerOk").val(0);
+        }
+    }
 
     // 주소 검색
     $("#searchAddress").click(function () {
@@ -435,12 +444,6 @@ $(document).ready(function () {
         e.preventDefault(); // 기본 폼 제출 방지
         combineEmail(); // 이메일 조합 함수 호출
 
-        // 중복 체크 여부 확인
-        if ($("#checkId").val() === "0") {
-            alert("아이디 중복 체크를 완료해주세요.");
-            return;
-        }
-
         var formData = {
             name: $("#name").val(),
             uid: $("#uid").val(),
@@ -455,7 +458,7 @@ $(document).ready(function () {
             birthday: $("#birthdate").val(),
         };
 
-        if ($("#idRegexOk").val(0)) {
+        if ($("#registerOk").val() === "0") {
             alert("아이디 규칙 준수 혹은 아이디 중복 검사를 해주세요.");
             return;
         }
