@@ -238,7 +238,7 @@ $(document).ready(function () {
             quantity: $(this).find('input[name="quantity"]').val()
         };
 
-        if ($(".userName").text().trim() === ""){
+        if ($(".userName").text().trim() === "") {
             alert("로그인이 필요합니다.");
             location.replace("/login");
             return;
@@ -248,7 +248,7 @@ $(document).ready(function () {
             alert('사이즈를 선택 해야합니다.');
             return;
         }
-        
+
         $.ajax({
             url: '/addCart', // 요청을 보낼 URL
             type: 'POST', // 요청 방식
@@ -286,24 +286,39 @@ $(document).ready(function () {
     /**********************    회원가입 페이지 스크립트    ************************/
     /*********************************************************************************/
 
-    $("#checkUsername").click(function() {
+    $("#checkUsername").click(function () {
         var uid = $("#uid").val(); // 입력된 아이디 가져오기
 
         $.ajax({
             type: "POST",
             url: "/duplicateId", // 중복 검사 요청을 받을 URL
-            data: { uid: uid }, // uid 값을 서버에 보냄
-            success: function(data) {
+            data: {uid: uid}, // uid 값을 서버에 보냄
+            success: function (data) {
                 if (data.isDuplicate) {
                     $("#usernameFeedback").text("이미 사용 중인 아이디입니다.").css("color", "red");
+                    $("#idDuplicationOk").val(0);
                 } else {
                     $("#usernameFeedback").text("사용 가능한 아이디입니다.").css("color", "green");
+                    $("#idDuplicationOk").val(1);
                 }
             },
-            error: function() {
+            error: function () {
                 $("#usernameFeedback").text("서버 오류가 발생했습니다.").css("color", "red");
             }
         });
+    });
+
+    $("#uid").change(function () {
+        var uid = $(this).val(); // 입력된 아이디 가져오기
+        // 아이디 유효성 검사 (영문자와 숫자만 허용)
+        const regex = /^[a-zA-Z0-9]+$/;
+        if (!regex.test(uid)) {
+            $("#usernameFeedback").text("아이디는 영문자와 숫자만 사용할 수 있습니다.").css("color", "red");
+            $("#idRegexOk").val(1);
+        } else {
+            $("#usernameFeedback").text("");
+            $("#idRegexOk").val(0);
+        }
     });
 
     // 주소 검색
@@ -418,24 +433,30 @@ $(document).ready(function () {
             birthday: $('#birthdate').val()
         };
 
-        // 생년월일 유효성 검사 후 AJAX 요청
-        if (validateBirthdate()) {
-            $.ajax({
-                url: '/register',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(formData),
-                success: function (response) {
-                    window.location.href = '/'; // 성공적으로 가입한 경우 리다이렉트
-                },
-                error: function (error) {
-                    console.error("Error:", error);
-                    alert("가입 중 오류가 발생했습니다. 다시 시도해주세요."); // 오류 메시지
-                }
-            });
-        } else {
-            alert("유효하지 않은 생년월일입니다."); // 유효성 검사 실패 메시지
+        if ($("#idRegexOk").val(0)) {
+            alert("아이디 규칙 준수 혹은 아이디 중복 검사를 해주세요.")
+            return;
         }
+
+        if (!validateBirthdate()) {
+            alert("유효하지 않은 생년월일입니다."); // 유효성 검사 실패 메시지
+            return;
+        }
+
+        $.ajax({
+            url: '/register',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(formData),
+            success: function (response) {
+                window.location.href = '/'; // 성공적으로 가입한 경우 리다이렉트
+            },
+            error: function (error) {
+                console.error("Error:", error);
+                alert("가입 중 오류가 발생했습니다. 다시 시도해주세요."); // 오류 메시지
+            }
+        });
+
     });
     /*********************************************************************************/
     /**********************    회원가입  페이지 스크립트    ************************/
