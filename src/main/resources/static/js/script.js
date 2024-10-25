@@ -537,10 +537,9 @@ $(document).ready(function () {
     /**********************  마이 페이지 스크립트 끝   ************************/
     /*********************************************************************************/
 
-    document.addEventListener("DOMContentLoaded", function () {
-        const userCoinSpan = document.getElementById("userCoin");
-        let userCoinValue = userCoinSpan.textContent.trim();
-        userCoinValue = parseInt(userCoinValue.replace(/,/g, ""), 10) || 0;
-        userCoinSpan.textContent = userCoinValue.toLocaleString();
-    });
+    //상품들 가격 dom->jquery로 수정
+    const userCoinSpan = $("#userCoin");
+    let userCoinValue = userCoinSpan.text().trim();
+    userCoinValue = parseInt(userCoinValue.replace(/,/g, ""), 10) || 0;
+    userCoinSpan.text(userCoinValue.toLocaleString());
 });
