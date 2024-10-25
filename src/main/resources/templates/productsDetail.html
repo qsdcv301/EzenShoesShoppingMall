@@ -13,7 +13,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="/images/icon/apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="/images/icon/apple-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/images/icon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="/images/icon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/icon/android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/icon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/images/icon/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/images/icon/favicon-16x16.png">
@@ -66,15 +66,20 @@
                     <div class="btn-group d-flex flex-wrap" id="size-buttons">
                         <button class="btn btn-success px-5 m-1 size-btn"
                                 th:each="size : ${sizes}"
-                                th:text="${size.size}"
+                                th:text="${size.key}"
+                                th:disabled="${!size.value}"
                                 type="button">
                         </button>
                         <a href="#" id="size-guide-link">사이즈 가이드</a>
                     </div>
-
-                    <button class="btn btn-dark px-5 py-3 my-5" type="submit">장바구니 담기<span class="ml-5"><i
-                            class="bi bi-arrow-right-square"></i></span>
+                    <h4 class="mt-2">수량</h4>
+                    <input type="number" name="quantity" class="form-control w-25 mt-1">
+                    <button class="btn btn-dark px-4 py-3 my-4" type="submit">장바구니 담기<span class="ml-3"> <i
+                            class="bi bi-bag"></i></span></span>
                     </button>
+                    <a href="/cart" class="btn btn-dark px-4 py-3 my-4 ml-3">장바구니로<span class="ml-3">
+                        <i class="bi bi-arrow-right-square"></i></span>
+                    </a>
                     <p>배송 / 반품 / 교환</p>
                     <p>세탁 및 취급 시 주의사항</p>
                     <p>품질 보증 및 AS 정보</p>
@@ -109,7 +114,6 @@
             </div>
             <input name="product_id" th:value="${product.id}" type="hidden">
             <input name="size" type="hidden" value="">
-            <input name="quantity" type="hidden" value="1">
         </form>
     </div>
 </div>
