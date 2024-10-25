@@ -66,7 +66,7 @@ public class UserDataController {
         if (userId == null) {
             return "redirect:/login";
         }
-        List<OrderView> orders = orderViewService.findByUserId(userId);
+        List<OrderView> orders = orderViewService.findAllByUserId(userId);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy-MM-dd");
         User user = userService.findById(userId);
         List<Review> reviews = reviewService.findAllByUserId(userId);
@@ -320,10 +320,45 @@ public class UserDataController {
     }
 
     @PostMapping("/deleteUser")
-    public String deleteUser() {
+    public ResponseEntity<Map<String, Boolean>> deleteUser(Model model) {
+        Map<String, Boolean> response = new HashMap<>();
         Long userId = getCurrentUserId();
-        userService.delete(userId);
-        return "redirect:/";
+        try {
+
+            List<Review> reviewList = reviewService.findAllByUserId(userId);
+            if (reviewList != null) {
+                for (Review review : reviewList) {
+                    reviewService.delete(review.getId());
+                }
+            }
+
+            List<Cart> cartList = cartService.findAllByUserId(userId);
+            if (cartList != null) {
+                for (Cart cart : cartList) {
+                    cartService.delete(cart.getId());
+                }
+            }
+
+            List<OrderView> orderViews = orderViewService.findAllByUserId(userId);
+            if (orderViews != null) {
+                for (OrderView orderView : orderViews) {
+                    orderViewService.delete(orderView.getId());
+                }
+            }
+
+            List<Orders> orders = ordersService.findAllByUserId(userId);
+            if (orders != null) {
+                for (Orders order : orders) {
+                    ordersService.delete(order.getId());
+                }
+            }
+
+            userService.delete(userId);
+            response.put("isDelete", true);
+        } catch (Exception e) {
+            response.put("isDelete", false);
+        }
+        return ResponseEntity.ok(response);
     }
 
 }

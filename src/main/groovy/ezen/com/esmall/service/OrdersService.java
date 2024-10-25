@@ -41,4 +41,8 @@ public class OrdersService {
     public void delete(Long id) {
         ordersRepository.deleteById(id);
     }
+
+    public List<Orders> findAllByUserId(Long userId){
+        return ordersRepository.findAllByUserId(userId);
+    }
 }

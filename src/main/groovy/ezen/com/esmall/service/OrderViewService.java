@@ -42,7 +42,9 @@ public class OrderViewService {
         orderViewRepository.deleteById(id);
     }
 
-    public List<OrderView> findByUserId(Long userId) {
-        return orderViewRepository.findByUserId(userId);
+    public List<OrderView> findAllByUserId(Long userId) {
+        return orderViewRepository.findAllByUserId(userId);
     }
+
+
 }

@@ -53,4 +53,5 @@ public class ReviewService {
     public List<Review> findAllByUserId(Long userId) {
         return reviewRepository.findAllByUserId(userId);
     }
+    
 }
