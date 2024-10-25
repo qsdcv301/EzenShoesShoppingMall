@@ -32,7 +32,7 @@
             <!-- 사용자 섹션 -->
             <div class="user-sec col-2 position-relative">
                 <div class="top-links position-absolute">
-                    <div sec:authorize="isAuthenticated()">
+                    <div class="login-true" style="float: right; white-space: nowrap;" sec:authorize="isAuthenticated()">
                         <!-- 로그인된 경우 -->
                         <a class="mr-3" href="/help">도움말</a>
                         <a class="mr-3" href="/logout">로그아웃</a>
