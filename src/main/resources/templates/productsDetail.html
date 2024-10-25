@@ -80,10 +80,22 @@
                     <a href="/cart" class="btn btn-dark px-4 py-3 my-4 ml-3">장바구니로<span class="ml-3">
                         <i class="bi bi-arrow-right-square"></i></span>
                     </a>
-                    <p>배송 / 반품 / 교환</p>
-                    <p>세탁 및 취급 시 주의사항</p>
-                    <p>품질 보증 및 AS 정보</p>
-                    <p>상품 제조연월 정보</p>
+                    <p>
+                        <i class="ri-focus-fill mr-1"></i><strong>배송 / 반품 / 교환</strong>
+                        <span class="pl-5"><br>배송: 상품은 주문일로부터 영업일 기준 2~3일 이내에 배송됩니다.<br>반품 및 교환: 반품은 수령 후 7일 이내 신청 가능하며, 제품에 손상이 없어야 합니다.<br>고객 변심 반품은 왕복 배송비가 청구될 수 있습니다.</span>
+                    </p>
+                    <p>
+                        <i class="ri-focus-fill mr-1"></i><strong>세탁 및 취급 시 주의사항</strong>
+                        <span class="pl-5"><br>제품을 손세탁하거나 찬물 세탁을 권장합니다.<br>세탁기 사용 시 세탁망 사용을 권장하며, 표백제 사용 금지.<br>직사광선이나 열풍건조기 사용 시 변형 가능성이 있습니다.</span>
+                    </p>
+                    <p>
+                        <i class="ri-focus-fill mr-1"></i><strong>품질 보증 및 AS 정보</strong>
+                        <span class="pl-5"><br>모든 제품은 1년 품질 보증을 제공합니다.<br>제품 결함 발견 시 무상 수리 또는 교환이 가능합니다.<br>A/S 접수는 고객센터를 통해 가능하며, 수리 소요 기간은 2주 내외입니다.</span>
+                    </p>
+                    <p>
+                        <i class="ri-focus-fill mr-1"></i><strong>상품 제조연월 정보</strong>
+                        <span class="pl-5"><br>본 상품의 제조연월은 2024년 10월입니다.<br>라벨에서 제조연월 확인 가능하며, 신상품은 최신 제조연월 보장.<br>제조연월은 품질 보증 기간 산정 기준입니다.</span>
+                    </p>
                     <div class="reviews">
                         <h4>리뷰 (<span th:text="${reviewsCount}">74</span>)</h4>
                         <div class="review" th:each="reviewDetail : ${reviewDetails}">
