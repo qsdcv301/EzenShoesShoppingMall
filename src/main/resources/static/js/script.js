@@ -146,6 +146,16 @@ $(document).ready(function () {
   /**********************      상품 메인 페이지 스크립트 시작      ************************/
   /*********************************************************************************/
 
+  // 가격을 3자리마다 쉼표(,)를 추가해 포맷하는 함수
+  function formatPrice(price) {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  $('.product-price').each(function () {
+    const price = parseInt($(this).text().replace(/[^0-9]/g, ""), 10);
+    $(this).text(formatPrice(price) + " EZ코인");
+  });
+
   // 현재 페이지의 URL에서 쿼리 파라미터를 가져옴
   const params = new URLSearchParams(window.location.search);
 
