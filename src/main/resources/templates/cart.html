@@ -60,7 +60,7 @@
                             <p class="card-text product-info"
                                th:text="'사이즈 : '+${cartList.get(index.index).size}+' / 수량 : '+${cartList.get(index.index).quantity}+' 개'">
                                 사이즈: 250 / 수량: 1개</p>
-                            <p class="card-text">가격: <span class="product-price"
+                            <p class="card-text">가격: <span id="productPrice" class="product-price"
                                                            th:text="${product.price * cartList.get(index.index).quantity} + ' EZ 코인'">89,000 EZ코인</span>
                             </p>
                             <button class="btn btn-sm btn-dark edit-btn">옵션 변경</button>
@@ -202,6 +202,7 @@
             $("#final-amount").text(finalTotal.toLocaleString() + " 원");
 
             $("#payment-summary").text(`총 결제 금액: ${finalTotal.toLocaleString()} 원`);
+
 
             return finalTotal; // 최종 금액 반환
         }

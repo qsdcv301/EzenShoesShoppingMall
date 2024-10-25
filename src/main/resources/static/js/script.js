@@ -286,21 +286,30 @@ $(document).ready(function () {
     /**********************    회원가입 페이지 스크립트    ************************/
     /*********************************************************************************/
 
-    $("#checkUsername").click(function() {
+    // 초기화: 제출 버튼 비활성화
+    $('#submitBtn').prop('disabled', true);
+
+    // 아이디 중복 체크 버튼 클릭 이벤트
+    $("#checkUsername").click(function () {
         var uid = $("#uid").val(); // 입력된 아이디 가져오기
 
         $.ajax({
             type: "POST",
             url: "/duplicateId", // 중복 검사 요청을 받을 URL
-            data: { uid: uid }, // uid 값을 서버에 보냄
-            success: function(data) {
+            data: { uid: uid },
+            success: function (data) {
                 if (data.isDuplicate) {
                     $("#usernameFeedback").text("이미 사용 중인 아이디입니다.").css("color", "red");
+                    $('#checkId').val('0'); // 중복 실패
+                    $('#submitBtn').prop('disabled', true); // 제출 비활성화
                 } else {
                     $("#usernameFeedback").text("사용 가능한 아이디입니다.").css("color", "green");
+                    $('#checkId').val('1'); // 중복 성공
+                    $('#uid').prop('disabled', true); // 아이디 입력 비활성화
+                    $('#submitBtn').prop('disabled', false); // 제출 버튼 활성화
                 }
             },
-            error: function() {
+            error: function () {
                 $("#usernameFeedback").text("서버 오류가 발생했습니다.").css("color", "red");
             }
         });
@@ -404,6 +413,12 @@ $(document).ready(function () {
         e.preventDefault(); // 기본 폼 제출 방지
         combineEmail(); // 이메일 조합 함수 호출
 
+        // 중복 체크 여부 확인
+        if ($('#checkId').val() === '0') {
+            alert("아이디 중복 체크를 완료해주세요.");
+            return;
+        }
+
         var formData = {
             name: $('#name').val(),
             uid: $('#uid').val(),
@@ -480,4 +495,11 @@ $(document).ready(function () {
     /**********************  마이 페이지 스크립트 끝   ************************/
     /*********************************************************************************/
 
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const userCoinSpan = document.getElementById("userCoin");
+        let userCoinValue = userCoinSpan.textContent.trim();
+        userCoinValue = parseInt(userCoinValue.replace(/,/g, ''), 10) || 0;
+        userCoinSpan.textContent = userCoinValue.toLocaleString();
+    });
 });
