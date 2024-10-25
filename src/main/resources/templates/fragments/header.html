@@ -32,7 +32,7 @@
             <!-- 사용자 섹션 -->
             <div class="user-sec col-2 position-relative">
                 <div class="top-links position-absolute">
-                    <div sec:authorize="isAuthenticated()">
+                    <div class="login-true" style="float: right; white-space: nowrap;" sec:authorize="isAuthenticated()">
                         <!-- 로그인된 경우 -->
                         <a class="mr-3" href="/help">도움말</a>
                         <a class="mr-3" href="/logout">로그아웃</a>
@@ -66,7 +66,7 @@
 
     <!-- 모달 -->
     <div class="modal fade" id="coinChargeModal" tabindex="-1" role="dialog" aria-labelledby="coinChargeModalLabel"
-         aria-hidden="true">
+         aria-hidden="true" style="z-index: 1060">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-dark text-white">
@@ -174,7 +174,7 @@
                     });
                     resetTotalAmount();
                     $('#closeModalButton').click();
-                    location.reload();
+                    location.reload(true);
                 } else {
                     alert('최소 충전 금액은 5,000 EZ코인입니다.');
                 }

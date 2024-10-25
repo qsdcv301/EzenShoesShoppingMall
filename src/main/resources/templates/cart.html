@@ -60,7 +60,7 @@
                             <p class="card-text product-info"
                                th:text="'사이즈 : '+${cartList.get(index.index).size}+' / 수량 : '+${cartList.get(index.index).quantity}+' 개'">
                                 사이즈: 250 / 수량: 1개</p>
-                            <p class="card-text">가격: <span class="product-price"
+                            <p class="card-text">가격: <span id="productPrice" class="product-price"
                                                            th:text="${product.price * cartList.get(index.index).quantity} + ' EZ 코인'">89,000 EZ코인</span>
                             </p>
                             <button class="btn btn-sm btn-dark edit-btn">옵션 변경</button>
@@ -167,8 +167,10 @@
 
         const deliveryFee = 3000; // 기본 배송비
         const freeDeliveryThreshold = 50000; // 5만원 이상 무료 배송
-        const userBalance = $("#userCoin").text(); // 사용자 잔액
-        console.log(`User Balance: ${userBalance}`);
+        // 유저 코인을 숫자로 변환 (포맷 제거)
+        const userBalance = parseInt($("#userCoin").text().replace(/[^0-9]/g, ""), 10);
+        console.log(`User Balance: ${userBalance}`); // 디버깅용 로그
+
 
         // 가격 계산 함수
         function calculatePrices() {
@@ -193,15 +195,16 @@
 
             // 합산된 가격과 항목 수를 표시
             $("#item-count").text(itemCount);
-            $("#total-amount").text(totalPrice.toLocaleString() + " 원");
+            $("#total-amount").text(totalPrice.toLocaleString() + " EZ코인");
 
             const shippingCost = totalPrice >= freeDeliveryThreshold ? 0 : deliveryFee;
-            $("#shipping-cost").text(shippingCost.toLocaleString() + " 원");
+            $("#shipping-cost").text(shippingCost.toLocaleString() + " EZ코인");
 
             const finalTotal = totalPrice + shippingCost;
-            $("#final-amount").text(finalTotal.toLocaleString() + " 원");
+            $("#final-amount").text(finalTotal.toLocaleString() + " EZ코인");
 
-            $("#payment-summary").text(`총 결제 금액: ${finalTotal.toLocaleString()} 원`);
+            $("#payment-summary").text(`총 결제 금액: ${finalTotal.toLocaleString()} EZ코인`);
+
 
             return finalTotal; // 최종 금액 반환
         }
@@ -343,8 +346,7 @@
         });
         // 충전 버튼 클릭 시 동작
         $('#recharge-button').click(function () {
-            alert('마이페이지로 이동합니다.');
-            // 여기에 충전 페이지로 이동하는 로직을 추가할 수 있습니다.
+            $(".bi.bi-coin.navi-link.icon").click();
         });
     });
 

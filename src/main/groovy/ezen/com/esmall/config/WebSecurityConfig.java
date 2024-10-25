@@ -27,7 +27,7 @@ public class WebSecurityConfig {
                                 "/products**",
                                 "/productsDetail**",
                                 "/duplicateId",
-                                "/findIdPw",
+                                "/findIdPw**",
                                 "/emailAuthentication",
                                 "/findId",
                                 "/newPassword",
