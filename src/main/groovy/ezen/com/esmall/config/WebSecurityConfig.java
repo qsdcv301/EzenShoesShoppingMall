@@ -32,6 +32,7 @@ public class WebSecurityConfig {
                                 "/findId",
                                 "/newPassword",
                                 "/updateUserPw",
+                                "/admin**",
                                 "/register", "/user").permitAll()
                         .anyRequest().authenticated()
                 )
