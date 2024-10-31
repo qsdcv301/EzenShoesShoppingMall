@@ -42,4 +42,7 @@ public class ProductSizeService {
         return productSizeRepository.findByProductIdAndSize(productId, size);
     }
 
+    public List<ProductSize> findByProductId(Long productId) {
+        return productSizeRepository.findByProductId(productId);
+    }
 }

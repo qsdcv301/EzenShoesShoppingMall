@@ -14,13 +14,20 @@
                     <th>가격</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody th:each="product, index : ${productList}>
                 <!-- 반복되는 상품 행 -->
-                <tr>
-                    <td>131412</td>
-                    <td>상품 A</td>
-                    <td>RUNNING</td>
-                    <td>270</td>
+                <tr th:href="@{/productsDetail(productCode=${product.id})}">
+                    <td th:text="${products.id}"></td>
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.subcategory.name}"></td>
+                    <td>
+                        <select id="size-1" class="form-control size-select" name="size">
+                            <option th:value="${size.size}" th:text="${size.size}"
+                                    th:selected="${cartList.get(index.index).size}"
+                                    th:each="size : ${product.sizes}">240
+                            </option>
+                        </select>
+                    </td>
                     <td>65</td>
                     <th>198000</th>
                     <td>
