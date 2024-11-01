@@ -43,6 +43,13 @@ public class Product {
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private List<ProductSize> sizes;
 
+    @OneToMany
+    @JoinColumn(name = "id", referencedColumnName = "category_id")
+    private List<Category> category;
+
+    @OneToMany
+    @JoinColumn(name = "id", referencedColumnName = "subcategory_id")
+    private List<SubCategory> subcategory;
 
     @Builder
     public Product(String name, Integer price, String description,

@@ -8,6 +8,7 @@ import ezen.com.esmall.service.ProductSizeService;
 import ezen.com.esmall.service.SubCategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -27,13 +28,11 @@ public class AdminController {
 
     private final ProductSizeService productSizeService;
 
-    @GetMapping
-    public String admin() {
+    @GetMapping("/")
+    public String prodEdit(Model model) {
         List<Product> productList = productService.findAll();
-        List<ProductSize> productSizeList = new ArrayList<>();
-        for(Product product : productList) {
-            productSizeList = productSizeService.findByProductId(product.getId());
-        }
+
+        model.addAttribute("productList", productList);
 
         return "admin";
     }

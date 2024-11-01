@@ -1,69 +1,61 @@
 
+<div class="col-md-9 p-4" th:fragment="prodEdit">
+    <h2 class="mb-4">상품 관리</h2>
+    <table class="table table-hover">
+        <thead class="table-dark">
+        <tr>
+            <th>상품 번호</th>
+            <th>상품 이름</th>
+            <th>브랜드</th>
+            <th>세부 카테고리</th>
+            <th>사이즈</th>
+            <th>재고</th>
+            <th>가격</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- 반복되는 상품 행 -->
+        <tr th:each="product, index : ${productList}">
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.category.get(0).name}"></td>
+            <td th:text="${product.subcategory.get(0).name}"></td>
 
-        <!-- 상품 관리 메인 -->
-        <main class="col-md-9 p-4" th:fragment="prodEdit">
-            <h2 class="mb-4">상품 관리</h2>
-            <table class="table table-hover">
-                <thead class="table-dark">
-                <tr>
-                    <th>상품 번호</th>
-                    <th>상품 이름</th>
-                    <th>세부 카테고리</th>
-                    <th>사이즈</th>
-                    <th>재고</th>
-                    <th>가격</th>
-                </tr>
-                </thead>
-                <tbody th:each="product, index : ${productList}>
-                <!-- 반복되는 상품 행 -->
-                <tr th:href="@{/productsDetail(productCode=${product.id})}">
-                    <td th:text="${products.id}"></td>
-                    <td th:text="${product.name}"></td>
-                    <td th:text="${product.subcategory.name}"></td>
-                    <td>
-                        <select id="size-1" class="form-control size-select" name="size">
-                            <option th:value="${size.size}" th:text="${size.size}"
-                                    th:selected="${cartList.get(index.index).size}"
-                                    th:each="size : ${product.sizes}">240
-                            </option>
-                        </select>
-                    </td>
-                    <td>65</td>
-                    <th>198000</th>
-                    <td>
-                        <button class="btn btn-success btn-sm">수정</button>
-                        <button class="btn btn-danger btn-sm">삭제</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>131412</td>
-                    <td>상품 B</td>
-                    <td>TRAINING</td>
-                    <td>260</td>
-                    <td>44</td>
-                    <th>155000</th>
-                    <td>
-                        <button class="btn btn-success btn-sm">수정</button>
-                        <button class="btn btn-danger btn-sm">삭제</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <td>
+                <select class="form-control size-select" name="size">
+                    <option th:id="'size'+${size.id}"
+                            th:each="size : ${product.sizes}"
+                            th:value="${size.size}"
+                            th:text="${size.size}"
+                    th:data-value="${size.stock}">
+                    </option>
+                </select>
+            </td>
+            <!-- 사이즈에 맞는 재고수량 표현 -->
+            <td id="size-stock"></td>
+            <td th:text="${product.price}"></td>
+            <td>
+                <button class="btn btn-success btn-sm">수정</button>
+                <button class="btn btn-danger btn-sm">삭제</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-            <!-- 페이지네이션 -->
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">이전</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">다음</a>
-                    </li>
-                </ul>
-            </nav>
+    <!-- 페이지네이션 -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">이전</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">다음</a>
+            </li>
+        </ul>
+    </nav>
 
-            <button class="btn btn-primary mt-3">상품 추가</button>
-        </main>
+    <button class="btn btn-primary mt-3">상품 추가</button>
+</div>
