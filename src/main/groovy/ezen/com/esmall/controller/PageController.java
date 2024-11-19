@@ -27,12 +27,9 @@ public class PageController {
 
     private static final String VERIFICATION_CODE_SESSION_KEY = "verificationCode";
 
-    @Autowired
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private ProductService productService;
+    private final UserService userService;
+    private final ProductService productService;
     @Autowired
     private OrdersService ordersService;
     @Autowired
