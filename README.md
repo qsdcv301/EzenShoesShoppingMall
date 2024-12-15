@@ -1,76 +1,138 @@
 # 웹 애플리케이션 개요
 
-## 1. 프로젝트 이름
+## 1. 🚀 프로젝트 이름
 
-**프로젝트 이름**: 웹 애플리케이션의 이름을 명시합니다.
+- Ezen Shoes ShoppingMall (<http://ezenbookstore.kro.kr:8081/>)
 
-## 2. 소개
+## 2. 📖 프로젝트 개요
 
-**간단한 설명**: 웹 애플리케이션이 무엇인지, 어떤 문제를 해결하는지 짧게 요약합니다.  
-**주요 기능**: 애플리케이션이 제공하는 주요 기능들을 나열합니다.
+- **목적**: 온라인 이커머스 프로젝트에 대한 이해 및 학습을 위한 팀 프로젝트
+- **주요 목표**:
+  - 유저 / 관리자 기능
+  - 회원가입, 로그인, 내정보수정 기능
+  - 장바구니, 구매기록 기능
+  - 배송비 시스템 - 조건부 무료
+  - 결제 및 조회 기능 (PG사 연동 X)
+  - 상품등록 및 관리 기능
+  - 게시판 등록 및 관리 기능 - (상품 리뷰 등)
 
-- 기능 1
-- 기능 2
-- 기능 3
+## 3. 🔧 기술 스택
 
-## 3. 기술 스택
+### 개발 도구
 
-웹 애플리케이션을 개발하는 데 사용된 기술을 설명합니다.
+![VS Code](https://img.shields.io/badge/IDE-VS%20Code-blue?logo=visualstudiocode&logoColor=white) ![IntelliJ](https://img.shields.io/badge/IDE-IntelliJ%20IDEA-orange?logo=intellijidea&logoColor=white)
 
-- **프론트엔드**: 사용된 프론트엔드 기술 (예: HTML, CSS, JavaScript, React 등)
-- **백엔드**: 사용된 백엔드 기술 (예: Node.js, Spring Boot 등)
-- **데이터베이스**: 데이터베이스 시스템 (예: MySQL, MongoDB 등)
-- **기타 도구**: CI/CD, 버전 관리, 배포 관련 도구 (예: Docker, Jenkins 등)
+### 프론트엔드
 
-## 4. 주요 기능 설명
+![HTML](https://img.shields.io/badge/HTML-E34F26?logo=html5&logoColor=white) ![CSS](https://img.shields.io/badge/CSS-1572B6?logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black) ![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?logo=bootstrap&logoColor=white)
 
-각 주요 기능에 대해 설명합니다.
+### 백엔드
 
-### 4.1 기능 이름
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?logo=springboot&logoColor=white) ![Spring Security](https://img.shields.io/badge/Spring%20Security-6DB33F?logo=springsecurity&logoColor=white) ![JPA](https://img.shields.io/badge/JPA-6DB33F?logo=hibernate&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
 
-- **설명**: 해당 기능이 어떤 역할을 수행하는지 설명합니다.
-- **사용 흐름**: 사용자가 어떻게 해당 기능을 사용할 수 있는지 단계별로 설명합니다.
+### 데이터베이스
 
-### 4.2 기능 이름
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=white)
 
-- **설명**: 기능 설명.
-- **사용 흐름**: 기능 사용 방법.
+### 협업 도구
 
-## 5. 아키텍처 다이어그램
+![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white)
 
-아키텍처 다이어그램(있는 경우)을 설명하거나 그림을 삽입합니다.
+### 기타 도구
 
-![아키텍처 다이어그램](링크)
+![Git](https://img.shields.io/badge/Git-F05032?logo=git&logoColor=white) ![Oracle](오라클 서버)
 
-## 6. 사용 방법
+## 4. 👥 참여자 및 역할
 
-웹 애플리케이션을 실행하고 사용하는 방법을 설명합니다.
+- **김태현**:
+  - 페이지
+- **채윤성**:
+  - 페이지
+- **이정인**:
+  - 페이지
+- **정재환**:
+  - 페이지
+- **황예주**:
+  - 페이지
 
-1. **설치**: 필요한 설치 과정 및 명령어.
-2. **환경 설정**: 환경 파일 또는 설정 방법.
-3. **시작 방법**: 서버 또는 프론트엔드 실행 명령어.
+## 5. 📜 주요 기능 설명
+
+### 사용자 페이지
+
+- **회원가입 및 로그인**
+  - 일반 회원가입 및 간편 로그인 지원
+- **내 정보 수정**
+- **장바구니**
+- **구매 기록 조회**
+- **적립금 시스템**
+  - 상품 구매 및 이벤트 참여 시 적립금 지급
+  - 일정 적립금 이상 시 구매에 사용 가능
+
+### 관리자 페이지
+
+- **상품 등록 및 관리**
+- **게시판 등록 및 관리**
+- **배송비 시스템**
+  - 일정 가격 이상 주문 시 배송비 감면
+- **결제 및 조회**
+  - 결제 대행 API(KG 이니시스 등) 활용
+
+### 추가 기능
+
+- **검색 기능** :
+  - 통합 검색, 제목/저자 검색 등
+- **상품 설명** :
+  - 상세한 상품 옵션 및 설명 제공
+- **공지사항 및 이벤트 페이지** :
+- **고객센터** :
+  - Q&A, 문의하기
+- **아이디/비밀번호 찾기** :
+- **화면 네비게이션** :
+  - 상단 이동 버튼
+
+## 6. 아키텍처 다이어그램
+
+- **아키텍처 다이어그램 (개발자 다이어그램)**: ?
+
+![아키텍처 다이어그램](./read.me.image/00architecturediagram.png)
+
+- **아키텍처 다이어그램 (흐름도 - 유저)**: ?
+
+![아키텍처 다이어그램](./read.me.image/01architecturediagram.png)
+
+- **아키텍처 다이어그램 (흐름도 - 관리자)**: ?
+
+![아키텍처 다이어그램](./read.me.image/02architecturediagram.png)
 
 ## 7. 화면 예시
 
-웹 애플리케이션의 주요 화면에 대한 스크린샷과 설명을 제공합니다.
+- **메인 페이지**: 사용자가 처음 접속하면 출력되는 페이지
 
-- **홈페이지**: 간단한 설명과 함께 스크린샷을 포함합니다.
-- **기능 페이지**: 기능별 스크린샷.
+  ![메인 페이지](./read.me.image/00main.PNG)
 
-## 8. 기여 방법
+- **상품 메인 페이지**: 카테고리별 또는 검색을 통해 상품을 볼 수 있는 상품 메인 페이지
 
-프로젝트에 기여하는 방법을 설명합니다.
+  ![상품 메인 페이지](./read.me.image/01bookproduct.PNG)
 
-- **이슈 등록**: 새로운 기능 요청 또는 버그 보고 방법.
-- **풀 리퀘스트**: 코드 기여 방법.
+- **상품 디테일 페이지**: 상품 클릭시 상품의 상세정보를 볼 수 있는 상품 디테일 페이지
 
-## 9. 라이선스
+## 8. 📅 참고 사이트
 
-프로젝트의 라이선스 정보를 명시합니다 (예: MIT License).
+- [교보 문고](https://www.kyobobook.co.kr/) : UI 참고
+- [예스24](https://www.yes24.com/main/default.aspx) : 참고
+- [바로보네](https://www.barovone.com/kr/index/index.lime) : 참고
+- [반디앤루디스](https://www.bandinlunis.com/front/main.do) : 참고
+- [알라딘](https://www.aladin.co.kr/home/welcome.aspx) : 참고
 
 ---
 
 ## 부록
 
-- **참조 문서**: 프로젝트에 사용된 문서나 블로그 포스트.
-- **연락처**: 프로젝트와 관련된 문의사항이 있을 경우 연락할 수 있는 방법.
+- **참조 문서**:
+  - 협업 문서 관리 : [GoogleSheets](http://docs.google.com/spreadsheets/d/1WWVkoUGsloOn0snaAWEqKUIScwqnn0oSytphYaBP-OQ/edit?gid=1316505573#gid=1316505573)
+- **연락처**:
+  - 김태현 : [Email](mailto:qsdcv301@naver.com), [GitHub](https://github.com/qsdcv301)
+  - 채윤성 : [Email](mailto:gksmsk5094@gmail.com), [GitHub](https://github.com/ChaiTope)
+  - 이정인 : [Email](mailto:dlwjddls888@gmail.com), [GitHub](https://github.com/GreatOvOb)
+  - 정재환 : [Email](mailto:jjjhhh2569@gmail.com), [GitHub](https://github.com/JaeHwan2569)
+  - 황예주 : [Email](mailto:jooland05@gmail.com), [GitHub](https://github.com/HwangYeJoo)
