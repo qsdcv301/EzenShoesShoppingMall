@@ -53,8 +53,8 @@
 | 팀장 김태현 | [백엔드 (사용자 페이지)]   | [GitHub](https://github.com/qsdcv301)    | <qsdcv301@naver.com>    |
 | 팀원 채윤성 | [백엔드 (사용자 페이지)]   | [GitHub](https://github.com/ChaiTope)    | <gksmsk5094@gmail.com>  |
 | 팀원 이정인 | [백엔드 (사용자 페이지)]   | [GitHub](https://github.com/GreatOvOb)   | <dlwjddls888@gmail.com> |
-| 팀원 정재환 | [프론트 (사용자 페이지)]   | [GitHub](https://github.com/JaeHwan2569) | <jjjhhh2569@gmail.com>  |
-| 팀원 황예주 | [프론트 (사용자 페이지)]   | [GitHub](https://github.com/HwangYeJoo)  | <jooland05@gmail.com>   |
+| 팀원 정재환 | [프론트엔드 (사용자 페이지)]   | [GitHub](https://github.com/JaeHwan2569) | <jjjhhh2569@gmail.com>  |
+| 팀원 황예주 | [프론트엔드 (사용자 페이지)]   | [GitHub](https://github.com/HwangYeJoo)  | <jooland05@gmail.com>   |
 
 ## 5. 📜 주요 기능 설명
 
@@ -77,8 +77,8 @@
 
 | 다이어그램 유형            | 이미지                                                            |
 | -------------------------- | ----------------------------------------------------------------- |
-| 시스템 아키텍쳐 다이어그램 | ![아키텍처 다이어그램](./readme_image/00architecturediagram.png) |
-| 프로세스 다이어그램        | ![유저 흐름도](./readme_image/01architecturediagram.png) |
+| 시스템 아키텍쳐 다이어그램 | ![아키텍처 다이어그램](./readme_image/00architecturediagram.PNG) |
+| 프로세스 다이어그램        | ![유저 흐름도](./readme_image/01architecturediagram.PNG) |
 
 ---
 
