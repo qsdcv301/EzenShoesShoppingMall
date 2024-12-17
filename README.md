@@ -50,11 +50,11 @@
 
 | 이름        | 역할 | GitHub                                   | Email                   |
 | ----------- | ---- | ---------------------------------------- | ----------------------- |
-| 팀장 김태현 | []   | [GitHub](https://github.com/qsdcv301)    | <qsdcv301@naver.com>    |
-| 팀원 채윤성 | []   | [GitHub](https://github.com/ChaiTope)    | <gksmsk5094@gmail.com>  |
-| 팀원 이정인 | []   | [GitHub](https://github.com/GreatOvOb)   | <dlwjddls888@gmail.com> |
-| 팀원 정재환 | []   | [GitHub](https://github.com/JaeHwan2569) | <jjjhhh2569@gmail.com>  |
-| 팀원 황예주 | []   | [GitHub](https://github.com/HwangYeJoo)  | <jooland05@gmail.com>   |
+| 팀장 김태현 | [백엔드 (사용자 페이지)]   | [GitHub](https://github.com/qsdcv301)    | <qsdcv301@naver.com>    |
+| 팀원 채윤성 | [백엔드 (사용자 페이지)]   | [GitHub](https://github.com/ChaiTope)    | <gksmsk5094@gmail.com>  |
+| 팀원 이정인 | [백엔드 (사용자 페이지)]   | [GitHub](https://github.com/GreatOvOb)   | <dlwjddls888@gmail.com> |
+| 팀원 정재환 | [프론트 (사용자 페이지)]   | [GitHub](https://github.com/JaeHwan2569) | <jjjhhh2569@gmail.com>  |
+| 팀원 황예주 | [프론트 (사용자 페이지)]   | [GitHub](https://github.com/HwangYeJoo)  | <jooland05@gmail.com>   |
 
 ## 5. 📜 주요 기능 설명
 
@@ -78,8 +78,7 @@
 | 다이어그램 유형            | 이미지                                                            |
 | -------------------------- | ----------------------------------------------------------------- |
 | 시스템 아키텍쳐 다이어그램 | ![아키텍처 다이어그램](./readme_image/00architecturediagram.png) |
-| 프로세스 다이어그램        | ![유저 흐름도](./read.me.image/01architecturediagram.png)         |
-| 관리 프로세스 다이어그램   | ![관리자 흐름도](./read.me.image/02architecturediagram.png)       |
+| 프로세스 다이어그램        | ![유저 흐름도](./readme_image/01architecturediagram.png) |
 
 ---
 
@@ -136,14 +135,11 @@
 
 ## 10. 📅 참고 사이트
 
-- 🌐 [교보 문고](https://www.kyobobook.co.kr/) : 최근 본 컨텐츠 기능의 UI 디자인과 기능을 참고했습니다. (참고일 : 2024년 11월 18일)
-- 🌐 [예스24](https://www.yes24.com/main/default.aspx) : 상품목록페이지의 UI 디자인(썸네일 타입)을 참고했습니다. (참고일 : 2024년 11월 07일)
-- 🌐 [바로보네](https://www.barovone.com/kr/index/index.lime) : 상품목록페이지의 UI 디자인(리스트 타입, 상품 정렬)을 참고했습니다. (참고일 : 2024년 11월 07일)
-- 🌐 [반디앤루디스](https://www.bandinlunis.com/front/main.do) : UI 디자인과 검색 내 재검색 기능을 참고했습니다. (참고일 : 2024년 11월 10일)
-- 🌐 [알라딘](https://www.aladin.co.kr/home/welcome.aspx) : header의 UI 디자인을 참고했습니다. (참고일 : 2024년 11월 17일)
+- 🌐 [NIKE](https://www.nike.com/kr/) : 상품목록페이지 및 상세페이지의 UI 디자인, 헤더 UI 디자인을 참고했습니다. (참고일 : 2024년 9월 25일)
+- 🌐 [Adidas](https://www.adidas.co.kr/) : 메인페이지의 UI 디자인을 참고했습니다. (참고일 : 2024년 9월 25일)
 
 ---
 
 ## 📎 부록
 
-- 📑 **참조 문서**: [GoogleSheets](https://docs.google.com/spreadsheets/d/1WWVkoUGsloOn0snaAWEqKUIScwqnn0oSytphYaBP-OQ/edit?gid=290479822#gid=290479822)
+- 📑 **참조 문서**: [GoogleSheets](https://docs.google.com/spreadsheets/d/1WWVkoUGsloOn0snaAWEqKUIScwqnn0oSytphYaBP-OQ/edit?gid=1316505573#gid=1316505573)
