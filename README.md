@@ -142,4 +142,4 @@
 
 ## 📎 부록
 
-- 📑 **참조 문서**: [GoogleSheets](https://docs.google.com/spreadsheets/d/1WWVkoUGsloOn0snaAWEqKUIScwqnn0oSytphYaBP-OQ/edit?gid=1316505573#gid=1316505573)
+- 📑 **협업 문서**: [GoogleSheets](https://docs.google.com/spreadsheets/d/1WWVkoUGsloOn0snaAWEqKUIScwqnn0oSytphYaBP-OQ/edit?gid=1316505573#gid=1316505573)
