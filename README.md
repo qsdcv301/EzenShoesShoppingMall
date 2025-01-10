@@ -3,7 +3,7 @@
 ## 1. 🚀 프로젝트 이름
 
 **Ezen Shoes ShoppingMall**  
-🔗 [웹사이트 바로가기](http://ezenbookstore.kro.kr:8081/)
+🔗 [웹사이트 바로가기](http://ezenshoesmall.kro.kr:8081/)
 
 ---
 
